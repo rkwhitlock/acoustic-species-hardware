@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (12.3.rel1)
+# Toolchain: GNU Tools for STM32 (13.3.rel1)
 ################################################################################
 
 -include ../makefile.init
@@ -9,6 +9,8 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include Drivers/STM32H7xx_HAL_Driver/Src/Legacy/subdir.mk
+-include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
 -include Drivers/STM32H7xx_HAL_Driver/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
@@ -85,8 +87,8 @@ all: main-build
 main-build: decible_meter_CM4.elf secondary-outputs
 
 # Tool invocations
-decible_meter_CM4.elf decible_meter_CM4.map: $(OBJS) $(USER_OBJS) /Users/user/STM32CubeIDE/workspace_1.16.1/decible_meter/CM4/STM32H747XIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "decible_meter_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/user/STM32CubeIDE/workspace_1.16.1/decible_meter/CM4/STM32H747XIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="decible_meter_CM4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+decible_meter_CM4.elf decible_meter_CM4.map: $(OBJS) $(USER_OBJS) /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM4/STM32H747XIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "decible_meter_CM4.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM4/STM32H747XIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="decible_meter_CM4.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

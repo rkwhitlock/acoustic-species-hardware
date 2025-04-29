@@ -1,6 +1,6 @@
 ################################################################################
 # Automatically-generated file. Do not edit!
-# Toolchain: GNU Tools for STM32 (12.3.rel1)
+# Toolchain: GNU Tools for STM32 (13.3.rel1)
 ################################################################################
 
 C++M_SRCS := 
@@ -41,5 +41,7 @@ SUBDIRS := \
 Common/Src \
 Core/Src \
 Core/Startup \
+Drivers/STM32H7xx_HAL_Driver/Src/Legacy \
+Drivers/STM32H7xx_HAL_Driver/Src \
 Drivers/STM32H7xx_HAL_Driver \
 
