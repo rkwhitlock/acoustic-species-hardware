@@ -41,4 +41,6 @@ SUBDIRS := \
 Common/Src \
 Core/Src \
 Core/Startup \
+Src/Legacy \
+Src \
 

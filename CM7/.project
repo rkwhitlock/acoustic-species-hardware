@@ -31,9 +31,20 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>
+</name>
+			<type>2</type>
+			<location>/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</location>
+		</link>
+		<link>
 			<name>Common</name>
 			<type>2</type>
 			<locationURI>PARENT-1-PROJECT_LOC/Common</locationURI>
+		</link>
+		<link>
+			<name>Src</name>
+			<type>2</type>
+			<location>/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

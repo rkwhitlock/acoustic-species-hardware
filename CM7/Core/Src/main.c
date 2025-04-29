@@ -19,7 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32h7xx_hal.h"
-#include "stm32h7xx_hal_uart.h"
+#include "stm32h7xx_hal_rcc.h"  // Added for RCC definitions
+#include "stm32h7xx_hal_sai.h"  // Added for SAI_HandleTypeDef
+#include "stm32h7xx_hal_uart.h" // Added for UART_HandleTypeDef
+#include <stdint.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
