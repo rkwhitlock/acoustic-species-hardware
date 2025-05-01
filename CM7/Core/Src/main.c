@@ -1,69 +1,32 @@
-/* USER CODE BEGIN Header */
 /**
- ******************************************************************************
- * @file           : main.c
- * @brief          : Main program body
- ******************************************************************************
- * @attention
- *
- * Copyright (c) 2024 STMicroelectronics.
- * All rights reserved.
- *
- * This software is licensed under terms that can be found in the LICENSE file
- * in the root directory of this software component.
- * If no LICENSE file comes with this software, it is provided AS-IS.
- *
- ******************************************************************************
+ * @file       main.c
+ * @brief      Audio sampling and SPL calculation for STM32H7
+ * @details    This program configures an STM32H7 to capture audio via SAI peripheral,
+ *            calculate sound pressure level (SPL), and output debug info via UART.
  */
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
-#include "main.h"
-#include "stm32h7xx_hal.h"
-#include "stm32h7xx_hal_rcc.h"  // Added for RCC definitions
-#include "stm32h7xx_hal_sai.h"  // Added for SAI_HandleTypeDef
-#include "stm32h7xx_hal_uart.h" // Added for UART_HandleTypeDef
-#include <stdint.h>
 
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
+/* Includes */
+#include "main.h"
 #include "math.h"
+#include "stm32h7xx_hal.h"
+#include <stdint.h>
 #include <stdio.h>
-#include <string.h>      // Added for memset
+#include <string.h> // Added for memset
+
+/* Configuration defines */
 #define BUFFER_SIZE 1024 // Size of the audio buffer
 #define REFERENCE_VOLTAGE 0.00002f
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
 
 #ifndef HSEM_ID_0
 #define HSEM_ID_0 (0U) /* HW semaphore 0*/
 #endif
 
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
+/* Hardware handles */
 SAI_HandleTypeDef hsai_BlockA4;
 DMA_HandleTypeDef hdma_sai4_a;
+UART_HandleTypeDef huart1; // For printf statements for debugging
 
-UART_HandleTypeDef huart1;
-
-/* USER CODE BEGIN PV */
-int16_t audio_buffer[BUFFER_SIZE];
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
+/* Function prototypes */
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
@@ -71,15 +34,18 @@ static void MX_GPIO_Init(void);
 static void MX_BDMA_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_SAI4_Init(void);
-/* USER CODE BEGIN PFP */
+
 float calculate_decibel(int16_t *buffer, size_t size);
-/* USER CODE END PFP */
 
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
+/* Global variables */
 int16_t audio_buffer[BUFFER_SIZE];
 
+/**
+ * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
+ * @param  buffer: Pointer to audio sample buffer
+ * @param  size: Number of samples in the buffer
+ * @return Sound pressure level in decibels (dB)
+ */
 float calculate_decibel(int16_t *buffer, size_t size)
 {
     float sum = 0.0f;
@@ -96,13 +62,32 @@ float calculate_decibel(int16_t *buffer, size_t size)
     return spl;
 }
 
+/**
+ * @brief  Redirects printf output to UART1
+ */
+// int _write(int file, char *ptr, int len)
+// {
+//     HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
+//     return len;
+// }
+// int _write(int file, char *ptr, int len)
+// {
+//     HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
+//     return len;
+// }
+
+/**
+ * @brief  Redirects printf output to SWV ITM Data Console
+ */
 int _write(int file, char *ptr, int len)
 {
-    HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
+    int i = 0;
+    for (i = 0; i < len; i++)
+    {
+        ITM_SendChar(*ptr++);
+    }
     return len;
 }
-
-/* USER CODE END 0 */
 
 /**
  * @brief  The application entry point.
@@ -111,50 +96,30 @@ int _write(int file, char *ptr, int len)
 int main(void)
 {
 
-    /* USER CODE BEGIN 1 */
-    memset(audio_buffer, 0xAA, sizeof(audio_buffer)); // Initialize buffer
-    /* USER CODE END 1 */
-    /* USER CODE BEGIN Boot_Mode_Sequence_0 */
-    int32_t timeout;
-    /* USER CODE END Boot_Mode_Sequence_0 */
+    memset(audio_buffer, 0xAA, sizeof(audio_buffer)); // Initialize buffer with known pattern
 
-    /* MPU Configuration--------------------------------------------------------*/
-    MPU_Config();
-
-    /* USER CODE BEGIN Boot_Mode_Sequence_1 */
-    /* Wait until CPU2 boots and enters in stop mode or timeout*/
-    timeout = 0xFFFF;
+    /* Wait until CPU2 (CM4) boots and enters in stop mode or timeout*/
+    int32_t timeout = 0xFFFF;
     while ((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) != RESET) && (timeout-- > 0))
         ;
     if (timeout < 0)
     {
         Error_Handler();
     }
-    /* USER CODE END Boot_Mode_Sequence_1 */
-    /* MCU Configuration--------------------------------------------------------*/
 
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-    HAL_Init();
+    /* Hardware initialization sequence */
+    MPU_Config();
+    HAL_Init();                 // Reset peripherals
+    SystemClock_Config();       // System clock configuration
+    PeriphCommonClock_Config(); // Peripheral clocks configuration
 
-    /* USER CODE BEGIN Init */
-
-    /* USER CODE END Init */
-
-    /* Configure the system clock */
-    SystemClock_Config();
-
-    /* Configure the peripherals common clocks */
-    PeriphCommonClock_Config();
-    /* USER CODE BEGIN Boot_Mode_Sequence_2 */
     /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
     HSEM notification */
-    /*HW semaphore Clock enable*/
-    __HAL_RCC_HSEM_CLK_ENABLE();
-    /*Take HSEM */
-    HAL_HSEM_FastTake(HSEM_ID_0);
-    /*Release HSEM in order to notify the CPU2(CM4)*/
-    HAL_HSEM_Release(HSEM_ID_0, 0);
-    /* wait until CPU2 wakes up from stop mode */
+    __HAL_RCC_HSEM_CLK_ENABLE();    // Enable semaphore clock
+    HAL_HSEM_FastTake(HSEM_ID_0);   // Take HSEM
+    HAL_HSEM_Release(HSEM_ID_0, 0); // Release HSEM to notify CM4
+
+    /* Wait until CPU2 wakes up from stop mode */
     timeout = 0xFFFF;
     while ((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) == RESET) && (timeout-- > 0))
         ;
@@ -162,18 +127,14 @@ int main(void)
     {
         Error_Handler();
     }
-    /* USER CODE END Boot_Mode_Sequence_2 */
-
-    /* USER CODE BEGIN SysInit */
-
-    /* USER CODE END SysInit */
 
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_BDMA_Init();
     MX_USART1_UART_Init();
     MX_SAI4_Init();
-    /* USER CODE BEGIN 2 */
+
+    /* Start audio capture using DMA */
     printf("Starting SAI DMA...\r\n");
     if (HAL_SAI_Receive_DMA(&hsai_BlockA4, (uint8_t *)audio_buffer, BUFFER_SIZE) != HAL_OK)
     {
@@ -183,25 +144,23 @@ int main(void)
     {
         printf("SAI DMA started successfully.\r\n");
     }
-    /* USER CODE END 2 */
 
-    /* Infinite loop */
-    /* USER CODE BEGIN WHILE */
+    /* Main application loop */
     while (1)
     {
         printf("Audio Buffer Data:\r\n");
         for (int i = 0; i < 10; i++)
         {
-            printf("[%d]: %d\r\n", i, audio_buffer[i]);
+            printf("[%d]: %h\r\n", i, audio_buffer[i]);
         }
+
+        /* Calculate and display sound pressure level */
         float decibel_level = calculate_decibel(audio_buffer, BUFFER_SIZE);
         printf("SPL: %.2f dB\r\n", decibel_level);
-        HAL_Delay(1000);
-        /* USER CODE END WHILE */
 
-        /* USER CODE BEGIN 3 */
+        /* Wait one second before next update */
+        HAL_Delay(1000);
     }
-    /* USER CODE END 3 */
 }
 
 /**
