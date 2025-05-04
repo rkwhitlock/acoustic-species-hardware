@@ -78,6 +78,8 @@ void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
     }
 }
 
+void BDMA_Channel3_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
+
 void BDMA_Channel3_IRQnHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
 
 void DMA1_Channel3_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
@@ -347,16 +349,33 @@ static void MX_USART1_UART_Init(void)
 /**
  * Enable DMA controller clock
  */
-static void MX_BDMA_Init(void)
+void MX_BDMA_Init(void)
 {
-
-    /* DMA controller clock enable */
+    // Enable BDMA clock
     __HAL_RCC_BDMA_CLK_ENABLE();
 
-    /* DMA interrupt init */
-    /* BDMA_Channel0_IRQn interrupt configuration */
-    HAL_NVIC_SetPriority(BDMA_Channel0_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(BDMA_Channel0_IRQn);
+    // Configure the DMA handler for SAI4_A RX (e.g. for MEM2MEM or Peripheral to Memory)
+    hdma_sai4_a.Instance = BDMA_Channel3;
+    hdma_sai4_a.Init.Request = BDMA_REQUEST_SAI4_A;
+    hdma_sai4_a.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_sai4_a.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_sai4_a.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_sai4_a.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
+    hdma_sai4_a.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
+    hdma_sai4_a.Init.Mode = DMA_CIRCULAR;
+    hdma_sai4_a.Init.Priority = DMA_PRIORITY_HIGH;
+
+    if (HAL_DMA_Init(&hdma_sai4_a) != HAL_OK)
+    {
+        Error_Handler(); // Make sure this is defined to catch failure
+    }
+
+    // Link DMA handle to SAI handle
+    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hdma_sai4_a);
+
+    // Enable and set the correct BDMA interrupt priority for Channel 3
+    HAL_NVIC_SetPriority(BDMA_Channel3_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(BDMA_Channel3_IRQn);
 }
 
 /**
