@@ -8,4 +8,4 @@
 ../Core/Src/stm32h7xx_it.c:171:6:PendSV_Handler	1
 ../Core/Src/stm32h7xx_it.c:184:6:SysTick_Handler	1
 ../Core/Src/stm32h7xx_it.c:205:6:BDMA_Channel0_IRQHandler	1
-../Core/Src/stm32h7xx_it.c:219:6:SAI4_IRQHandler	1
+../Core/Src/stm32h7xx_it.c:215:6:SAI4_IRQHandler	1

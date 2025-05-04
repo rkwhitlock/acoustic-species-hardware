@@ -38,7 +38,7 @@ static void MX_SAI4_Init(void);
 float calculate_decibel(int16_t *buffer, size_t size);
 
 /* Global variables */
-int16_t audio_buffer[BUFFER_SIZE];
+volatile int16_t audio_buffer[BUFFER_SIZE];
 
 /**
  * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
@@ -89,12 +89,19 @@ int _write(int file, char *ptr, int len)
     return len;
 }
 
+void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai) { printf("Full buffer received.\r\n"); }
+
+void HAL_SAI_RxHalfCpltCallback(SAI_HandleTypeDef *hsai) { printf("Half buffer received.\r\n"); }
+
 /**
  * @brief  The application entry point.
  * @retval int
  */
 int main(void)
 {
+
+    // Only for debugging, remove later
+    SCB_CleanInvalidateDCache_by_Addr((uint32_t *)audio_buffer, BUFFER_SIZE);
 
     memset(audio_buffer, 0xAA, sizeof(audio_buffer)); // Initialize buffer with known pattern
 
@@ -131,6 +138,7 @@ int main(void)
     /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_BDMA_Init();
+    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hdma_sai4_a);
     MX_USART1_UART_Init();
     MX_SAI4_Init();
 
@@ -151,7 +159,7 @@ int main(void)
         printf("Audio Buffer Data:\r\n");
         for (int i = 0; i < 10; i++)
         {
-            printf("[%d]: %h\r\n", i, audio_buffer[i]);
+            printf("[%d]: %d\r\n", i, audio_buffer[i]);
         }
 
         /* Calculate and display sound pressure level */
@@ -253,14 +261,6 @@ void PeriphCommonClock_Config(void)
  */
 static void MX_SAI4_Init(void)
 {
-
-    /* USER CODE BEGIN SAI4_Init 0 */
-
-    /* USER CODE END SAI4_Init 0 */
-
-    /* USER CODE BEGIN SAI4_Init 1 */
-
-    /* USER CODE END SAI4_Init 1 */
     hsai_BlockA4.Instance = SAI4_Block_A;
     hsai_BlockA4.Init.Protocol = SAI_FREE_PROTOCOL;
     hsai_BlockA4.Init.AudioMode = SAI_MODEMASTER_RX;
@@ -285,14 +285,11 @@ static void MX_SAI4_Init(void)
     hsai_BlockA4.SlotInit.FirstBitOffset = 0;
     hsai_BlockA4.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
     hsai_BlockA4.SlotInit.SlotNumber = 1;
-    hsai_BlockA4.SlotInit.SlotActive = 0x00000000;
+    hsai_BlockA4.SlotInit.SlotActive = SAI_SLOTACTIVE_0;
     if (HAL_SAI_Init(&hsai_BlockA4) != HAL_OK)
     {
         Error_Handler();
     }
-    /* USER CODE BEGIN SAI4_Init 2 */
-
-    /* USER CODE END SAI4_Init 2 */
 }
 
 /**
