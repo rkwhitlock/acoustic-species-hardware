@@ -24,12 +24,9 @@
 #endif
 
 /* Hardware handles */
-// SAI_HandleTypeDef hsai_BlockA4;
+SAI_HandleTypeDef hsai_BlockA4;
 DMA_HandleTypeDef hdma_sai4_a;
-// UART_HandleTypeDef huart1; // For printf statements for debugging
-
-extern SAI_HandleTypeDef hsai_BlockA4;
-extern UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart1; // For printf statements for debugging
 
 /* Function prototypes */
 void SystemClock_Config(void);
@@ -79,6 +76,11 @@ void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
     {
         process_half = 2;
     }
+}
+
+void DMA1_Channel3_IRQHandler(void)
+{
+    HAL_DMA_IRQHandler(&hbdma_sai4_a);
 }
 /**
  * @brief  Redirects printf output to UART1
@@ -149,6 +151,7 @@ int main(void)
             process_half = 0;
         }
 
+        printf("DMA state: %ld\r\n", hsai_BlockA4.hdmarx->State);
         HAL_Delay(10); // Small delay to prevent busy-waiting
     }
 }
@@ -243,15 +246,12 @@ void PeriphCommonClock_Config(void)
  */
 static void MX_SAI4_Init(void)
 {
-
     /* USER CODE BEGIN SAI4_Init 0 */
 
     /* USER CODE END SAI4_Init 0 */
 
-    /* USER CODE BEGIN SAI4_Init 1 */
-
-    /* USER CODE END SAI4_Init 1 */
     hsai_BlockA4.Instance = SAI4_Block_A;
+
     hsai_BlockA4.Init.Protocol = SAI_FREE_PROTOCOL;
     hsai_BlockA4.Init.AudioMode = SAI_MODEMASTER_RX;
     hsai_BlockA4.Init.DataSize = SAI_DATASIZE_16;
@@ -276,10 +276,21 @@ static void MX_SAI4_Init(void)
     hsai_BlockA4.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
     hsai_BlockA4.SlotInit.SlotNumber = 1;
     hsai_BlockA4.SlotInit.SlotActive = 0x00000000;
+
     if (HAL_SAI_Init(&hsai_BlockA4) != HAL_OK)
     {
         Error_Handler();
     }
+
+    /* Link DMA to SAI */
+    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hbdma_sai4_a); // Adjust the DMA handle if needed
+
+    /* Configure DMA for Circular Mode */
+    HAL_DMA_Start_IT(hbdma_sai4_a, (uint32_t)rx_buffer, (uint32_t)&(SAI4_Block_A->DR), BUFFER_SIZE);
+
+    /* Enable DMA interrupts for half-completion and full-completion */
+    HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn); // Ensure the correct interrupt vector
+
     /* USER CODE BEGIN SAI4_Init 2 */
 
     /* USER CODE END SAI4_Init 2 */
