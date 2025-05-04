@@ -41,7 +41,7 @@ float calculate_decibel(int16_t *buffer, size_t size);
 
 /* Global variables */
 int16_t audio_buffer[BUFFER_SIZE];
-vvolatile uint8_t process_half = 0;
+volatile uint8_t process_half = 0;
 
 /**
  * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
@@ -78,10 +78,9 @@ void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
     }
 }
 
-void DMA1_Channel3_IRQHandler(void)
-{
-    HAL_DMA_IRQHandler(&hbdma_sai4_a);
-}
+void BDMA_Channel3_IRQnHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
+
+void DMA1_Channel3_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
 /**
  * @brief  Redirects printf output to UART1
  */
@@ -283,13 +282,15 @@ static void MX_SAI4_Init(void)
     }
 
     /* Link DMA to SAI */
-    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hbdma_sai4_a); // Adjust the DMA handle if needed
+    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hdma_sai4_a); // Adjust the DMA handle if needed
 
     /* Configure DMA for Circular Mode */
-    HAL_DMA_Start_IT(hbdma_sai4_a, (uint32_t)rx_buffer, (uint32_t)&(SAI4_Block_A->DR), BUFFER_SIZE);
+    // HAL_DMA_Start_IT(&hdma_sai4_a, (uint32_t)audio_buffer, (uint32_t)&(SAI4_Block_A->DR),
+    //                  BUFFER_SIZE);
 
     /* Enable DMA interrupts for half-completion and full-completion */
-    HAL_NVIC_EnableIRQ(DMA1_Channel3_IRQn); // Ensure the correct interrupt vector
+    HAL_NVIC_EnableIRQ(BDMA_Channel3_IRQn);         // Ensure the correct interrupt vector
+    HAL_NVIC_SetPriority(BDMA_Channel3_IRQn, 0, 0); // Set priority as needed
 
     /* USER CODE BEGIN SAI4_Init 2 */
 
