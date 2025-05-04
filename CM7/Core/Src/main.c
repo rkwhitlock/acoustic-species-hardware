@@ -49,8 +49,8 @@ volatile uint8_t audio_ready_flag = 0; // Flag to indicate when DMA transfer is 
 uint32_t error_counter = 0;            // Track SAI errors
 
 /**
- * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
- * @param  buffer: Pointer to audio sample buffer
+ * @brief  Calculates the sound pressure level (SPL) in decibels from PDM audio samples
+ * @param  buffer: Pointer to audio sample buffer from MP34DT05-A mic
  * @param  size: Number of samples in the buffer
  * @return Sound pressure level in decibels (dB)
  */
@@ -58,23 +58,52 @@ float calculate_decibel(int16_t *buffer, size_t size)
 {
     float sum = 0.0f;
     int valid_samples = 0;
+    float max_sample = 0.0f;
 
-    // Verify we have non-zero samples
+    // Apply a simple high-pass filter to remove DC offset
+    // This is important for PDM microphones like the MP34DT05-A
+    float filtered_samples[size];
+    float prev_sample = 0.0f;
+    const float alpha = 0.98f; // Filter coefficient
+
     for (size_t i = 0; i < size; i++)
     {
-        if (buffer[i] != 0 && buffer[i] != 0xAAAA) // Check for initialized or silent values
-        {
-            float voltage = (float)buffer[i] / 32768.0f; // Normalize 16-bit value
-            sum += voltage * voltage;
-            valid_samples++;
-        }
+        // Skip past all zeros or pattern-initialized values
+        if (buffer[i] == 0 || buffer[i] == 0xAAAA)
+            continue;
+
+        // Apply simple high-pass filter (y[n] = alpha * y[n-1] + x[n] - x[n-1])
+        float current = (float)buffer[i] / 32768.0f; // Normalize to -1.0 to 1.0
+        filtered_samples[valid_samples] = alpha * (prev_sample + current - prev_sample);
+        prev_sample = current;
+
+        // Track absolute max for level monitoring
+        float abs_val = fabsf(filtered_samples[valid_samples]);
+        if (abs_val > max_sample)
+            max_sample = abs_val;
+
+        valid_samples++;
     }
 
-    if (valid_samples == 0)
-        return -100.0f; // Return very low value if no valid samples
+    // Calculate RMS from filtered samples
+    for (int i = 0; i < valid_samples; i++)
+    {
+        sum += filtered_samples[i] * filtered_samples[i];
+    }
+
+    if (valid_samples < 10) // Need minimum number of samples for valid calculation
+        return -100.0f;
 
     float rms = sqrtf(sum / valid_samples);
-    float spl = 20.0f * log10f(rms / REFERENCE_VOLTAGE);
+
+    // Apply sensitivity correction for MP34DT05-A (-26dBFS sensitivity)
+    // and calculate SPL relative to reference
+    float sensitivity_correction = 26.0f; // MP34DT05-A typical sensitivity
+    float spl = 20.0f * log10f(rms / REFERENCE_VOLTAGE) + sensitivity_correction;
+
+    // Print some diagnostic info
+    printf("Audio stats: Valid samples: %d, Max amplitude: %.4f, RMS: %.4f\r\n",
+           valid_samples, max_sample, rms);
 
     return spl;
 }
@@ -158,17 +187,38 @@ int main(void)
     printf("\r\n\r\n----- STM32H747XI DISCO Audio Capture Started -----\r\n");
     printf("Buffer size: %d samples\r\n", BUFFER_SIZE);
 
+    /* Add pin configuration for MP34DT05-A microphone */
+    printf("Configuring MP34DT05-A microphone...\r\n");
+
+    /* The MP34DT05-A needs time to stabilize after power-up */
+    HAL_Delay(10);
+
     /* Start audio capture using DMA */
-    printf("Starting SAI DMA...\r\n");
+    printf("Starting SAI DMA for MP34DT05-A...\r\n");
     if (HAL_SAI_Receive_DMA(&hsai_BlockA1, (uint8_t *)audio_buffer, BUFFER_SIZE) != HAL_OK)
     {
-        printf("SAI DMA initialization failed! Error: %ld\r\n", hsai_BlockA1.ErrorCode);
+        printf("SAI DMA initialization failed! Error code: 0x%lX\r\n", hsai_BlockA1.ErrorCode);
+
+        // Provide more detailed error diagnostics
+        if (hsai_BlockA1.ErrorCode & HAL_SAI_ERROR_TIMEOUT)
+            printf("  - Timeout error detected\r\n");
+        if (hsai_BlockA1.ErrorCode & HAL_SAI_ERROR_OVR)
+            printf("  - Overrun error detected\r\n");
+        if (hsai_BlockA1.ErrorCode & HAL_SAI_ERROR_UDR)
+            printf("  - Underrun error detected\r\n");
+        if (hsai_BlockA1.ErrorCode & HAL_SAI_ERROR_AFSDET)
+            printf("  - Frame sync detection error\r\n");
+        if (hsai_BlockA1.ErrorCode & HAL_SAI_ERROR_LFSDET)
+            printf("  - Frame sync late detection error\r\n");
+        if (hsai_BlockA1.ErrorCode & HAL_SAI_ERROR_CNREADY)
+            printf("  - Codec not ready error\r\n");
+
         // Visual indication of error - solid red LED
         HAL_GPIO_WritePin(LED_PORT, LED_RED_PIN, GPIO_PIN_SET);
     }
     else
     {
-        printf("SAI DMA started successfully.\r\n");
+        printf("SAI DMA started successfully for MP34DT05-A microphone.\r\n");
         // Visual indication of success - green LED blink
         HAL_GPIO_WritePin(LED_PORT, LED_GREEN_PIN, GPIO_PIN_SET);
         HAL_Delay(500);
@@ -276,7 +326,7 @@ void SystemClock_Config(void)
 }
 
 /**
- * @brief Peripherals Common Clock Configuration
+ * @brief Peripherals Common Clock Configuration - Optimized for MP34DT05-A microphone
  * @retval None
  */
 void PeriphCommonClock_Config(void)
@@ -287,13 +337,14 @@ void PeriphCommonClock_Config(void)
      */
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_USART1;
 
-    // Configure PLL3 for audio - better configuration for standard audio rates
-    PeriphClkInitStruct.PLL3.PLL3M = 25;  // Input divider
-    PeriphClkInitStruct.PLL3.PLL3N = 336; // Multiplier
-    PeriphClkInitStruct.PLL3.PLL3P = 2;   // Output divider
+    // Configure PLL3 for audio - optimized for MP34DT05-A PDM microphone
+    // This generates an 8.192MHz master clock which is ideal for PDM microphones
+    PeriphClkInitStruct.PLL3.PLL3M = 5;   // Input divider (HSE = 25MHz / 5 = 5MHz PLL input)
+    PeriphClkInitStruct.PLL3.PLL3N = 128; // Multiplier (5MHz * 128 = 640MHz VCO)
+    PeriphClkInitStruct.PLL3.PLL3P = 78;  // Output divider for 8.192MHz (640MHz / 78 = 8.192MHz)
     PeriphClkInitStruct.PLL3.PLL3Q = 7;
     PeriphClkInitStruct.PLL3.PLL3R = 2;
-    PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3VCIRANGE_0;
+    PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3VCIRANGE_2;
     PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL3VCOWIDE;
     PeriphClkInitStruct.PLL3.PLL3FRACN = 0;
 
@@ -307,7 +358,7 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
- * @brief SAI1 Initialization Function - Configured for DISCO Board PDM microphones
+ * @brief SAI1 Initialization Function - Configured specifically for MP34DT05-A PDM microphone
  * @param None
  * @retval None
  */
@@ -321,30 +372,29 @@ static void MX_SAI1_Init(void)
 
     /* USER CODE END SAI1_Init 1 */
     hsai_BlockA1.Instance = SAI1_Block_A;
+    hsai_BlockA1.Init.Protocol = SAI_FREE_PROTOCOL;
     hsai_BlockA1.Init.AudioMode = SAI_MODEMASTER_RX;
+    hsai_BlockA1.Init.DataSize = SAI_DATASIZE_16;
+    hsai_BlockA1.Init.FirstBit = SAI_FIRSTBIT_MSB;
+    hsai_BlockA1.Init.ClockStrobing = SAI_CLOCKSTROBING_FALLINGEDGE; // MP34DT05-A samples on falling edge
     hsai_BlockA1.Init.Synchro = SAI_ASYNCHRONOUS;
     hsai_BlockA1.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
     hsai_BlockA1.Init.NoDivider = SAI_MASTERDIVIDER_ENABLE;
-    hsai_BlockA1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
-    hsai_BlockA1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_48K;
+    hsai_BlockA1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_1QF;
+    hsai_BlockA1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_MCKDIV; // We'll use MCKDIV for precise control
+    hsai_BlockA1.Init.Mckdiv = 4;                                  // Sets PDM clock to 2.048MHz with 8.192MHz master clock
     hsai_BlockA1.Init.SynchroExt = SAI_SYNCEXT_DISABLE;
-    hsai_BlockA1.Init.MonoStereoMode = SAI_STEREOMODE;
+    hsai_BlockA1.Init.MonoStereoMode = SAI_MONOMODE; // MP34DT05-A is mono
     hsai_BlockA1.Init.CompandingMode = SAI_NOCOMPANDING;
     hsai_BlockA1.Init.TriState = SAI_OUTPUT_NOTRELEASED;
 
-    // PDM Microphone configuration for STM32H747XI DISCO
-    hsai_BlockA1.Init.Protocol = SAI_FREE_PROTOCOL;
-    hsai_BlockA1.Init.DataSize = SAI_DATASIZE_16;
-    hsai_BlockA1.Init.FirstBit = SAI_FIRSTBIT_MSB;
-    hsai_BlockA1.Init.ClockStrobing = SAI_CLOCKSTROBING_RISINGEDGE;
-
-    // PDM mode configuration
+    // PDM mode configuration - critical for MP34DT05-A
     hsai_BlockA1.Init.PdmInit.Activation = ENABLE;
     hsai_BlockA1.Init.PdmInit.MicPairsNbr = 1;
-    hsai_BlockA1.Init.PdmInit.ClockEnable = SAI_PDM_CLOCK1_ENABLE;
+    hsai_BlockA1.Init.PdmInit.ClockEnable = SAI_PDM_CLOCK1_ENABLE; // Clock on pin PC4
 
-    // Frame configuration
-    hsai_BlockA1.FrameInit.FrameLength = 16;
+    // Frame configuration - important for PDM timing
+    hsai_BlockA1.FrameInit.FrameLength = 32; // Better for PDM processing
     hsai_BlockA1.FrameInit.ActiveFrameLength = 1;
     hsai_BlockA1.FrameInit.FSDefinition = SAI_FS_STARTFRAME;
     hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_HIGH;
@@ -353,8 +403,8 @@ static void MX_SAI1_Init(void)
     // Slot configuration
     hsai_BlockA1.SlotInit.FirstBitOffset = 0;
     hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
-    hsai_BlockA1.SlotInit.SlotNumber = 1;
-    hsai_BlockA1.SlotInit.SlotActive = 0x00000001;
+    hsai_BlockA1.SlotInit.SlotNumber = 2;          // For proper PDM to PCM conversion
+    hsai_BlockA1.SlotInit.SlotActive = 0x00000003; // Both slots active
 
     if (HAL_SAI_Init(&hsai_BlockA1) != HAL_OK)
     {
