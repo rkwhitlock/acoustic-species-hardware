@@ -17,14 +17,19 @@
 #define BUFFER_SIZE 1024 // Size of the audio buffer
 #define REFERENCE_VOLTAGE 0.00002f
 
+#define HALF_BUFFER_SIZE (BUFFER_SIZE / 2)
+
 #ifndef HSEM_ID_0
 #define HSEM_ID_0 (0U) /* HW semaphore 0*/
 #endif
 
 /* Hardware handles */
-SAI_HandleTypeDef hsai_BlockA4;
+// SAI_HandleTypeDef hsai_BlockA4;
 DMA_HandleTypeDef hdma_sai4_a;
-UART_HandleTypeDef huart1; // For printf statements for debugging
+// UART_HandleTypeDef huart1; // For printf statements for debugging
+
+extern SAI_HandleTypeDef hsai_BlockA4;
+extern UART_HandleTypeDef huart1;
 
 /* Function prototypes */
 void SystemClock_Config(void);
@@ -39,6 +44,7 @@ float calculate_decibel(int16_t *buffer, size_t size);
 
 /* Global variables */
 int16_t audio_buffer[BUFFER_SIZE];
+vvolatile uint8_t process_half = 0;
 
 /**
  * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
@@ -49,19 +55,31 @@ int16_t audio_buffer[BUFFER_SIZE];
 float calculate_decibel(int16_t *buffer, size_t size)
 {
     float sum = 0.0f;
-
     for (size_t i = 0; i < size; i++)
     {
-        float voltage = (float)buffer[i] / 32768.0f; // Normalize 16-bit value
+        float voltage = (float)buffer[i] / 32768.0f;
         sum += voltage * voltage;
     }
 
     float rms = sqrtf(sum / size);
     float spl = 20.0f * log10f(rms / REFERENCE_VOLTAGE);
-
     return spl;
 }
+void HAL_SAI_RxHalfCpltCallback(SAI_HandleTypeDef *hsai)
+{
+    if (hsai->Instance == SAI4_Block_A)
+    {
+        process_half = 1;
+    }
+}
 
+void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
+{
+    if (hsai->Instance == SAI4_Block_A)
+    {
+        process_half = 2;
+    }
+}
 /**
  * @brief  Redirects printf output to UART1
  */
@@ -95,71 +113,43 @@ int _write(int file, char *ptr, int len)
  */
 int main(void)
 {
-
-    memset(audio_buffer, 0xAA, sizeof(audio_buffer)); // Initialize buffer with known pattern
-
-    /* Wait until CPU2 (CM4) boots and enters in stop mode or timeout*/
-    int32_t timeout = 0xFFFF;
-    while ((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) != RESET) && (timeout-- > 0))
-        ;
-    if (timeout < 0)
-    {
-        Error_Handler();
-    }
-
-    /* Hardware initialization sequence */
+    HAL_Init();
+    SystemClock_Config();
+    PeriphCommonClock_Config();
     MPU_Config();
-    HAL_Init();                 // Reset peripherals
-    SystemClock_Config();       // System clock configuration
-    PeriphCommonClock_Config(); // Peripheral clocks configuration
 
-    /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
-    HSEM notification */
-    __HAL_RCC_HSEM_CLK_ENABLE();    // Enable semaphore clock
-    HAL_HSEM_FastTake(HSEM_ID_0);   // Take HSEM
-    HAL_HSEM_Release(HSEM_ID_0, 0); // Release HSEM to notify CM4
-
-    /* Wait until CPU2 wakes up from stop mode */
-    timeout = 0xFFFF;
-    while ((__HAL_RCC_GET_FLAG(RCC_FLAG_D2CKRDY) == RESET) && (timeout-- > 0))
-        ;
-    if (timeout < 0)
-    {
-        Error_Handler();
-    }
-
-    /* Initialize all configured peripherals */
     MX_GPIO_Init();
     MX_BDMA_Init();
     MX_USART1_UART_Init();
     MX_SAI4_Init();
 
-    /* Start audio capture using DMA */
+    memset(audio_buffer, 0, sizeof(audio_buffer));
+
     printf("Starting SAI DMA...\r\n");
     if (HAL_SAI_Receive_DMA(&hsai_BlockA4, (uint8_t *)audio_buffer, BUFFER_SIZE) != HAL_OK)
     {
         printf("SAI DMA initialization failed! Error: %ld\r\n", hsai_BlockA4.ErrorCode);
-    }
-    else
-    {
-        printf("SAI DMA started successfully.\r\n");
+        Error_Handler();
     }
 
-    /* Main application loop */
+    printf("SAI DMA started successfully.\r\n");
+
     while (1)
     {
-        printf("Audio Buffer Data:\r\n");
-        for (int i = 0; i < 10; i++)
+        if (process_half == 1)
         {
-            printf("[%d]: %h\r\n", i, audio_buffer[i]);
+            float dB = calculate_decibel(&audio_buffer[0], HALF_BUFFER_SIZE);
+            printf("SPL (First Half): %.2f dB\r\n", dB);
+            process_half = 0;
+        }
+        else if (process_half == 2)
+        {
+            float dB = calculate_decibel(&audio_buffer[HALF_BUFFER_SIZE], HALF_BUFFER_SIZE);
+            printf("SPL (Second Half): %.2f dB\r\n", dB);
+            process_half = 0;
         }
 
-        /* Calculate and display sound pressure level */
-        float decibel_level = calculate_decibel(audio_buffer, BUFFER_SIZE);
-        printf("SPL: %.2f dB\r\n", decibel_level);
-
-        /* Wait one second before next update */
-        HAL_Delay(1000);
+        HAL_Delay(10); // Small delay to prevent busy-waiting
     }
 }
 
