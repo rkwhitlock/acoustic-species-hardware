@@ -19,6 +19,7 @@ volatile uint8_t buffer_full_ready = 0;
 
 // DMA handle for SAI1
 DMA_HandleTypeDef hdma_sai1_a_rx;
+SAI_HandleTypeDef hsai_BlockA4;
 
 // SAI handle for SAI1 Block A (receiver)
 SAI_HandleTypeDef hsai_BlockA1;
@@ -125,9 +126,9 @@ void SystemClock_Config(void)
 
     /** Initializes the CPU, AHB and APB buses clocks
      */
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK |
-                                  RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 |
-                                  RCC_CLOCKTYPE_D3PCLK1 | RCC_CLOCKTYPE_D1PCLK1;
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 |
+                                  RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1 |
+                                  RCC_CLOCKTYPE_D1PCLK1;
     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
     RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
     RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
@@ -209,20 +210,20 @@ static void MX_SAI1_Init(void)
     FrameInit.FSDefinition = SAI_FS_STARTFRAME;
     FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
     FrameInit.FSOffset = SAI_FS_FIRSTBIT;
-    if (HAL_SAI_FrameInit(&hsai_BlockA1, &FrameInit) != HAL_OK)
-    {
-        Error_Handler();
-    }
+    // if (HAL_SAI_FrameInit(&hsai_BlockA1, &FrameInit) != HAL_OK)
+    // {
+    //     Error_Handler();
+    // }
 
     /* SAI slot configuration */
     SlotInit.FirstBitOffset = 0;
     SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
     SlotInit.SlotNumber = 2;
     SlotInit.SlotActive = SAI_SLOTACTIVE_ALL;
-    if (HAL_SAI_SlotInit(&hsai_BlockA1, &SlotInit) != HAL_OK)
-    {
-        Error_Handler();
-    }
+    // if (HAL_SAI_SlotInit(&hsai_BlockA1, &SlotInit) != HAL_OK)
+    // {
+    //     Error_Handler();
+    // }
 }
 
 // DMA initialization for SAI
@@ -319,10 +320,7 @@ void ProcessAudioData(uint16_t *buffer, uint16_t length)
  * @brief  DMA1 Stream1 IRQ handler (for SAI RX)
  * @retval None
  */
-void DMA1_Stream1_IRQHandler(void)
-{
-    HAL_DMA_IRQHandler(&hdma_sai1_a_rx);
-}
+void DMA1_Stream1_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma_sai1_a_rx); }
 
 /**
  * @brief  This function is executed in case of error occurrence.
