@@ -1,114 +1,63 @@
+/* USER CODE BEGIN Header */
 /**
- * @file       main.c
- * @brief      Audio sampling and SPL calculation for STM32H7
- * @details    This program configures an STM32H7 to capture audio via SAI peripheral,
- *            calculate sound pressure level (SPL), and output debug info via UART.
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
  */
-
-/* Includes */
+/* USER CODE END Header */
 #include "main.h"
-#include "math.h"
-#include "stm32h7xx_hal.h"
-#include <stdint.h>
-#include <stdio.h>
-#include <string.h> // Added for memset
 
-/* Configuration defines */
-#define BUFFER_SIZE 1024 // Size of the audio buffer
-#define REFERENCE_VOLTAGE 0.00002f
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
-#define HALF_BUFFER_SIZE (BUFFER_SIZE / 2)
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
 
 #ifndef HSEM_ID_0
 #define HSEM_ID_0 (0U) /* HW semaphore 0*/
 #endif
 
-/* Hardware handles */
-SAI_HandleTypeDef hsai_BlockA4;
-DMA_HandleTypeDef hdma_sai4_a;
-UART_HandleTypeDef huart1; // For printf statements for debugging
+/* USER CODE END PD */
 
-/* Function prototypes */
-void SystemClock_Config(void);
-void PeriphCommonClock_Config(void);
-static void MPU_Config(void);
-static void MX_GPIO_Init(void);
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
 static void MX_BDMA_Init(void);
-static void MX_USART1_UART_Init(void);
-static void MX_SAI4_Init(void);
+/* USER CODE BEGIN PFP */
 
-float calculate_decibel(int16_t *buffer, size_t size);
+/* USER CODE END PFP */
 
-/* Global variables */
-int16_t audio_buffer[BUFFER_SIZE];
-volatile uint8_t process_half = 0;
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
 
-/**
- * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
- * @param  buffer: Pointer to audio sample buffer
- * @param  size: Number of samples in the buffer
- * @return Sound pressure level in decibels (dB)
- */
-float calculate_decibel(int16_t *buffer, size_t size)
-{
-    float sum = 0.0f;
-    for (size_t i = 0; i < size; i++)
-    {
-        float voltage = (float)buffer[i] / 32768.0f;
-        sum += voltage * voltage;
-    }
-
-    float rms = sqrtf(sum / size);
-    float spl = 20.0f * log10f(rms / REFERENCE_VOLTAGE);
-    return spl;
-}
-void HAL_SAI_RxHalfCpltCallback(SAI_HandleTypeDef *hsai)
-{
-    if (hsai->Instance == SAI4_Block_A)
-    {
-        process_half = 1;
-    }
-}
-
-void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
-{
-    if (hsai->Instance == SAI4_Block_A)
-    {
-        process_half = 2;
-    }
-}
-
-void BDMA_Channel3_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
-
-void BDMA_Channel3_IRQnHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
-
-void DMA1_Channel3_IRQHandler(void) { HAL_DMA_IRQHandler(&hdma_sai4_a); }
-/**
- * @brief  Redirects printf output to UART1
- */
-// int _write(int file, char *ptr, int len)
-// {
-//     HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
-//     return len;
-// }
-// int _write(int file, char *ptr, int len)
-// {
-//     HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
-//     return len;
-// }
-
-/**
- * @brief  Redirects printf output to SWV ITM Data Console
- */
-int _write(int file, char *ptr, int len)
-{
-    int i = 0;
-    for (i = 0; i < len; i++)
-    {
-        ITM_SendChar(*ptr++);
-    }
-    return len;
-}
+/* USER CODE END 0 */
 
 /**
  * @brief  The application entry point.
@@ -116,101 +65,54 @@ int _write(int file, char *ptr, int len)
  */
 int main(void)
 {
+
+    /* USER CODE BEGIN 1 */
+
+    /* USER CODE END 1 */
+
+    /* USER CODE BEGIN Boot_Mode_Sequence_1 */
+    /*HW semaphore Clock enable*/
+    __HAL_RCC_HSEM_CLK_ENABLE();
+    /* Activate HSEM notification for Cortex-M4*/
+    HAL_HSEM_ActivateNotification(__HAL_HSEM_SEMID_TO_MASK(HSEM_ID_0));
+    /*
+    Domain D2 goes to STOP mode (Cortex-M4 in deep-sleep) waiting for Cortex-M7 to
+    perform system initialization (system clock config, external memory configuration.. )
+    */
+    HAL_PWREx_ClearPendingEvent();
+    HAL_PWREx_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_STOPENTRY_WFE, PWR_D2_DOMAIN);
+    /* Clear HSEM flag */
+    __HAL_HSEM_CLEAR_FLAG(__HAL_HSEM_SEMID_TO_MASK(HSEM_ID_0));
+
+    /* USER CODE END Boot_Mode_Sequence_1 */
+    /* MCU Configuration--------------------------------------------------------*/
+
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
-    SystemClock_Config();
-    PeriphCommonClock_Config();
-    MPU_Config();
 
-    MX_GPIO_Init();
+    /* USER CODE BEGIN Init */
+
+    /* USER CODE END Init */
+
+    /* USER CODE BEGIN SysInit */
+
+    /* USER CODE END SysInit */
+
+    /* Initialize all configured peripherals */
     MX_BDMA_Init();
-    MX_USART1_UART_Init();
-    MX_SAI4_Init();
+    /* USER CODE BEGIN 2 */
 
-    memset(audio_buffer, 0, sizeof(audio_buffer));
+    /* USER CODE END 2 */
 
-    printf("Starting SAI DMA...\r\n");
-    if (HAL_SAI_Receive_DMA(&hsai_BlockA4, (uint8_t *)audio_buffer, BUFFER_SIZE) != HAL_OK)
-    {
-        printf("SAI DMA initialization failed! Error: %ld\r\n", hsai_BlockA4.ErrorCode);
-        Error_Handler();
-    }
-
-    printf("SAI DMA started successfully.\r\n");
-
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
     while (1)
     {
-        if (process_half == 1)
-        {
-            float dB = calculate_decibel(&audio_buffer[0], HALF_BUFFER_SIZE);
-            printf("SPL (First Half): %.2f dB\r\n", dB);
-            process_half = 0;
-        }
-        else if (process_half == 2)
-        {
-            float dB = calculate_decibel(&audio_buffer[HALF_BUFFER_SIZE], HALF_BUFFER_SIZE);
-            printf("SPL (Second Half): %.2f dB\r\n", dB);
-            process_half = 0;
-        }
+        /* USER CODE END WHILE */
 
-        printf("DMA state: %ld\r\n", hsai_BlockA4.hdmarx->State);
-        HAL_Delay(10); // Small delay to prevent busy-waiting
+        /* USER CODE BEGIN 3 */
     }
-}
-
-/**
- * @brief System Clock Configuration
- * @retval None
- */
-void SystemClock_Config(void)
-{
-    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-
-    /** Supply configuration update enable
-     */
-    HAL_PWREx_ConfigSupply(PWR_DIRECT_SMPS_SUPPLY);
-
-    /** Configure the main internal regulator output voltage
-     */
-    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
-
-    while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY))
-    {
-    }
-
-    /** Macro to configure the PLL clock source
-     */
-    __HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSI);
-
-    /** Initializes the RCC Oscillators according to the specified parameters
-     * in the RCC_OscInitTypeDef structure.
-     */
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-    RCC_OscInitStruct.HSIState = RCC_HSI_DIV1;
-    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-    {
-        Error_Handler();
-    }
-
-    /** Initializes the CPU, AHB and APB buses clocks
-     */
-    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 |
-                                  RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1 |
-                                  RCC_CLOCKTYPE_D1PCLK1;
-    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
-    RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-    RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
-    RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV1;
-    RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV1;
-    RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
-    RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV1;
-
-    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
-    {
-        Error_Handler();
-    }
+    /* USER CODE END 3 */
 }
 
 /**
@@ -241,193 +143,18 @@ void PeriphCommonClock_Config(void)
 }
 
 /**
- * @brief SAI4 Initialization Function
- * @param None
- * @retval None
- */
-static void MX_SAI4_Init(void)
-{
-    /* USER CODE BEGIN SAI4_Init 0 */
-
-    /* USER CODE END SAI4_Init 0 */
-
-    hsai_BlockA4.Instance = SAI4_Block_A;
-
-    hsai_BlockA4.Init.Protocol = SAI_FREE_PROTOCOL;
-    hsai_BlockA4.Init.AudioMode = SAI_MODEMASTER_RX;
-    hsai_BlockA4.Init.DataSize = SAI_DATASIZE_16;
-    hsai_BlockA4.Init.FirstBit = SAI_FIRSTBIT_MSB;
-    hsai_BlockA4.Init.ClockStrobing = SAI_CLOCKSTROBING_FALLINGEDGE;
-    hsai_BlockA4.Init.Synchro = SAI_ASYNCHRONOUS;
-    hsai_BlockA4.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
-    hsai_BlockA4.Init.NoDivider = SAI_MASTERDIVIDER_ENABLE;
-    hsai_BlockA4.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
-    hsai_BlockA4.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_192K;
-    hsai_BlockA4.Init.MonoStereoMode = SAI_STEREOMODE;
-    hsai_BlockA4.Init.CompandingMode = SAI_NOCOMPANDING;
-    hsai_BlockA4.Init.PdmInit.Activation = ENABLE;
-    hsai_BlockA4.Init.PdmInit.MicPairsNbr = 1;
-    hsai_BlockA4.Init.PdmInit.ClockEnable = SAI_PDM_CLOCK1_ENABLE;
-    hsai_BlockA4.FrameInit.FrameLength = 16;
-    hsai_BlockA4.FrameInit.ActiveFrameLength = 1;
-    hsai_BlockA4.FrameInit.FSDefinition = SAI_FS_STARTFRAME;
-    hsai_BlockA4.FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
-    hsai_BlockA4.FrameInit.FSOffset = SAI_FS_FIRSTBIT;
-    hsai_BlockA4.SlotInit.FirstBitOffset = 0;
-    hsai_BlockA4.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
-    hsai_BlockA4.SlotInit.SlotNumber = 1;
-    hsai_BlockA4.SlotInit.SlotActive = 0x00000000;
-
-    if (HAL_SAI_Init(&hsai_BlockA4) != HAL_OK)
-    {
-        Error_Handler();
-    }
-
-    /* Link DMA to SAI */
-    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hdma_sai4_a); // Adjust the DMA handle if needed
-
-    /* Configure DMA for Circular Mode */
-    // HAL_DMA_Start_IT(&hdma_sai4_a, (uint32_t)audio_buffer, (uint32_t)&(SAI4_Block_A->DR),
-    //                  BUFFER_SIZE);
-
-    /* Enable DMA interrupts for half-completion and full-completion */
-    HAL_NVIC_EnableIRQ(BDMA_Channel3_IRQn);         // Ensure the correct interrupt vector
-    HAL_NVIC_SetPriority(BDMA_Channel3_IRQn, 0, 0); // Set priority as needed
-
-    /* USER CODE BEGIN SAI4_Init 2 */
-
-    /* USER CODE END SAI4_Init 2 */
-}
-
-/**
- * @brief USART1 Initialization Function
- * @param None
- * @retval None
- */
-static void MX_USART1_UART_Init(void)
-{
-
-    /* USER CODE BEGIN USART1_Init 0 */
-
-    /* USER CODE END USART1_Init 0 */
-
-    /* USER CODE BEGIN USART1_Init 1 */
-
-    /* USER CODE END USART1_Init 1 */
-    huart1.Instance = USART1;
-    huart1.Init.BaudRate = 115200;
-    huart1.Init.WordLength = UART_WORDLENGTH_8B;
-    huart1.Init.StopBits = UART_STOPBITS_1;
-    huart1.Init.Parity = UART_PARITY_NONE;
-    huart1.Init.Mode = UART_MODE_TX_RX;
-    huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-    huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-    huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-    huart1.Init.ClockPrescaler = UART_PRESCALER_DIV1;
-    huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
-    if (HAL_UART_Init(&huart1) != HAL_OK)
-    {
-        Error_Handler();
-    }
-    if (HAL_UARTEx_SetTxFifoThreshold(&huart1, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
-    {
-        Error_Handler();
-    }
-    if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
-    {
-        Error_Handler();
-    }
-    if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
-    {
-        Error_Handler();
-    }
-    /* USER CODE BEGIN USART1_Init 2 */
-
-    /* USER CODE END USART1_Init 2 */
-}
-
-/**
  * Enable DMA controller clock
  */
-void MX_BDMA_Init(void)
+static void MX_BDMA_Init(void)
 {
-    // Enable BDMA clock
+
+    /* DMA controller clock enable */
     __HAL_RCC_BDMA_CLK_ENABLE();
-
-    // Configure the DMA handler for SAI4_A RX (e.g. for MEM2MEM or Peripheral to Memory)
-    hdma_sai4_a.Instance = BDMA_Channel3;
-    hdma_sai4_a.Init.Request = BDMA_REQUEST_SAI4_A;
-    hdma_sai4_a.Init.Direction = DMA_PERIPH_TO_MEMORY;
-    hdma_sai4_a.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_sai4_a.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_sai4_a.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
-    hdma_sai4_a.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-    hdma_sai4_a.Init.Mode = DMA_CIRCULAR;
-    hdma_sai4_a.Init.Priority = DMA_PRIORITY_HIGH;
-
-    if (HAL_DMA_Init(&hdma_sai4_a) != HAL_OK)
-    {
-        Error_Handler(); // Make sure this is defined to catch failure
-    }
-
-    // Link DMA handle to SAI handle
-    __HAL_LINKDMA(&hsai_BlockA4, hdmarx, hdma_sai4_a);
-
-    // Enable and set the correct BDMA interrupt priority for Channel 3
-    HAL_NVIC_SetPriority(BDMA_Channel3_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(BDMA_Channel3_IRQn);
-}
-
-/**
- * @brief GPIO Initialization Function
- * @param None
- * @retval None
- */
-static void MX_GPIO_Init(void)
-{
-    /* USER CODE BEGIN MX_GPIO_Init_1 */
-    /* USER CODE END MX_GPIO_Init_1 */
-
-    /* GPIO Ports Clock Enable */
-    __HAL_RCC_GPIOE_CLK_ENABLE();
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-
-    /* USER CODE BEGIN MX_GPIO_Init_2 */
-    /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
 
 /* USER CODE END 4 */
-
-/* MPU Configuration */
-
-void MPU_Config(void)
-{
-    MPU_Region_InitTypeDef MPU_InitStruct = {0};
-
-    /* Disables the MPU */
-    HAL_MPU_Disable();
-
-    /** Initializes and configures the Region and the memory to be protected
-     */
-    MPU_InitStruct.Enable = MPU_REGION_ENABLE;
-    MPU_InitStruct.Number = MPU_REGION_NUMBER0;
-    MPU_InitStruct.BaseAddress = 0x0;
-    MPU_InitStruct.Size = MPU_REGION_SIZE_4GB;
-    MPU_InitStruct.SubRegionDisable = 0x87;
-    MPU_InitStruct.TypeExtField = MPU_TEX_LEVEL0;
-    MPU_InitStruct.AccessPermission = MPU_REGION_NO_ACCESS;
-    MPU_InitStruct.DisableExec = MPU_INSTRUCTION_ACCESS_DISABLE;
-    MPU_InitStruct.IsShareable = MPU_ACCESS_SHAREABLE;
-    MPU_InitStruct.IsCacheable = MPU_ACCESS_NOT_CACHEABLE;
-    MPU_InitStruct.IsBufferable = MPU_ACCESS_NOT_BUFFERABLE;
-
-    HAL_MPU_ConfigRegion(&MPU_InitStruct);
-    /* Enables the MPU */
-    HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
-}
 
 /**
  * @brief  This function is executed in case of error occurrence.
