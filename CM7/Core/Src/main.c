@@ -211,25 +211,28 @@ static void MX_SAI1_Init(void)
     hsai_BlockA1.Init.Protocol = SAI_FREE_PROTOCOL;
     hsai_BlockA1.Init.AudioMode = SAI_MODEMASTER_RX;
     hsai_BlockA1.Init.DataSize = SAI_DATASIZE_16;
-    hsai_BlockA1.Init.FirstBit = SAI_FIRSTBIT_MSB;
+    hsai_BlockA1.Init.FirstBit = SAI_FIRSTBIT_LSB;
     hsai_BlockA1.Init.ClockStrobing = SAI_CLOCKSTROBING_FALLINGEDGE;
     hsai_BlockA1.Init.Synchro = SAI_ASYNCHRONOUS;
     hsai_BlockA1.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
-    hsai_BlockA1.Init.NoDivider = SAI_MASTERDIVIDER_ENABLE;
+    hsai_BlockA1.Init.NoDivider = SAI_MASTERDIVIDER_DISABLE;
+    hsai_BlockA1.Init.MckOverSampling = SAI_MCK_OVERSAMPLING_DISABLE;
     hsai_BlockA1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
-    hsai_BlockA1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_16K;
-    hsai_BlockA1.Init.MonoStereoMode = SAI_MONOMODE; // Try mono mode first
+    hsai_BlockA1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_48K;
+    hsai_BlockA1.Init.MonoStereoMode = SAI_STEREOMODE;
     hsai_BlockA1.Init.CompandingMode = SAI_NOCOMPANDING;
-
-    // Simplified frame and slot init
-    hsai_BlockA1.FrameInit.FrameLength = 32;
-    hsai_BlockA1.FrameInit.ActiveFrameLength = 16;
+    hsai_BlockA1.Init.PdmInit.Activation = ENABLE;
+    hsai_BlockA1.Init.PdmInit.MicPairsNbr = 1;
+    hsai_BlockA1.Init.PdmInit.ClockEnable = SAI_PDM_CLOCK1_ENABLE;
+    hsai_BlockA1.FrameInit.FrameLength = 16;
+    hsai_BlockA1.FrameInit.ActiveFrameLength = 1;
     hsai_BlockA1.FrameInit.FSDefinition = SAI_FS_STARTFRAME;
-    hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
+    hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_HIGH;
     hsai_BlockA1.FrameInit.FSOffset = SAI_FS_FIRSTBIT;
-
-    hsai_BlockA1.SlotInit.SlotNumber = 1;                // Try with single slot first
-    hsai_BlockA1.SlotInit.SlotActive = SAI_SLOTACTIVE_0; // Only activate first slot
+    hsai_BlockA1.SlotInit.FirstBitOffset = 0;
+    hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
+    hsai_BlockA1.SlotInit.SlotNumber = 1;
+    hsai_BlockA1.SlotInit.SlotActive = SAI_SLOTACTIVE_ALL;
 
     if (HAL_SAI_Init(&hsai_BlockA1) != HAL_OK)
     {
