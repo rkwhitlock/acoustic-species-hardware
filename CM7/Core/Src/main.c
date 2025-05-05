@@ -5,6 +5,8 @@
 
 #include "main.h"
 #include "stm32h7xx_hal.h"
+#include <stdio.h>
+#include <string.h>
 
 // Increase buffer size for better audio processing
 // Using double the size to easily manage half-transfer
@@ -46,10 +48,22 @@ int main(void)
     MX_DMA_Init();
     MX_SAI1_Init();
 
+    // Set up debug LED or pin
+    // Example:
+    // GPIO_InitTypeDef GPIO_InitStruct = {0};
+    // __HAL_RCC_GPIOB_CLK_ENABLE();
+    // GPIO_InitStruct.Pin = GPIO_PIN_0;
+    // GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    // GPIO_InitStruct.Pull = GPIO_NOPULL;
+    // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    // HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
     // Start SAI reception using DMA in circular mode
-    if (HAL_SAI_Receive_DMA(&hsai_BlockA1, (uint8_t *)audio_buffer, BUFFER_LEN) != HAL_OK)
+    HAL_StatusTypeDef status =
+        HAL_SAI_Receive_DMA(&hsai_BlockA1, (uint8_t *)audio_buffer, BUFFER_LEN);
+    if (status != HAL_OK)
     {
-        // Reception error
+        // Indicate specific error with LED pattern or debug output
         Error_Handler();
     }
 
@@ -69,10 +83,6 @@ int main(void)
             ProcessAudioData(&audio_buffer[BUFFER_LEN / 2], BUFFER_LEN / 2);
             buffer_full_ready = 0;
         }
-
-        // Other main loop tasks can be performed here
-        // Consider adding a small delay if needed to prevent CPU hogging
-        // HAL_Delay(1);
     }
 }
 
@@ -175,9 +185,6 @@ static void MX_GPIO_Init(void)
 // SAI1 initialization with proper audio configuration
 static void MX_SAI1_Init(void)
 {
-    SAI_FrameInitTypeDef FrameInit = {0};
-    SAI_SlotInitTypeDef SlotInit = {0};
-
     /* SAI peripheral configuration */
     hsai_BlockA1.Instance = SAI1_Block_A;
     hsai_BlockA1.Init.Protocol = SAI_FREE_PROTOCOL;
@@ -199,31 +206,23 @@ static void MX_SAI1_Init(void)
     hsai_BlockA1.Init.PdmInit.MicPairsNbr = 0;
     hsai_BlockA1.Init.PdmInit.ClockEnable = 0;
 
+    /* SAI frame configuration - add these directly to the Init structure */
+    hsai_BlockA1.FrameInit.FrameLength = 32;
+    hsai_BlockA1.FrameInit.ActiveFrameLength = 16;
+    hsai_BlockA1.FrameInit.FSDefinition = SAI_FS_STARTFRAME;
+    hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
+    hsai_BlockA1.FrameInit.FSOffset = SAI_FS_FIRSTBIT;
+
+    /* SAI slot configuration */
+    hsai_BlockA1.SlotInit.FirstBitOffset = 0;
+    hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
+    hsai_BlockA1.SlotInit.SlotNumber = 2;
+    hsai_BlockA1.SlotInit.SlotActive = SAI_SLOTACTIVE_ALL;
+
     if (HAL_SAI_Init(&hsai_BlockA1) != HAL_OK)
     {
         Error_Handler();
     }
-
-    /* SAI frame configuration */
-    FrameInit.FrameLength = 32;
-    FrameInit.ActiveFrameLength = 16;
-    FrameInit.FSDefinition = SAI_FS_STARTFRAME;
-    FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
-    FrameInit.FSOffset = SAI_FS_FIRSTBIT;
-    // if (HAL_SAI_FrameInit(&hsai_BlockA1, &FrameInit) != HAL_OK)
-    // {
-    //     Error_Handler();
-    // }
-
-    /* SAI slot configuration */
-    SlotInit.FirstBitOffset = 0;
-    SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
-    SlotInit.SlotNumber = 2;
-    SlotInit.SlotActive = SAI_SLOTACTIVE_ALL;
-    // if (HAL_SAI_SlotInit(&hsai_BlockA1, &SlotInit) != HAL_OK)
-    // {
-    //     Error_Handler();
-    // }
 }
 
 // DMA initialization for SAI
@@ -242,7 +241,9 @@ static void MX_DMA_Init(void)
     hdma_sai1_a_rx.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
     hdma_sai1_a_rx.Init.Mode = DMA_CIRCULAR;
     hdma_sai1_a_rx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_sai1_a_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+
+    // Consider enabling FIFO mode for more stable transfers with bursts
+    hdma_sai1_a_rx.Init.FIFOMode = DMA_FIFOMODE_ENABLE;
     hdma_sai1_a_rx.Init.FIFOThreshold = DMA_FIFO_THRESHOLD_FULL;
     hdma_sai1_a_rx.Init.MemBurst = DMA_MBURST_SINGLE;
     hdma_sai1_a_rx.Init.PeriphBurst = DMA_PBURST_SINGLE;
@@ -290,32 +291,52 @@ void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
  */
 void ProcessAudioData(uint16_t *buffer, uint16_t length)
 {
-    /*
-     * Implement your audio processing here
-     * This is executed in the main loop context, not in the interrupt
-     * Examples of processing:
-     *  - Digital filtering
-     *  - Audio analysis
-     *  - Feature extraction
-     *  - Data transmission
-     */
-
-    // Example: Simple peak detection
+    // Debug: Check if buffer contains non-zero values
+    uint8_t has_data = 0;
     uint16_t max_value = 0;
+    uint16_t avg_value = 0;
+    uint32_t sum = 0;
+
+    printf("ayay data");
+
     for (uint16_t i = 0; i < length; i++)
     {
+        if (buffer[i] != 0)
+        {
+            has_data = 1;
+            printf("ayay data");
+        }
+
         if (buffer[i] > max_value)
         {
             max_value = buffer[i];
         }
 
-        // Add your processing code here
+        sum += buffer[i];
     }
 
-    // Example: Use max_value for level detection or other purposes
-    // This is just a placeholder
-}
+    if (length > 0)
+    {
+        avg_value = sum / length;
+    }
 
+    // TODO: Add your debug output mechanism here
+    // For example, toggle LEDs based on audio detection
+    // or output to debug UART
+
+    // Example LED debug - assuming you have LEDs connected:
+    if (has_data)
+    {
+
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_SET); // Turn on LED
+    }
+    else
+    {
+        HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, GPIO_PIN_RESET); // Turn off LED
+    }
+
+    // Add your processing code here
+}
 /**
  * @brief  DMA1 Stream1 IRQ handler (for SAI RX)
  * @retval None
@@ -350,17 +371,21 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef *hsai)
         /* SAI1 clock enable */
         __HAL_RCC_SAI1_CLK_ENABLE();
 
-        /* SAI1 pins configuration */
-        /* Peripheral clock enable */
+        /* Enable GPIO clocks */
         __HAL_RCC_GPIOE_CLK_ENABLE();
 
-        /* Configure pins for SAI1 - Adjust based on your specific hardware */
-        /* E.g., SAI1_SD_A, SAI1_SCK_A, SAI1_FS_A, SAI1_MCLK_A */
-        GPIO_InitStruct.Pin = GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5;
+        /* Configure GPIO pins for SAI1 */
+        /* SAI1_SD_A pin (data input) - Configure with pull-up for better noise immunity */
+        GPIO_InitStruct.Pin = GPIO_PIN_2; // Adjust based on your board schematic
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
         GPIO_InitStruct.Alternate = GPIO_AF6_SAI1;
+        HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+        /* SAI1_SCK_A, SAI1_FS_A, SAI1_MCLK_A pins */
+        GPIO_InitStruct.Pin = GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5; // Adjust based on your board
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
         HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
     }
 }
@@ -380,4 +405,14 @@ void HAL_SAI_MspDeInit(SAI_HandleTypeDef *hsai)
         /* DeInit GPIO pins - Adjust based on your specific hardware */
         HAL_GPIO_DeInit(GPIOE, GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5);
     }
+}
+
+int _write(int file, char *ptr, int len)
+{
+    int i = 0;
+    for (i = 0; i < len; i++)
+    {
+        ITM_SendChar(*ptr++);
+    }
+    return len;
 }
