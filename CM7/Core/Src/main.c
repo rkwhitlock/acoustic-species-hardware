@@ -18,6 +18,8 @@ uint16_t audio_buffer[BUFFER_LEN];
 // Buffer processing flags
 volatile uint8_t buffer_half_ready = 0;
 volatile uint8_t buffer_full_ready = 0;
+volatile uint32_t half_transfer_count = 0;
+volatile uint32_t full_transfer_count = 0;
 
 // DMA handle for SAI1
 DMA_HandleTypeDef hdma_sai1_a_rx;
@@ -70,18 +72,37 @@ int main(void)
     // Main processing loop
     while (1)
     {
-        // Process first half of buffer
+        // Process buffers as before
         if (buffer_half_ready)
         {
             ProcessAudioData(&audio_buffer[0], BUFFER_LEN / 2);
             buffer_half_ready = 0;
         }
 
-        // Process second half of buffer
         if (buffer_full_ready)
         {
             ProcessAudioData(&audio_buffer[BUFFER_LEN / 2], BUFFER_LEN / 2);
             buffer_full_ready = 0;
+        }
+
+        // Check SAI status periodically
+        static uint32_t last_check = 0;
+        uint32_t current_time = HAL_GetTick();
+        if (current_time - last_check > 1000) // Check every second
+        {
+            last_check = current_time;
+
+            // Check transfer counts and SAI state
+            if (half_transfer_count == 0 && full_transfer_count == 0)
+            {
+                // No transfers happening - try restarting
+                HAL_SAI_DMAStop(&hsai_BlockA1);
+                HAL_SAI_Receive_DMA(&hsai_BlockA1, (uint8_t *)audio_buffer, BUFFER_LEN);
+            }
+
+            // Reset counters to check if new transfers happen
+            half_transfer_count = 0;
+            full_transfer_count = 0;
         }
     }
 }
@@ -185,7 +206,7 @@ static void MX_GPIO_Init(void)
 // SAI1 initialization with proper audio configuration
 static void MX_SAI1_Init(void)
 {
-    /* SAI peripheral configuration */
+    /* SAI peripheral configuration - simplified */
     hsai_BlockA1.Instance = SAI1_Block_A;
     hsai_BlockA1.Init.Protocol = SAI_FREE_PROTOCOL;
     hsai_BlockA1.Init.AudioMode = SAI_MODEMASTER_RX;
@@ -195,36 +216,26 @@ static void MX_SAI1_Init(void)
     hsai_BlockA1.Init.Synchro = SAI_ASYNCHRONOUS;
     hsai_BlockA1.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
     hsai_BlockA1.Init.NoDivider = SAI_MASTERDIVIDER_ENABLE;
-    hsai_BlockA1.Init.MckOverSampling = SAI_MCK_OVERSAMPLING_DISABLE;
     hsai_BlockA1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
     hsai_BlockA1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_16K;
-    hsai_BlockA1.Init.SynchroExt = SAI_SYNCEXT_DISABLE;
-    hsai_BlockA1.Init.MonoStereoMode = SAI_STEREOMODE;
+    hsai_BlockA1.Init.MonoStereoMode = SAI_MONOMODE; // Try mono mode first
     hsai_BlockA1.Init.CompandingMode = SAI_NOCOMPANDING;
-    hsai_BlockA1.Init.TriState = SAI_OUTPUT_NOTRELEASED;
-    hsai_BlockA1.Init.PdmInit.Activation = DISABLE;
-    hsai_BlockA1.Init.PdmInit.MicPairsNbr = 0;
-    hsai_BlockA1.Init.PdmInit.ClockEnable = 0;
 
-    /* SAI frame configuration - add these directly to the Init structure */
+    // Simplified frame and slot init
     hsai_BlockA1.FrameInit.FrameLength = 32;
     hsai_BlockA1.FrameInit.ActiveFrameLength = 16;
     hsai_BlockA1.FrameInit.FSDefinition = SAI_FS_STARTFRAME;
     hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
     hsai_BlockA1.FrameInit.FSOffset = SAI_FS_FIRSTBIT;
 
-    /* SAI slot configuration */
-    hsai_BlockA1.SlotInit.FirstBitOffset = 0;
-    hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
-    hsai_BlockA1.SlotInit.SlotNumber = 2;
-    hsai_BlockA1.SlotInit.SlotActive = SAI_SLOTACTIVE_ALL;
+    hsai_BlockA1.SlotInit.SlotNumber = 1;                // Try with single slot first
+    hsai_BlockA1.SlotInit.SlotActive = SAI_SLOTACTIVE_0; // Only activate first slot
 
     if (HAL_SAI_Init(&hsai_BlockA1) != HAL_OK)
     {
         Error_Handler();
     }
 }
-
 // DMA initialization for SAI
 static void MX_DMA_Init(void)
 {
@@ -268,8 +279,8 @@ static void MX_DMA_Init(void)
  */
 void HAL_SAI_RxHalfCpltCallback(SAI_HandleTypeDef *hsai)
 {
-    /* Set flag to process first half of buffer */
     buffer_half_ready = 1;
+    half_transfer_count++; // Debug counter
 }
 
 /**
@@ -279,8 +290,8 @@ void HAL_SAI_RxHalfCpltCallback(SAI_HandleTypeDef *hsai)
  */
 void HAL_SAI_RxCpltCallback(SAI_HandleTypeDef *hsai)
 {
-    /* Set flag to process second half of buffer */
     buffer_full_ready = 1;
+    full_transfer_count++; // Debug counter
 }
 
 /**
@@ -297,14 +308,14 @@ void ProcessAudioData(uint16_t *buffer, uint16_t length)
     uint16_t avg_value = 0;
     uint32_t sum = 0;
 
-    printf("ayay data");
+    printf("ayay data\r\n");
 
     for (uint16_t i = 0; i < length; i++)
     {
         if (buffer[i] != 0)
         {
             has_data = 1;
-            printf("ayay data");
+            printf("ayay data\r\n");
         }
 
         if (buffer[i] > max_value)
