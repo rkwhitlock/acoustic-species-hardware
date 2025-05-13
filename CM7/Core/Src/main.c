@@ -168,11 +168,10 @@ void SystemClock_Config(void)
     }
 
     // Configure the SAI PLL for audio clock (SAI1)
-    // For 48kHz audio: MCLK = 256 * Fs = 12.288 MHz
     PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SAI1;
-    PeriphClkInitStruct.PLL2.PLL2M = 25;  // Input = 25MHz
-    PeriphClkInitStruct.PLL2.PLL2N = 344; // VCO = 344 MHz
-    PeriphClkInitStruct.PLL2.PLL2P = 7;   // P output = 49.14 MHz (for 256*Fs at 48kHz)
+    PeriphClkInitStruct.PLL2.PLL2M = 25;
+    PeriphClkInitStruct.PLL2.PLL2N = 344;
+    PeriphClkInitStruct.PLL2.PLL2P = 7;
     PeriphClkInitStruct.PLL2.PLL2Q = 2;
     PeriphClkInitStruct.PLL2.PLL2R = 2;
     PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_0;
@@ -189,8 +188,6 @@ void SystemClock_Config(void)
 // GPIO initialization
 static void GPIO_Init(void)
 {
-    GPIO_InitTypeDef GPIO_InitStruct = {0};
-
     /* GPIO Ports Clock Enable */
     __HAL_RCC_GPIOE_CLK_ENABLE();
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -198,20 +195,6 @@ static void GPIO_Init(void)
     __HAL_RCC_GPIOH_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
     __HAL_RCC_GPIOG_CLK_ENABLE();
-    __HAL_RCC_GPIOI_CLK_ENABLE();
-
-    /* Configure WM8994 reset pin (PG10) */
-    GPIO_InitStruct.Pin = GPIO_PIN_10;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-    HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-
-    /* Reset WM8994 */
-    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
-    HAL_Delay(20);
-    HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
-    HAL_Delay(20);
 }
 
 // SAI1 initialization for line input
@@ -223,27 +206,26 @@ static void SAI1_Init(void)
     hsai_BlockA1.Init.AudioMode = SAI_MODESLAVE_RX; // Slave mode (codec is master)
     hsai_BlockA1.Init.DataSize = SAI_DATASIZE_16;
     hsai_BlockA1.Init.FirstBit = SAI_FIRSTBIT_MSB;
-    hsai_BlockA1.Init.ClockStrobing = SAI_CLOCKSTROBING_FALLINGEDGE; // Changed for I2S
+    hsai_BlockA1.Init.ClockStrobing = SAI_CLOCKSTROBING_RISINGEDGE;
     hsai_BlockA1.Init.Synchro = SAI_ASYNCHRONOUS;
     hsai_BlockA1.Init.OutputDrive = SAI_OUTPUTDRIVE_DISABLE;
-    hsai_BlockA1.Init.NoDivider = SAI_MASTERDIVIDER_DISABLE; // Slave mode
-    hsai_BlockA1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_HF;  // Half full
+    hsai_BlockA1.Init.NoDivider = SAI_MASTERDIVIDER_DISABLE;
+    hsai_BlockA1.Init.FIFOThreshold = SAI_FIFOTHRESHOLD_EMPTY;
     hsai_BlockA1.Init.AudioFrequency = SAI_AUDIO_FREQUENCY_48K;
     hsai_BlockA1.Init.MonoStereoMode = SAI_STEREOMODE;
     hsai_BlockA1.Init.CompandingMode = SAI_NOCOMPANDING;
-    hsai_BlockA1.Init.TriState = SAI_OUTPUT_NOTRELEASED; // Add this
 
-    // Frame configuration for I2S standard
-    hsai_BlockA1.FrameInit.FrameLength = 64; // 32 bits per channel
+    // Frame configuration
+    hsai_BlockA1.FrameInit.FrameLength = 64;
     hsai_BlockA1.FrameInit.ActiveFrameLength = 32;
     hsai_BlockA1.FrameInit.FSDefinition = SAI_FS_CHANNEL_IDENTIFICATION;
     hsai_BlockA1.FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
-    hsai_BlockA1.FrameInit.FSOffset = SAI_FS_BEFOREFIRSTBIT; // I2S standard
+    hsai_BlockA1.FrameInit.FSOffset = SAA_FS_FIRSTBIT;
 
     // Slot configuration
     hsai_BlockA1.SlotInit.FirstBitOffset = 0;
-    hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_32B; // 32-bit slots
-    hsai_BlockA1.SlotInit.SlotNumber = 2;              // Stereo
+    hsai_BlockA1.SlotInit.SlotSize = SAI_SLOTSIZE_DATASIZE;
+    hsai_BlockA1.SlotInit.SlotNumber = 2; // Stereo
     hsai_BlockA1.SlotInit.SlotActive = SAI_SLOTACTIVE_ALL;
 
     if (HAL_SAI_Init(&hsai_BlockA1) != HAL_OK)
@@ -320,147 +302,23 @@ static void I2C4_Init(void)
     }
 }
 
-// WM8994 register addresses (16-bit addressing)
-#define WM8994_WRITE_SEQUENCER_0 0x00
-#define WM8994_SOFTWARE_RESET 0x00
-#define WM8994_POWER_MANAGEMENT_1 0x01
-#define WM8994_POWER_MANAGEMENT_2 0x02
-#define WM8994_POWER_MANAGEMENT_3 0x03
-#define WM8994_POWER_MANAGEMENT_4 0x04
-#define WM8994_POWER_MANAGEMENT_5 0x05
-#define WM8994_POWER_MANAGEMENT_6 0x06
-#define WM8994_INPUT_MIXER_2 0x1B
-#define WM8994_INPUT_MIXER_3 0x1C
-#define WM8994_INPUT_MIXER_4 0x1D
-#define WM8994_LEFT_LINE_INPUT_1_2_VOLUME 0x18
-#define WM8994_RIGHT_LINE_INPUT_1_2_VOLUME 0x1A
-#define WM8994_LEFT_OUTPUT_VOLUME 0x1C
-#define WM8994_RIGHT_OUTPUT_VOLUME 0x1D
-#define WM8994_LINE_OUTPUTS_VOLUME 0x1E
-#define WM8994_ANTIPOP_2 0x39
-#define WM8994_CHARGE_PUMP_1 0x4C
-#define WM8994_CLASS_W_1 0x51
-#define WM8994_DC_SERVO_1 0x54
-#define WM8994_DC_SERVO_4 0x57
-#define WM8994_ANALOGUE_HP_1 0x60
-#define WM8994_CHIP_REVISION 0x100
-#define WM8994_CONTROL_INTERFACE 0x101
-#define WM8994_CLOCKING_1 0x208
-#define WM8994_CLOCKING_2 0x209
-#define WM8994_AIF1_CLOCKING_1 0x200
-#define WM8994_AIF1_CLOCKING_2 0x201
-#define WM8994_AIF1_CONTROL_1 0x300
-#define WM8994_AIF1_CONTROL_2 0x301
-#define WM8994_AIF1_MASTER_SLAVE 0x302
-#define WM8994_AIF1_RATE 0x210
-#define WM8994_AIF1_DAC1_LEFT_VOLUME 0x402
-#define WM8994_AIF1_DAC1_RIGHT_VOLUME 0x403
-#define WM8994_AIF1_DAC1_LEFT_MIXER_ROUTING 0x601
-#define WM8994_AIF1_DAC1_RIGHT_MIXER_ROUTING 0x602
-#define WM8994_AIF1_ADC1_LEFT_VOLUME 0x400
-#define WM8994_AIF1_ADC1_RIGHT_VOLUME 0x401
-#define WM8994_GPIO_1 0x700
-
-// WM8994 I2C helper functions
-static HAL_StatusTypeDef WM8994_WriteRegister(uint16_t reg, uint16_t value)
-{
-    uint8_t data[4];
-
-    data[0] = (reg >> 8) & 0xFF;   // Register address high byte
-    data[1] = reg & 0xFF;          // Register address low byte
-    data[2] = (value >> 8) & 0xFF; // Value high byte
-    data[3] = value & 0xFF;        // Value low byte
-
-    return HAL_I2C_Master_Transmit(&hi2c4, WM8994_I2C_ADDRESS, data, 4, 100);
-}
-
-static HAL_StatusTypeDef WM8994_ReadRegister(uint16_t reg, uint16_t *value)
-{
-    uint8_t addr[2];
-    uint8_t data[2];
-    HAL_StatusTypeDef status;
-
-    addr[0] = (reg >> 8) & 0xFF;
-    addr[1] = reg & 0xFF;
-
-    status = HAL_I2C_Master_Transmit(&hi2c4, WM8994_I2C_ADDRESS, addr, 2, 100);
-    if (status != HAL_OK)
-        return status;
-
-    status = HAL_I2C_Master_Receive(&hi2c4, WM8994_I2C_ADDRESS, data, 2, 100);
-    if (status != HAL_OK)
-        return status;
-
-    *value = (data[0] << 8) | data[1];
-    return HAL_OK;
-}
-
-// Complete WM8994 initialization for line input
+// Basic WM8994 initialization
 static void WM8994_Init(void)
 {
-    uint16_t id;
+    uint8_t data[2];
 
     // Software reset
-    WM8994_WriteRegister(WM8994_SOFTWARE_RESET, 0x0000);
-    HAL_Delay(50);
+    data[0] = 0x00; // Register address high byte
+    data[1] = 0x00; // Register address low byte
+    HAL_I2C_Master_Transmit(&hi2c4, WM8994_I2C_ADDRESS, data, 2, 100);
 
-    // Read device ID to verify communication
-    if (WM8994_ReadRegister(WM8994_CHIP_REVISION, &id) != HAL_OK)
-    {
-        printf("Failed to read WM8994 ID\r\n");
-        Error_Handler();
-    }
-    printf("WM8994 ID: 0x%04X\r\n", id);
+    HAL_Delay(50); // Wait for codec to reset
 
-    // Power up sequence
-    WM8994_WriteRegister(WM8994_ANTIPOP_2, 0x0068); // Anti-pop configuration
+    // Note: This is a simplified initialization
+    // You'll need to add proper WM8994 initialization sequence
+    // based on the BSP audio driver or WM8994 datasheet
 
-    // Enable VMID and BIAS
-    WM8994_WriteRegister(WM8994_POWER_MANAGEMENT_1, 0x0003);
-    HAL_Delay(50); // Wait for VMID to ramp up
-
-    // Enable Line inputs
-    WM8994_WriteRegister(WM8994_POWER_MANAGEMENT_2, 0x6110); // Enable IN1L/R
-
-    // Enable ADCs
-    WM8994_WriteRegister(WM8994_POWER_MANAGEMENT_4, 0x0303); // Enable ADC1L/R
-
-    // Configure Line input path
-    WM8994_WriteRegister(WM8994_INPUT_MIXER_2, 0x0040); // IN1LP to IN1L
-    WM8994_WriteRegister(WM8994_INPUT_MIXER_3, 0x0040); // IN1RP to IN1R
-
-    // Set input volumes (0dB gain)
-    WM8994_WriteRegister(WM8994_LEFT_LINE_INPUT_1_2_VOLUME, 0x000B);
-    WM8994_WriteRegister(WM8994_RIGHT_LINE_INPUT_1_2_VOLUME, 0x000B);
-
-    // Configure clocking - codec as master
-    WM8994_WriteRegister(WM8994_CLOCKING_1, 0x000F);      // AIF1 clock enable
-    WM8994_WriteRegister(WM8994_AIF1_CLOCKING_1, 0x0010); // AIF1CLK = MCLK1
-
-    // Configure AIF1 interface - 16bit, I2S format
-    WM8994_WriteRegister(WM8994_AIF1_CONTROL_1, 0x4010);    // 16bit, I2S
-    WM8994_WriteRegister(WM8994_AIF1_MASTER_SLAVE, 0x4000); // Master mode
-
-    // Set sample rate to 48kHz
-    WM8994_WriteRegister(WM8994_AIF1_RATE, 0x0003); // 48kHz
-
-    // Enable AIF1 ADC paths
-    WM8994_WriteRegister(WM8994_AIF1_ADC1_LEFT_VOLUME, 0x00C0);  // Enable and 0dB
-    WM8994_WriteRegister(WM8994_AIF1_ADC1_RIGHT_VOLUME, 0x00C0); // Enable and 0dB
-
-    // Route ADC to AIF1
-    WM8994_WriteRegister(0x606, 0x0002); // ADC1L to AIF1ADC1L
-    WM8994_WriteRegister(0x607, 0x0002); // ADC1R to AIF1ADC1R
-
-    // Enable AIF1
-    WM8994_WriteRegister(WM8994_POWER_MANAGEMENT_5, 0x0303); // Enable AIF1 ADC
-
-    // Final power up
-    WM8994_WriteRegister(WM8994_POWER_MANAGEMENT_1, 0x3003); // Enable all required blocks
-
-    HAL_Delay(100); // Wait for all blocks to stabilize
-
-    printf("WM8994 initialized for line input\r\n");
+    printf("WM8994 initialized\r\n");
 }
 
 // HAL callbacks remain the same
@@ -534,19 +392,17 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef *hsai)
         /* SAI1 clock enable */
         __HAL_RCC_SAI1_CLK_ENABLE();
 
-        /* Enable GPIO clocks */
+        /* SAI1 GPIO Configuration
+         * PG7  ------> SAI1_MCLK_A
+         * PE2  ------> SAI1_MCLK_A (alternate)
+         * PE4  ------> SAI1_FS_A
+         * PE5  ------> SAI1_SCK_A
+         * PE6  ------> SAI1_SD_A
+         */
+
         __HAL_RCC_GPIOE_CLK_ENABLE();
         __HAL_RCC_GPIOG_CLK_ENABLE();
 
-        /* SAI1 GPIO Configuration
-         * PG7  ------> SAI1_MCLK_A  (Master Clock)
-         * PE2  ------> SAI1_MCLK_A  (Alternate)
-         * PE4  ------> SAI1_FS_A     (Frame Sync/Word Select)
-         * PE5  ------> SAI1_SCK_A    (Bit Clock)
-         * PE6  ------> SAI1_SD_A     (Serial Data)
-         */
-
-        /* Configure SAI1_FS_A, SAI1_SCK_A, SAI1_SD_A */
         GPIO_InitStruct.Pin = GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -554,21 +410,12 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef *hsai)
         GPIO_InitStruct.Alternate = GPIO_AF6_SAI1;
         HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-        /* Configure SAI1_MCLK_A */
         GPIO_InitStruct.Pin = GPIO_PIN_7;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull = GPIO_NOPULL;
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
         GPIO_InitStruct.Alternate = GPIO_AF6_SAI1;
         HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-
-        /* Configure PE2 as alternate MCLK output */
-        GPIO_InitStruct.Pin = GPIO_PIN_2;
-        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-        GPIO_InitStruct.Pull = GPIO_NOPULL;
-        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-        GPIO_InitStruct.Alternate = GPIO_AF6_SAI1;
-        HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
     }
 }
 
