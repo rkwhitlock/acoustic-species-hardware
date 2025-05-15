@@ -1,0 +1,17 @@
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:132:9:BSP_QSPI_Init	12
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:217:9:BSP_QSPI_DeInit	6
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:266:26:MX_QSPI_Init	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:364:9:BSP_QSPI_Read	5
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:403:9:BSP_QSPI_Write	10
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:473:9:BSP_QSPI_EraseBlock	5
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:512:9:BSP_QSPI_EraseChip	5
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:552:9:BSP_QSPI_GetStatus	4
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:588:9:BSP_QSPI_GetInfo	2
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:612:9:BSP_QSPI_EnableMemoryMappedMode	5
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:657:9:BSP_QSPI_DisableMemoryMappedMode	6
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:708:9:BSP_QSPI_ReadID	3
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:738:9:BSP_QSPI_ConfigFlash	11
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:825:13:QSPI_MspInit	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:912:13:QSPI_MspDeInit	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:948:16:QSPI_ResetMemory	6
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_qspi.c:990:16:QSPI_DummyCyclesCfg	6

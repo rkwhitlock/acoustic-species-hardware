@@ -21,30 +21,33 @@
 	<natures>
 		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
-		<nature>org.eclipse.cdt.core.ccnature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUNonUnderRootProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeExampleProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUMultiCpuProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
-			<name>
-</name>
+			<name>Components</name>
 			<type>2</type>
-			<location>/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</location>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/BSP/Components</locationURI>
 		</link>
 		<link>
-			<name>Common</name>
+			<name>STM32H747I-DISCO</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO</locationURI>
 		</link>
 		<link>
 			<name>Src</name>
 			<type>2</type>
-			<location>/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</location>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</locationURI>
+		</link>
+		<link>
+			<name>lcd</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Utilities/lcd</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

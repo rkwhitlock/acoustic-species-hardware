@@ -1,0 +1,8 @@
+../Core/Src/sdram.c:54:6:SDRAM_demo	6
+../Core/Src/sdram.c:119:6:SDRAM_DMA_demo	8
+../Core/Src/sdram.c:196:13:SDRAM_SetHint	1
+../Core/Src/sdram.c:229:13:SDRAM_DMA_SetHint	1
+../Core/Src/sdram.c:263:13:Fill_Buffer	4
+../Core/Src/sdram.c:283:16:Buffercmp	5
+../Core/Src/sdram.c:308:6:HAL_SDRAM_DMA_XferCpltCallback	1
+../Core/Src/sdram.c:319:6:HAL_SDRAM_DMA_XferErrorCallback	1

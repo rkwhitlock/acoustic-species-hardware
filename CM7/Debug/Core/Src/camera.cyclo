@@ -1,0 +1,4 @@
+../Core/Src/camera.c:72:6:Camera_demo	12
+../Core/Src/camera.c:208:13:Camera_SetHint	1
+../Core/Src/camera.c:228:6:BSP_CAMERA_FrameEventCallback	1
+../Core/Src/camera.c:246:13:LCD_LL_Convert_RGB565ToARGB8888	4

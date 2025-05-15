@@ -1,0 +1,8 @@
+../Core/Src/touchscreen.c:97:6:Touchscreen_demo1	32	static
+../Core/Src/touchscreen.c:204:6:Touchscreen_demo2	24	static
+../Core/Src/touchscreen.c:249:6:BSP_TS_Callback	16	static
+../Core/Src/touchscreen.c:254:13:TS_Update	32	static
+../Core/Src/touchscreen.c:293:17:Touchscreen_Handle_NewTouch	224	static
+../Core/Src/touchscreen.c:419:13:Touchscreen_SetHint_Demo	32	static
+../Core/Src/touchscreen.c:474:6:Touchscreen_DrawBackground_Circles	24	static
+../Core/Src/touchscreen.c:573:9:TouchScreen_GetTouchPosition	16	static

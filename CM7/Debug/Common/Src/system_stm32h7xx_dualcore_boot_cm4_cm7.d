@@ -1,5 +1,5 @@
 Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.o: \
- /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c \
+ ../Common/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c \
  /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h \
  /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h747xx.h \
  /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Drivers/CMSIS/Include/core_cm7.h \

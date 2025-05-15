@@ -1,0 +1,4 @@
+../Core/Src/audio_record.c:78:6:AudioRecord_demo	32	static
+../Core/Src/audio_record.c:151:7:BSP_AUDIO_IN_TransferComplete_CallBack	48	static,ignoring_inline_asm
+../Core/Src/audio_record.c:179:6:BSP_AUDIO_IN_HalfTransfer_CallBack	48	static,ignoring_inline_asm
+../Core/Src/audio_record.c:209:6:BSP_AUDIO_IN_Error_CallBack	16	static

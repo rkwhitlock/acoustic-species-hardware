@@ -1,0 +1,2 @@
+../Core/Src/analog_audio_record.c:60:6:AnalogAudioRecord_demo	32	static
+../Core/Src/analog_audio_record.c:131:13:BSP_AUDIO_IN_Error_CallBack	16	static

@@ -1,0 +1,4 @@
+../Core/Src/joystick.c:53:6:Joystick_demo	8	static
+../Core/Src/joystick.c:101:6:BSP_JOY_Callback	16	static
+../Core/Src/joystick.c:110:13:Joystick_SetCursorPosition	8	static
+../Core/Src/joystick.c:180:13:Joystick_SetHint	16	static
