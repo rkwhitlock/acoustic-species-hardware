@@ -26387,12 +26387,10 @@ Discarded input sections
 Memory Configuration
 
 Name             Origin             Length             Attributes
-RAM_D1           0x24000000         0x00080000         xrw
 FLASH            0x08000000         0x00100000         xr
-DTCMRAM          0x20000000         0x00020000         xrw
-RAM_D2           0x30000000         0x00048000         xrw
-RAM_D3           0x38000000         0x00010000         xrw
+RAM              0x24000000         0x00080000         xrw
 ITCMRAM          0x00000000         0x00010000         xrw
+IRAM2            0x38000000         0x00010000         xrw
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
@@ -26587,9 +26585,9 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
 END GROUP
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtend.o
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtn.o
-                0x24080000                        _estack = (ORIGIN (RAM_D1) + LENGTH (RAM_D1))
-                0x00000200                        _Min_Heap_Size = 0x200
-                0x00000400                        _Min_Stack_Size = 0x400
+                0x24080000                        _estack = 0x24080000
+                0x00000400                        _Min_Heap_Size = 0x400
+                0x00001000                        _Min_Stack_Size = 0x1000
 
 .isr_vector     0x08000000      0x298
                 0x08000000                        . = ALIGN (0x4)
@@ -29178,43 +29176,33 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
                 0x0802deb0                __powf_log2_data
                 0x0802dfd8                        . = ALIGN (0x4)
 
-.ARM.extab      0x0802dfd8        0x0
-                0x0802dfd8                        . = ALIGN (0x4)
+.ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0802dfd8                        . = ALIGN (0x4)
 
 .ARM            0x0802dfd8        0x8
-                0x0802dfd8                        . = ALIGN (0x4)
                 0x0802dfd8                        __exidx_start = .
  *(.ARM.exidx*)
  .ARM.exidx     0x0802dfd8        0x8 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-memchr.o)
                 0x0802dfe0                        __exidx_end = .
-                0x0802dfe0                        . = ALIGN (0x4)
 
 .preinit_array  0x0802dfe0        0x0
-                0x0802dfe0                        . = ALIGN (0x4)
                 0x0802dfe0                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
                 0x0802dfe0                        PROVIDE (__preinit_array_end = .)
-                0x0802dfe0                        . = ALIGN (0x4)
 
 .init_array     0x0802dfe0        0x4
-                0x0802dfe0                        . = ALIGN (0x4)
                 0x0802dfe0                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
  .init_array    0x0802dfe0        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtbegin.o
                 0x0802dfe4                        PROVIDE (__init_array_end = .)
-                0x0802dfe4                        . = ALIGN (0x4)
 
 .fini_array     0x0802dfe4        0x4
-                0x0802dfe4                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
  .fini_array    0x0802dfe4        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x0802dfe8                        . = ALIGN (0x4)
                 0x0802dfe8                        _sidata = LOADADDR (.data)
 
 .rel.dyn        0x0802dfe8        0x0
@@ -29338,8 +29326,6 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .data._impure_data
                 0x24000a68       0x4c /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-impure.o)
                 0x24000a68                _impure_data
- *(.RamFunc)
- *(.RamFunc*)
                 0x24000ab4                        . = ALIGN (0x4)
                 0x24000ab4                        _edata = .
 
@@ -29349,291 +29335,287 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
 .RAM_D2         0x24000ac0      0x200 load address 0x0802ea9c
  .RAM_D2        0x24000ac0      0x200 ./Core/Src/analog_audio_record.o
                 0x24000ac0                recordBuf
+                0x24000cc0                        . = ALIGN (0x4)
 
-.RAM_D3         0x24000cc0      0x200 load address 0x0802ec9c
- .RAM_D3        0x24000cc0      0x200 ./Core/Src/audio_record.o
-                0x24000cc0                recordPDMBuf
-                0x24000ec0                        . = ALIGN (0x4)
-
-.bss            0x24000ec0     0x7eec load address 0x0802ee9c
-                0x24000ec0                        _sbss = .
-                0x24000ec0                        __bss_start__ = _sbss
+.bss            0x24000cc0     0x7eec load address 0x0802ec9c
+                0x24000cc0                        _sbss = .
+                0x24000cc0                        __bss_start__ = _sbss
  *(.bss)
- .bss           0x24000ec0       0x1c /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtbegin.o
- .bss           0x24000edc        0x1 ../Lib/libPDMFilter_CM7_GCC_wc32.a(pdm_filter.o)
+ .bss           0x24000cc0       0x1c /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtbegin.o
+ .bss           0x24000cdc        0x1 ../Lib/libPDMFilter_CM7_GCC_wc32.a(pdm_filter.o)
  *(.bss*)
- *fill*         0x24000edd        0x3 
- .bss.Command   0x24000ee0       0x10 ./Components/is42s32800j/is42s32800j.o
+ *fill*         0x24000cdd        0x3 
+ .bss.Command   0x24000ce0       0x10 ./Components/is42s32800j/is42s32800j.o
  .bss.NT35510Ctx
-                0x24000ef0        0xc ./Components/nt35510/nt35510.o
+                0x24000cf0        0xc ./Components/nt35510/nt35510.o
  .bss.OTM8009ACtx
-                0x24000efc        0xc ./Components/otm8009a/otm8009a.o
+                0x24000cfc        0xc ./Components/otm8009a/otm8009a.o
  .bss.AudioFreq_Ptr
-                0x24000f08        0x4 ./Core/Src/analog_audio_record.o
-                0x24000f08                AudioFreq_Ptr
+                0x24000d08        0x4 ./Core/Src/analog_audio_record.o
+                0x24000d08                AudioFreq_Ptr
  .bss.AnalogAudioInInit
-                0x24000f0c       0x14 ./Core/Src/analog_audio_record.o
-                0x24000f0c                AnalogAudioInInit
+                0x24000d0c       0x14 ./Core/Src/analog_audio_record.o
+                0x24000d0c                AnalogAudioInInit
  .bss.AnalogAudioOutInit
-                0x24000f20       0x14 ./Core/Src/analog_audio_record.o
-                0x24000f20                AnalogAudioOutInit
- *fill*         0x24000f34        0xc 
+                0x24000d20       0x14 ./Core/Src/analog_audio_record.o
+                0x24000d20                AnalogAudioOutInit
+ *fill*         0x24000d34        0xc 
  .bss.buffer_ctl
-                0x24000f40      0x810 ./Core/Src/audio_play.o
+                0x24000d40      0x810 ./Core/Src/audio_play.o
  .bss.audio_state
-                0x24001750        0x1 ./Core/Src/audio_play.o
- *fill*         0x24001751        0x3 
- .bss.JoyState  0x24001754        0x4 ./Core/Src/audio_play.o
-                0x24001754                JoyState
+                0x24001550        0x1 ./Core/Src/audio_play.o
+ *fill*         0x24001551        0x3 
+ .bss.JoyState  0x24001554        0x4 ./Core/Src/audio_play.o
+                0x24001554                JoyState
  .bss.AudioPlayInit
-                0x24001758        0x4 ./Core/Src/audio_play.o
-                0x24001758                AudioPlayInit
- *fill*         0x2400175c        0x4 
+                0x24001558        0x4 ./Core/Src/audio_play.o
+                0x24001558                AudioPlayInit
+ *fill*         0x2400155c        0x4 
  .bss.RecPlayback
-                0x24001760     0x4000 ./Core/Src/audio_record.o
-                0x24001760                RecPlayback
- .bss.InState   0x24005760        0x4 ./Core/Src/audio_record.o
-                0x24005760                InState
+                0x24001560     0x4000 ./Core/Src/audio_record.o
+                0x24001560                RecPlayback
+ .bss.InState   0x24005560        0x4 ./Core/Src/audio_record.o
+                0x24005560                InState
  .bss.AudioFreq_ptr
-                0x24005764        0x4 ./Core/Src/audio_record.o
-                0x24005764                AudioFreq_ptr
+                0x24005564        0x4 ./Core/Src/audio_record.o
+                0x24005564                AudioFreq_ptr
  .bss.AudioInInit
-                0x24005768       0x14 ./Core/Src/audio_record.o
-                0x24005768                AudioInInit
+                0x24005568       0x14 ./Core/Src/audio_record.o
+                0x24005568                AudioInInit
  .bss.AudioOutInit
-                0x2400577c       0x14 ./Core/Src/audio_record.o
-                0x2400577c                AudioOutInit
+                0x2400557c       0x14 ./Core/Src/audio_record.o
+                0x2400557c                AudioOutInit
  .bss.playbackPtr
-                0x24005790        0x4 ./Core/Src/audio_record.o
-                0x24005790                playbackPtr
+                0x24005590        0x4 ./Core/Src/audio_record.o
+                0x24005590                playbackPtr
  .bss.AudioBufferOffset
-                0x24005794        0x4 ./Core/Src/audio_record.o
-                0x24005794                AudioBufferOffset
+                0x24005594        0x4 ./Core/Src/audio_record.o
+                0x24005594                AudioBufferOffset
  .bss.CameraChangeResolutionAsked
-                0x24005798        0x4 ./Core/Src/camera.o
- .bss.xsize     0x2400579c        0x4 ./Core/Src/camera.o
-                0x2400579c                xsize
- .bss.ysize     0x240057a0        0x4 ./Core/Src/camera.o
-                0x240057a0                ysize
+                0x24005598        0x4 ./Core/Src/camera.o
+ .bss.xsize     0x2400559c        0x4 ./Core/Src/camera.o
+                0x2400559c                xsize
+ .bss.ysize     0x240055a0        0x4 ./Core/Src/camera.o
+                0x240055a0                ysize
  .bss.index_resolution
-                0x240057a4        0x4 ./Core/Src/camera.o
-                0x240057a4                index_resolution
+                0x240055a4        0x4 ./Core/Src/camera.o
+                0x240055a4                index_resolution
  .bss.JoyPinPressed
-                0x240057a8        0x4 ./Core/Src/joystick.o
-                0x240057a8                JoyPinPressed
+                0x240055a8        0x4 ./Core/Src/joystick.o
+                0x240055a8                JoyPinPressed
  .bss.Joy_State
-                0x240057ac        0x4 ./Core/Src/joystick.o
-                0x240057ac                Joy_State
- .bss.x_size    0x240057b0        0x4 ./Core/Src/joystick.o
-                0x240057b0                x_size
- .bss.y_size    0x240057b4        0x4 ./Core/Src/joystick.o
-                0x240057b4                y_size
+                0x240055ac        0x4 ./Core/Src/joystick.o
+                0x240055ac                Joy_State
+ .bss.x_size    0x240055b0        0x4 ./Core/Src/joystick.o
+                0x240055b0                x_size
+ .bss.y_size    0x240055b4        0x4 ./Core/Src/joystick.o
+                0x240055b4                y_size
  .bss.JoyStickDemo
-                0x240057b8        0x4 ./Core/Src/joystick.o
-                0x240057b8                JoyStickDemo
+                0x240055b8        0x4 ./Core/Src/joystick.o
+                0x240055b8                JoyStickDemo
  .bss.LCD_Feature
-                0x240057bc        0x1 ./Core/Src/lcd.o
+                0x240055bc        0x1 ./Core/Src/lcd.o
  .bss.DemoIndex
-                0x240057bd        0x1 ./Core/Src/main.o
-                0x240057bd                DemoIndex
- *fill*         0x240057be        0x2 
+                0x240055bd        0x1 ./Core/Src/main.o
+                0x240055bd                DemoIndex
+ *fill*         0x240055be        0x2 
  .bss.ButtonState
-                0x240057c0        0x4 ./Core/Src/main.o
-                0x240057c0                ButtonState
+                0x240055c0        0x4 ./Core/Src/main.o
+                0x240055c0                ButtonState
  .bss.SdramTest
-                0x240057c4        0x4 ./Core/Src/main.o
-                0x240057c4                SdramTest
+                0x240055c4        0x4 ./Core/Src/main.o
+                0x240055c4                SdramTest
  .bss.qspi_aTxBuffer
-                0x240057c8      0x200 ./Core/Src/qspi.o
-                0x240057c8                qspi_aTxBuffer
+                0x240055c8      0x200 ./Core/Src/qspi.o
+                0x240055c8                qspi_aTxBuffer
  .bss.qspi_aRxBuffer
-                0x240059c8      0x200 ./Core/Src/qspi.o
-                0x240059c8                qspi_aRxBuffer
- *fill*         0x24005bc8       0x18 
+                0x240057c8      0x200 ./Core/Src/qspi.o
+                0x240057c8                qspi_aRxBuffer
+ *fill*         0x240059c8       0x18 
  .bss.aTxBuffer
-                0x24005be0      0xa00 ./Core/Src/sd.o
-                0x24005be0                aTxBuffer
+                0x240059e0      0xa00 ./Core/Src/sd.o
+                0x240059e0                aTxBuffer
  .bss.aRxBuffer
-                0x240065e0      0xa00 ./Core/Src/sd.o
-                0x240065e0                aRxBuffer
+                0x240063e0      0xa00 ./Core/Src/sd.o
+                0x240063e0                aRxBuffer
  .bss.SD1WriteStatus
-                0x24006fe0        0x4 ./Core/Src/sd.o
-                0x24006fe0                SD1WriteStatus
+                0x24006de0        0x4 ./Core/Src/sd.o
+                0x24006de0                SD1WriteStatus
  .bss.SD1ReadStatus
-                0x24006fe4        0x4 ./Core/Src/sd.o
-                0x24006fe4                SD1ReadStatus
+                0x24006de4        0x4 ./Core/Src/sd.o
+                0x24006de4                SD1ReadStatus
  .bss.SdmmcTest
-                0x24006fe8        0x4 ./Core/Src/sd.o
-                0x24006fe8                SdmmcTest
+                0x24006de8        0x4 ./Core/Src/sd.o
+                0x24006de8                SdmmcTest
  .bss.sdram_aTxBuffer
-                0x24006fec      0x400 ./Core/Src/sdram.o
-                0x24006fec                sdram_aTxBuffer
+                0x24006dec      0x400 ./Core/Src/sdram.o
+                0x24006dec                sdram_aTxBuffer
  .bss.sdram_aRxBuffer
-                0x240073ec      0x400 ./Core/Src/sdram.o
-                0x240073ec                sdram_aRxBuffer
+                0x240071ec      0x400 ./Core/Src/sdram.o
+                0x240071ec                sdram_aRxBuffer
  .bss.uwMDMA_Transfer_Complete
-                0x240077ec        0x4 ./Core/Src/sdram.o
-                0x240077ec                uwMDMA_Transfer_Complete
+                0x240075ec        0x4 ./Core/Src/sdram.o
+                0x240075ec                uwMDMA_Transfer_Complete
  .bss.__sbrk_heap_end
-                0x240077f0        0x4 ./Core/Src/sysmem.o
+                0x240075f0        0x4 ./Core/Src/sysmem.o
  .bss.touchscreen_color_idx
-                0x240077f4        0x4 ./Core/Src/touchscreen.o
- .bss.TS_State  0x240077f8        0xc ./Core/Src/touchscreen.o
-                0x240077f8                TS_State
+                0x240075f4        0x4 ./Core/Src/touchscreen.o
+ .bss.TS_State  0x240075f8        0xc ./Core/Src/touchscreen.o
+                0x240075f8                TS_State
  .bss.TS_MTState
-                0x24007804       0x2c ./Core/Src/touchscreen.o
-                0x24007804                TS_MTState
- .bss.hTS       0x24007830        0x4 ./Core/Src/touchscreen.o
-                0x24007830                hTS
+                0x24007604       0x2c ./Core/Src/touchscreen.o
+                0x24007604                TS_MTState
+ .bss.hTS       0x24007630        0x4 ./Core/Src/touchscreen.o
+                0x24007630                hTS
  .bss.GestureConf
-                0x24007834       0x18 ./Core/Src/touchscreen.o
-                0x24007834                GestureConf
- .bss.hpb_exti  0x2400784c        0x8 ./STM32H747I-DISCO/stm32h747i_discovery.o
-                0x2400784c                hpb_exti
+                0x24007634       0x18 ./Core/Src/touchscreen.o
+                0x24007634                GestureConf
+ .bss.hpb_exti  0x2400764c        0x8 ./STM32H747I-DISCO/stm32h747i_discovery.o
+                0x2400764c                hpb_exti
  .bss.JoyPinsMask
-                0x24007854        0x4 ./STM32H747I-DISCO/stm32h747i_discovery.o
+                0x24007654        0x4 ./STM32H747I-DISCO/stm32h747i_discovery.o
  .bss.hjoy_exti
-                0x24007858       0x28 ./STM32H747I-DISCO/stm32h747i_discovery.o
+                0x24007658       0x28 ./STM32H747I-DISCO/stm32h747i_discovery.o
  .bss.Audio_Drv
-                0x24007880        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x24007680        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
  .bss.PDM_FilterHandler
-                0x24007884       0x98 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x24007684       0x98 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
  .bss.PDM_FilterConfig
-                0x2400791c        0xc ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x2400771c        0xc ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
  .bss.Audio_CompObj
-                0x24007928        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
-                0x24007928                Audio_CompObj
+                0x24007728        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x24007728                Audio_CompObj
  .bss.haudio_out_sai
-                0x2400792c       0x98 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
-                0x2400792c                haudio_out_sai
+                0x2400772c       0x98 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x2400772c                haudio_out_sai
  .bss.haudio_in_sai
-                0x240079c4       0x98 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
-                0x240079c4                haudio_in_sai
+                0x240077c4       0x98 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x240077c4                haudio_in_sai
  .bss.Audio_Out_Ctx
-                0x24007a5c       0x48 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
-                0x24007a5c                Audio_Out_Ctx
+                0x2400785c       0x48 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x2400785c                Audio_Out_Ctx
  .bss.Audio_In_Ctx
-                0x24007aa4       0x60 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
-                0x24007aa4                Audio_In_Ctx
+                0x240078a4       0x60 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x240078a4                Audio_In_Ctx
  .bss.WM8994Obj.2
-                0x24007b04       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x24007904       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
  .bss.hdma_sai_tx.1
-                0x24007b2c       0x78 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x2400792c       0x78 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
  .bss.hdma_sai_rx.0
-                0x24007ba4       0x78 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
+                0x240079a4       0x78 ./STM32H747I-DISCO/stm32h747i_discovery_audio.o
  .bss.I2c4InitCounter
-                0x24007c1c        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
+                0x24007a1c        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
  .bss.I2c_valid_timing
-                0x24007c20      0xa00 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
+                0x24007a20      0xa00 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
  .bss.I2c_valid_timing_nbr
-                0x24008620        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
+                0x24008420        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
  .bss.hbus_i2c4
-                0x24008624       0x54 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
-                0x24008624                hbus_i2c4
+                0x24008424       0x54 ./STM32H747I-DISCO/stm32h747i_discovery_bus.o
+                0x24008424                hbus_i2c4
  .bss.Camera_CompObj
-                0x24008678        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
-                0x24008678                Camera_CompObj
+                0x24008478        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x24008478                Camera_CompObj
  .bss.hcamera_dcmi
-                0x2400867c       0x50 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
-                0x2400867c                hcamera_dcmi
+                0x2400847c       0x50 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x2400847c                hcamera_dcmi
  .bss.Camera_Ctx
-                0x240086cc       0x34 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
-                0x240086cc                Camera_Ctx
+                0x240084cc       0x34 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x240084cc                Camera_Ctx
  .bss.Camera_Drv
-                0x24008700        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x24008500        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
  .bss.Camera_Cap
-                0x24008704       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x24008504       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
  .bss.HSPolarity
-                0x2400872c        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
- .bss.CameraId  0x24008730        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x2400852c        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+ .bss.CameraId  0x24008530        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
  .bss.hdma_handler.2
-                0x24008734       0x78 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x24008534       0x78 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
  .bss.OV9655Obj.1
-                0x240087ac       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+                0x240085ac       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
  .bss.OV5640Obj.0
-                0x240087d4       0x2c ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
- .bss.Lcd_Drv   0x24008800        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x240085d4       0x2c ./STM32H747I-DISCO/stm32h747i_discovery_camera.o
+ .bss.Lcd_Drv   0x24008600        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
  .bss.Lcd_CompObj
-                0x24008804        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
-                0x24008804                Lcd_CompObj
- .bss.hlcd_dsi  0x24008808       0x1c ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
-                0x24008808                hlcd_dsi
+                0x24008604        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x24008604                Lcd_CompObj
+ .bss.hlcd_dsi  0x24008608       0x1c ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x24008608                hlcd_dsi
  .bss.hlcd_dma2d
-                0x24008824       0x68 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
-                0x24008824                hlcd_dma2d
+                0x24008624       0x68 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x24008624                hlcd_dma2d
  .bss.hlcd_ltdc
-                0x2400888c       0xa8 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
-                0x2400888c                hlcd_ltdc
- .bss.Lcd_Ctx   0x24008934       0x1c ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
-                0x24008934                Lcd_Ctx
+                0x2400868c       0xa8 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x2400868c                hlcd_ltdc
+ .bss.Lcd_Ctx   0x24008734       0x1c ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x24008734                Lcd_Ctx
  .bss.Lcd_Driver_Type
-                0x24008950        0x1 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
-                0x24008950                Lcd_Driver_Type
- *fill*         0x24008951        0x3 
+                0x24008750        0x1 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x24008750                Lcd_Driver_Type
+ *fill*         0x24008751        0x3 
  .bss.NT35510Obj.1
-                0x24008954       0x20 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+                0x24008754       0x20 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
  .bss.OTM8009AObj.0
-                0x24008974       0x20 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
- .bss.hqspi     0x24008994       0x4c ./STM32H747I-DISCO/stm32h747i_discovery_qspi.o
-                0x24008994                hqspi
- .bss.QSPI_Ctx  0x240089e0        0xc ./STM32H747I-DISCO/stm32h747i_discovery_qspi.o
-                0x240089e0                QSPI_Ctx
+                0x24008774       0x20 ./STM32H747I-DISCO/stm32h747i_discovery_lcd.o
+ .bss.hqspi     0x24008794       0x4c ./STM32H747I-DISCO/stm32h747i_discovery_qspi.o
+                0x24008794                hqspi
+ .bss.QSPI_Ctx  0x240087e0        0xc ./STM32H747I-DISCO/stm32h747i_discovery_qspi.o
+                0x240087e0                QSPI_Ctx
  .bss.hsd_sdmmc
-                0x240089ec       0x7c ./STM32H747I-DISCO/stm32h747i_discovery_sd.o
-                0x240089ec                hsd_sdmmc
- .bss.hsd_exti  0x24008a68        0x8 ./STM32H747I-DISCO/stm32h747i_discovery_sd.o
-                0x24008a68                hsd_exti
- .bss.hsdram    0x24008a70       0x34 ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
-                0x24008a70                hsdram
+                0x240087ec       0x7c ./STM32H747I-DISCO/stm32h747i_discovery_sd.o
+                0x240087ec                hsd_sdmmc
+ .bss.hsd_exti  0x24008868        0x8 ./STM32H747I-DISCO/stm32h747i_discovery_sd.o
+                0x24008868                hsd_exti
+ .bss.hsdram    0x24008870       0x34 ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
+                0x24008870                hsdram
  .bss.pRegMode.2
-                0x24008aa4       0x20 ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
+                0x240088a4       0x20 ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
  .bss.mdma_handle.1
-                0x24008ac4       0x6c ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
+                0x240088c4       0x6c ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
  .bss.mdma_handle.0
-                0x24008b30       0x6c ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
- .bss.Ts_Drv    0x24008b9c        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
- .bss.Ts_Ctx    0x24008ba0       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
-                0x24008ba0                Ts_Ctx
+                0x24008930       0x6c ./STM32H747I-DISCO/stm32h747i_discovery_sdram.o
+ .bss.Ts_Drv    0x2400899c        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
+ .bss.Ts_Ctx    0x240089a0       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
+                0x240089a0                Ts_Ctx
  .bss.Ts_CompObj
-                0x24008bc8        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
-                0x24008bc8                Ts_CompObj
+                0x240089c8        0x4 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
+                0x240089c8                Ts_CompObj
  .bss.FT6X06Obj.0
-                0x24008bcc       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
- .bss.uwTick    0x24008bf4        0x4 ./Src/stm32h7xx_hal.o
-                0x24008bf4                uwTick
- .bss.DrawProp  0x24008bf8       0x40 ./lcd/stm32_lcd.o
+                0x240089cc       0x28 ./STM32H747I-DISCO/stm32h747i_discovery_ts.o
+ .bss.uwTick    0x240089f4        0x4 ./Src/stm32h7xx_hal.o
+                0x240089f4                uwTick
+ .bss.DrawProp  0x240089f8       0x40 ./lcd/stm32_lcd.o
  .bss.FuncDriver
-                0x24008c38       0x2c ./lcd/stm32_lcd.o
- .bss.__sf      0x24008c64      0x138 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-findfp.o)
-                0x24008c64                __sf
+                0x24008a38       0x2c ./lcd/stm32_lcd.o
+ .bss.__sf      0x24008a64      0x138 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-findfp.o)
+                0x24008a64                __sf
  .bss.__lock___malloc_recursive_mutex
-                0x24008d9c        0x1 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-lock.o)
-                0x24008d9c                __lock___malloc_recursive_mutex
- *fill*         0x24008d9d        0x3 
+                0x24008b9c        0x1 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-lock.o)
+                0x24008b9c                __lock___malloc_recursive_mutex
+ *fill*         0x24008b9d        0x3 
  .bss.__malloc_sbrk_start
-                0x24008da0        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
-                0x24008da0                __malloc_sbrk_start
+                0x24008ba0        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
+                0x24008ba0                __malloc_sbrk_start
  .bss.__malloc_free_list
-                0x24008da4        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
-                0x24008da4                __malloc_free_list
- .bss.errno     0x24008da8        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-reent.o)
-                0x24008da8                errno
+                0x24008ba4        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
+                0x24008ba4                __malloc_free_list
+ .bss.errno     0x24008ba8        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-reent.o)
+                0x24008ba8                errno
  *(COMMON)
-                0x24008dac                        . = ALIGN (0x4)
-                0x24008dac                        _ebss = .
-                0x24008dac                        __bss_end__ = _ebss
+                0x24008bac                        . = ALIGN (0x4)
+                0x24008bac                        _ebss = .
+                0x24008bac                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x24008dac      0x604 load address 0x0802ee9c
-                0x24008db0                        . = ALIGN (0x8)
- *fill*         0x24008dac        0x4 
+                0x24008bac     0x1404 load address 0x0802ec9c
+                0x24008bb0                        . = ALIGN (0x8)
+ *fill*         0x24008bac        0x4 
                 [!provide]                        PROVIDE (end = .)
-                0x24008db0                        PROVIDE (_end = .)
+                0x24008bb0                        PROVIDE (_end = .)
                 0x24008fb0                        . = (. + _Min_Heap_Size)
- *fill*         0x24008db0      0x200 
-                0x240093b0                        . = (. + _Min_Stack_Size)
- *fill*         0x24008fb0      0x400 
-                0x240093b0                        . = ALIGN (0x8)
+ *fill*         0x24008bb0      0x400 
+                0x24009fb0                        . = (. + _Min_Stack_Size)
+ *fill*         0x24008fb0     0x1000 
+                0x24009fb0                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -29821,6 +29803,11 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
                 0x000010d3       0x32 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libm.a(libm_a-sf_pow_log2_data.o)
  .ARM.attributes
                 0x00001105       0x20 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/crtn.o
+
+.RAM_D3         0x38000000      0x200
+ *(.RAM_D3)
+ .RAM_D3        0x38000000      0x200 ./Core/Src/audio_record.o
+                0x38000000                recordPDMBuf
 OUTPUT(decible_meter_CM7.elf elf32-littlearm)
 LOAD linker stubs
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc.a

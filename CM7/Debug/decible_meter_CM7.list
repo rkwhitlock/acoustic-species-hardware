@@ -9,47 +9,43 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .rodata       00007ae0  080264f8  080264f8  000274f8  2**3
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  0802dfd8  0802dfd8  0002fec0  2**0
-                  CONTENTS, READONLY
-  4 .ARM          00000008  0802dfd8  0802dfd8  0002efd8  2**2
+  3 .ARM          00000008  0802dfd8  0802dfd8  0002efd8  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  0802dfe0  0802dfe0  0002fec0  2**0
-                  CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  0802dfe0  0802dfe0  0002efe0  2**2
+  4 .init_array   00000004  0802dfe0  0802dfe0  0002efe0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  0802dfe4  0802dfe4  0002efe4  2**2
+  5 .fini_array   00000004  0802dfe4  0802dfe4  0002efe4  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000ab4  24000000  0802dfe8  0002f000  2**2
+  6 .data         00000ab4  24000000  0802dfe8  0002f000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .RAM_D2       00000200  24000ac0  0802ea9c  0002fac0  2**5
+  7 .RAM_D2       00000200  24000ac0  0802ea9c  0002fac0  2**5
                   CONTENTS, ALLOC, LOAD, DATA
- 10 .RAM_D3       00000200  24000cc0  0802ec9c  0002fcc0  2**5
-                  CONTENTS, ALLOC, LOAD, DATA
- 11 .bss          00007eec  24000ec0  0802ee9c  0002fec0  2**5
+  8 .bss          00007eec  24000cc0  0802ec9c  0002fcc0  2**5
                   ALLOC
- 12 ._user_heap_stack 00000604  24008dac  0802ee9c  00030dac  2**0
+  9 ._user_heap_stack 00001404  24008bac  0802ec9c  00030bac  2**0
                   ALLOC
- 13 .ARM.attributes 0000002e  00000000  00000000  0002fec0  2**0
+ 10 .ARM.attributes 0000002e  00000000  00000000  00030200  2**0
                   CONTENTS, READONLY
- 14 .debug_info   000428ab  00000000  00000000  0002feee  2**0
+ 11 .RAM_D3       00000200  38000000  38000000  00030000  2**5
+                  CONTENTS, ALLOC, LOAD, DATA
+ 12 .debug_info   000428ab  00000000  00000000  0003022e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_abbrev 000085a4  00000000  00000000  00072799  2**0
+ 13 .debug_abbrev 000085a4  00000000  00000000  00072ad9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_aranges 00003770  00000000  00000000  0007ad40  2**3
+ 14 .debug_aranges 00003770  00000000  00000000  0007b080  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_rnglists 00002a6a  00000000  00000000  0007e4b0  2**0
+ 15 .debug_rnglists 00002a6a  00000000  00000000  0007e7f0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_macro  00054fd7  00000000  00000000  00080f1a  2**0
+ 16 .debug_macro  00054fd7  00000000  00000000  0008125a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line   00050265  00000000  00000000  000d5ef1  2**0
+ 17 .debug_line   00050265  00000000  00000000  000d6231  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_str    001f0256  00000000  00000000  00126156  2**0
+ 18 .debug_str    001f0256  00000000  00000000  00126496  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .comment      000000c2  00000000  00000000  003163ac  2**0
+ 19 .comment      000000c2  00000000  00000000  003166ec  2**0
                   CONTENTS, READONLY
- 22 .debug_frame  0000f0e8  00000000  00000000  00316470  2**2
+ 20 .debug_frame  0000f0e8  00000000  00000000  003167b0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 23 .debug_line_str 00000071  00000000  00000000  00325558  2**0
+ 21 .debug_line_str 00000071  00000000  00000000  00325898  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -66,7 +62,7 @@ Disassembly of section .text:
  80002b2:	2301      	movs	r3, #1
  80002b4:	7023      	strb	r3, [r4, #0]
  80002b6:	bd10      	pop	{r4, pc}
- 80002b8:	24000ec0 	.word	0x24000ec0
+ 80002b8:	24000cc0 	.word	0x24000cc0
  80002bc:	00000000 	.word	0x00000000
  80002c0:	080264dc 	.word	0x080264dc
 
@@ -79,7 +75,7 @@ Disassembly of section .text:
  80002ce:	f3af 8000 	nop.w
  80002d2:	bd08      	pop	{r3, pc}
  80002d4:	00000000 	.word	0x00000000
- 80002d8:	24000ec4 	.word	0x24000ec4
+ 80002d8:	24000cc4 	.word	0x24000cc4
  80002dc:	080264dc 	.word	0x080264dc
 
 080002e0 <memchr>:
@@ -1695,7 +1691,7 @@ int32_t IS42S32800J_ClockEnable(SDRAM_HandleTypeDef *Ctx, uint32_t Interface)
  8000b82:	3708      	adds	r7, #8
  8000b84:	46bd      	mov	sp, r7
  8000b86:	bd80      	pop	{r7, pc}
- 8000b88:	24000ee0 	.word	0x24000ee0
+ 8000b88:	24000ce0 	.word	0x24000ce0
 
 08000b8c <IS42S32800J_Precharge>:
   * @param  Ctx Component object pointer
@@ -1750,7 +1746,7 @@ int32_t IS42S32800J_Precharge(SDRAM_HandleTypeDef *Ctx, uint32_t Interface)
  8000bca:	3708      	adds	r7, #8
  8000bcc:	46bd      	mov	sp, r7
  8000bce:	bd80      	pop	{r7, pc}
- 8000bd0:	24000ee0 	.word	0x24000ee0
+ 8000bd0:	24000ce0 	.word	0x24000ce0
 
 08000bd4 <IS42S32800J_ModeRegConfig>:
   * @param  Ctx Component object pointer
@@ -1834,7 +1830,7 @@ int32_t IS42S32800J_ModeRegConfig(SDRAM_HandleTypeDef *Ctx, IS42S32800J_Context_
  8000c32:	3710      	adds	r7, #16
  8000c34:	46bd      	mov	sp, r7
  8000c36:	bd80      	pop	{r7, pc}
- 8000c38:	24000ee0 	.word	0x24000ee0
+ 8000c38:	24000ce0 	.word	0x24000ce0
 
 08000c3c <IS42S32800J_RefreshMode>:
   * @param  RefreshMode Could be IS42S32800J_CMD_AUTOREFRESH_MODE or
@@ -1891,7 +1887,7 @@ int32_t IS42S32800J_RefreshMode(SDRAM_HandleTypeDef *Ctx, uint32_t Interface, ui
  8000c7e:	46bd      	mov	sp, r7
  8000c80:	bd80      	pop	{r7, pc}
  8000c82:	bf00      	nop
- 8000c84:	24000ee0 	.word	0x24000ee0
+ 8000c84:	24000ce0 	.word	0x24000ce0
 
 08000c88 <IS42S32800J_RefreshRate>:
   * @param  Ctx Component object pointer
@@ -4225,7 +4221,7 @@ int32_t NT35510_Init(NT35510_Object_t *pObj, uint32_t ColorCoding, uint32_t Orie
  8001ad0:	080274d4 	.word	0x080274d4
  8001ad4:	08027545 	.word	0x08027545
  8001ad8:	08027549 	.word	0x08027549
- 8001adc:	24000ef0 	.word	0x24000ef0
+ 8001adc:	24000cf0 	.word	0x24000cf0
  8001ae0:	0802754d 	.word	0x0802754d
  8001ae4:	08027551 	.word	0x08027551
  8001ae8:	08027555 	.word	0x08027555
@@ -4361,7 +4357,7 @@ int32_t NT35510_SetBrightness(NT35510_Object_t *pObj, uint32_t Brightness)
  8001b9c:	bd80      	pop	{r7, pc}
  8001b9e:	bf00      	nop
  8001ba0:	51eb851f 	.word	0x51eb851f
- 8001ba4:	24000ef0 	.word	0x24000ef0
+ 8001ba4:	24000cf0 	.word	0x24000cf0
 
 08001ba8 <NT35510_GetBrightness>:
   * @param  pObj Component object
@@ -4388,7 +4384,7 @@ int32_t NT35510_GetBrightness(NT35510_Object_t *pObj, uint32_t *Brightness)
  8001bc0:	46bd      	mov	sp, r7
  8001bc2:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001bc6:	4770      	bx	lr
- 8001bc8:	24000ef0 	.word	0x24000ef0
+ 8001bc8:	24000cf0 	.word	0x24000cf0
 
 08001bcc <NT35510_DisplayOn>:
   * @brief  Set the display On.
@@ -4619,7 +4615,7 @@ int32_t NT35510_SetOrientation(NT35510_Object_t *pObj, uint32_t Orientation)
  8001d16:	bd80      	pop	{r7, pc}
  8001d18:	080274cc 	.word	0x080274cc
  8001d1c:	080274d4 	.word	0x080274d4
- 8001d20:	24000ef0 	.word	0x24000ef0
+ 8001d20:	24000cf0 	.word	0x24000cf0
  8001d24:	080274b8 	.word	0x080274b8
  8001d28:	080274c0 	.word	0x080274c0
 
@@ -4652,7 +4648,7 @@ int32_t NT35510_GetOrientation(NT35510_Object_t *pObj, uint32_t *Orientation)
  8001d44:	46bd      	mov	sp, r7
  8001d46:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001d4a:	4770      	bx	lr
- 8001d4c:	24000ef0 	.word	0x24000ef0
+ 8001d4c:	24000cf0 	.word	0x24000cf0
 
 08001d50 <NT35510_GetXSize>:
   * @param  pObj Component object
@@ -4709,7 +4705,7 @@ int32_t NT35510_GetXSize(NT35510_Object_t *pObj, uint32_t *Xsize)
  8001d8c:	46bd      	mov	sp, r7
  8001d8e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001d92:	4770      	bx	lr
- 8001d94:	24000ef0 	.word	0x24000ef0
+ 8001d94:	24000cf0 	.word	0x24000cf0
 
 08001d98 <NT35510_GetYSize>:
   * @param  pObj Component object
@@ -4766,7 +4762,7 @@ int32_t NT35510_GetYSize(NT35510_Object_t *pObj, uint32_t *Ysize)
  8001dd4:	46bd      	mov	sp, r7
  8001dd6:	f85d 7b04 	ldr.w	r7, [sp], #4
  8001dda:	4770      	bx	lr
- 8001ddc:	24000ef0 	.word	0x24000ef0
+ 8001ddc:	24000cf0 	.word	0x24000cf0
 
 08001de0 <NT35510_SetCursor>:
   * @param  Xpos X position
@@ -6465,7 +6461,7 @@ int32_t OTM8009A_Init(OTM8009A_Object_t *pObj, uint32_t ColorCoding, uint32_t Or
  8002a30:	080276c4 	.word	0x080276c4
  8002a34:	08027594 	.word	0x08027594
  8002a38:	08027595 	.word	0x08027595
- 8002a3c:	24000efc 	.word	0x24000efc
+ 8002a3c:	24000cfc 	.word	0x24000cfc
  8002a40:	08027596 	.word	0x08027596
   default :
     break;
@@ -6658,7 +6654,7 @@ int32_t OTM8009A_Init(OTM8009A_Object_t *pObj, uint32_t ColorCoding, uint32_t Or
  8002b82:	bf00      	nop
  8002b84:	08027568 	.word	0x08027568
  8002b88:	0802756c 	.word	0x0802756c
- 8002b8c:	24000efc 	.word	0x24000efc
+ 8002b8c:	24000cfc 	.word	0x24000cfc
  8002b90:	08027597 	.word	0x08027597
  8002b94:	08027570 	.word	0x08027570
  8002b98:	80808081 	.word	0x80808081
@@ -6796,7 +6792,7 @@ int32_t OTM8009A_SetBrightness(OTM8009A_Object_t *pObj, uint32_t Brightness)
  8002c54:	bd80      	pop	{r7, pc}
  8002c56:	bf00      	nop
  8002c58:	51eb851f 	.word	0x51eb851f
- 8002c5c:	24000efc 	.word	0x24000efc
+ 8002c5c:	24000cfc 	.word	0x24000cfc
 
 08002c60 <OTM8009A_GetBrightness>:
   * @param  pObj Component object
@@ -6823,7 +6819,7 @@ int32_t OTM8009A_GetBrightness(OTM8009A_Object_t *pObj, uint32_t *Brightness)
  8002c78:	46bd      	mov	sp, r7
  8002c7a:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002c7e:	4770      	bx	lr
- 8002c80:	24000efc 	.word	0x24000efc
+ 8002c80:	24000cfc 	.word	0x24000cfc
 
 08002c84 <OTM8009A_DisplayOn>:
   * @brief  Set the display On.
@@ -7054,7 +7050,7 @@ int32_t OTM8009A_SetOrientation(OTM8009A_Object_t *pObj, uint32_t Orientation)
  8002dce:	bd80      	pop	{r7, pc}
  8002dd0:	08027568 	.word	0x08027568
  8002dd4:	0802756c 	.word	0x0802756c
- 8002dd8:	24000efc 	.word	0x24000efc
+ 8002dd8:	24000cfc 	.word	0x24000cfc
 
 08002ddc <OTM8009A_GetOrientation>:
   * @param  pObj Component object
@@ -7085,7 +7081,7 @@ int32_t OTM8009A_GetOrientation(OTM8009A_Object_t *pObj, uint32_t *Orientation)
  8002df4:	46bd      	mov	sp, r7
  8002df6:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002dfa:	4770      	bx	lr
- 8002dfc:	24000efc 	.word	0x24000efc
+ 8002dfc:	24000cfc 	.word	0x24000cfc
 
 08002e00 <OTM8009A_GetXSize>:
   * @param  pObj Component object
@@ -7142,7 +7138,7 @@ int32_t OTM8009A_GetXSize(OTM8009A_Object_t *pObj, uint32_t *Xsize)
  8002e3c:	46bd      	mov	sp, r7
  8002e3e:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002e42:	4770      	bx	lr
- 8002e44:	24000efc 	.word	0x24000efc
+ 8002e44:	24000cfc 	.word	0x24000cfc
 
 08002e48 <OTM8009A_GetYSize>:
   * @param  pObj Component object
@@ -7199,7 +7195,7 @@ int32_t OTM8009A_GetYSize(OTM8009A_Object_t *pObj, uint32_t *Ysize)
  8002e84:	46bd      	mov	sp, r7
  8002e86:	f85d 7b04 	ldr.w	r7, [sp], #4
  8002e8a:	4770      	bx	lr
- 8002e8c:	24000efc 	.word	0x24000efc
+ 8002e8c:	24000cfc 	.word	0x24000cfc
 
 08002e90 <OTM8009A_SetCursor>:
   * @param  Xpos X position
@@ -19029,14 +19025,14 @@ void AnalogAudioRecord_demo(void)
  8007a88:	24000a54 	.word	0x24000a54
  8007a8c:	08026578 	.word	0x08026578
  8007a90:	240005ac 	.word	0x240005ac
- 8007a94:	24000f08 	.word	0x24000f08
- 8007a98:	24000f20 	.word	0x24000f20
+ 8007a94:	24000d08 	.word	0x24000d08
+ 8007a98:	24000d20 	.word	0x24000d20
  8007a9c:	240005c8 	.word	0x240005c8
- 8007aa0:	24000f0c 	.word	0x24000f0c
+ 8007aa0:	24000d0c 	.word	0x24000d0c
  8007aa4:	08026598 	.word	0x08026598
  8007aa8:	24000ac0 	.word	0x24000ac0
  8007aac:	080265ac 	.word	0x080265ac
- 8007ab0:	240057c0 	.word	0x240057c0
+ 8007ab0:	240055c0 	.word	0x240055c0
 
 08007ab4 <AudioPlay_demo>:
   * @brief  Audio Play demo
@@ -19434,7 +19430,7 @@ void AudioPlay_demo (void)
  8007dc4:	ffff0000 	.word	0xffff0000
  8007dc8:	080265cc 	.word	0x080265cc
  8007dcc:	080265d4 	.word	0x080265d4
- 8007dd0:	24001758 	.word	0x24001758
+ 8007dd0:	24001558 	.word	0x24001558
  8007dd4:	00017700 	.word	0x00017700
  8007dd8:	080265f4 	.word	0x080265f4
  8007ddc:	0802660c 	.word	0x0802660c
@@ -19446,8 +19442,8 @@ void AudioPlay_demo (void)
  8007df4:	08026670 	.word	0x08026670
  8007df8:	08026688 	.word	0x08026688
  8007dfc:	08026698 	.word	0x08026698
- 8007e00:	24001754 	.word	0x24001754
- 8007e04:	24001750 	.word	0x24001750
+ 8007e00:	24001554 	.word	0x24001554
+ 8007e04:	24001550 	.word	0x24001550
  8007e08:	080266d0 	.word	0x080266d0
       case JOY_LEFT:
         if (audio_state != AUDIO_STATE_PAUSE)
@@ -19750,9 +19746,9 @@ void AudioPlay_demo (void)
  8008020:	f507 7788 	add.w	r7, r7, #272	@ 0x110
  8008024:	46bd      	mov	sp, r7
  8008026:	bd80      	pop	{r7, pc}
- 8008028:	24001750 	.word	0x24001750
+ 8008028:	24001550 	.word	0x24001550
  800802c:	08026670 	.word	0x08026670
- 8008030:	24001758 	.word	0x24001758
+ 8008030:	24001558 	.word	0x24001558
  8008034:	240005cc 	.word	0x240005cc
  8008038:	08080000 	.word	0x08080000
  800803c:	080266d0 	.word	0x080266d0
@@ -19941,8 +19937,8 @@ AUDIO_ErrorTypeDef AUDIO_Start(uint32_t *psrc_address, uint32_t file_size)
  8008182:	3710      	adds	r7, #16
  8008184:	46bd      	mov	sp, r7
  8008186:	bd80      	pop	{r7, pc}
- 8008188:	24000f40 	.word	0x24000f40
- 800818c:	24001750 	.word	0x24001750
+ 8008188:	24000d40 	.word	0x24000d40
+ 800818c:	24001550 	.word	0x24001550
 
 08008190 <AUDIO_Process>:
   * @brief  Manages Audio process.
@@ -20196,10 +20192,10 @@ __STATIC_FORCEINLINE void __DSB(void)
  80082f2:	3728      	adds	r7, #40	@ 0x28
  80082f4:	46bd      	mov	sp, r7
  80082f6:	bd80      	pop	{r7, pc}
- 80082f8:	24001750 	.word	0x24001750
- 80082fc:	24000f40 	.word	0x24000f40
+ 80082f8:	24001550 	.word	0x24001550
+ 80082fc:	24000d40 	.word	0x24000d40
  8008300:	e000ed00 	.word	0xe000ed00
- 8008304:	24001340 	.word	0x24001340
+ 8008304:	24001140 	.word	0x24001140
 
 08008308 <GetData>:
   * @brief  Gets Data from storage unit.
@@ -20262,7 +20258,7 @@ static uint32_t GetData(void *pdata, uint32_t offset, uint8_t *pbuf, uint32_t Nb
  8008358:	46bd      	mov	sp, r7
  800835a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800835e:	4770      	bx	lr
- 8008360:	24000f40 	.word	0x24000f40
+ 8008360:	24000d40 	.word	0x24000d40
 
 08008364 <BSP_AUDIO_OUT_TransferComplete_CallBack>:
   * @brief  Manages the full Transfer complete event.
@@ -20293,8 +20289,8 @@ void BSP_AUDIO_OUT_TransferComplete_CallBack(uint32_t Instance)
  8008380:	46bd      	mov	sp, r7
  8008382:	f85d 7b04 	ldr.w	r7, [sp], #4
  8008386:	4770      	bx	lr
- 8008388:	24001750 	.word	0x24001750
- 800838c:	24000f40 	.word	0x24000f40
+ 8008388:	24001550 	.word	0x24001550
+ 800838c:	24000d40 	.word	0x24000d40
 
 08008390 <BSP_AUDIO_OUT_HalfTransfer_CallBack>:
   * @brief  Manages the DMA Half Transfer complete event.
@@ -20326,8 +20322,8 @@ void BSP_AUDIO_OUT_HalfTransfer_CallBack(uint32_t Instance)
  80083ac:	46bd      	mov	sp, r7
  80083ae:	f85d 7b04 	ldr.w	r7, [sp], #4
  80083b2:	4770      	bx	lr
- 80083b4:	24001750 	.word	0x24001750
- 80083b8:	24000f40 	.word	0x24000f40
+ 80083b4:	24001550 	.word	0x24001550
+ 80083b8:	24000d40 	.word	0x24000d40
 
 080083bc <BSP_AUDIO_OUT_Error_CallBack>:
   * @brief  Manages the DMA FIFO error event.
@@ -20612,16 +20608,16 @@ void AudioRecord_demo(void)
  8008588:	24000a54 	.word	0x24000a54
  800858c:	080267f8 	.word	0x080267f8
  8008590:	240005fc 	.word	0x240005fc
- 8008594:	24005764 	.word	0x24005764
- 8008598:	2400577c 	.word	0x2400577c
+ 8008594:	24005564 	.word	0x24005564
+ 8008598:	2400557c 	.word	0x2400557c
  800859c:	24000618 	.word	0x24000618
- 80085a0:	24005768 	.word	0x24005768
- 80085a4:	24005760 	.word	0x24005760
+ 80085a0:	24005568 	.word	0x24005568
+ 80085a4:	24005560 	.word	0x24005560
  80085a8:	08026818 	.word	0x08026818
- 80085ac:	24000cc0 	.word	0x24000cc0
+ 80085ac:	38000000 	.word	0x38000000
  80085b0:	0802682c 	.word	0x0802682c
- 80085b4:	24001760 	.word	0x24001760
- 80085b8:	240057c0 	.word	0x240057c0
+ 80085b4:	24001560 	.word	0x24001560
+ 80085b8:	240055c0 	.word	0x240055c0
 
 080085bc <BSP_AUDIO_IN_TransferComplete_CallBack>:
   * @brief Calculates the remaining file size and new position of the pointer.
@@ -20786,11 +20782,11 @@ void  BSP_AUDIO_IN_TransferComplete_CallBack(uint32_t Instance)
  80086a6:	46bd      	mov	sp, r7
  80086a8:	bd80      	pop	{r7, pc}
  80086aa:	bf00      	nop
- 80086ac:	24000dc0 	.word	0x24000dc0
+ 80086ac:	38000100 	.word	0x38000100
  80086b0:	e000ed00 	.word	0xe000ed00
- 80086b4:	24005790 	.word	0x24005790
- 80086b8:	24001760 	.word	0x24001760
- 80086bc:	24005794 	.word	0x24005794
+ 80086b4:	24005590 	.word	0x24005590
+ 80086b8:	24001560 	.word	0x24001560
+ 80086bc:	24005594 	.word	0x24005594
 
 080086c0 <BSP_AUDIO_IN_HalfTransfer_CallBack>:
   * @brief  Manages the DMA Half Transfer complete interrupt.
@@ -20956,11 +20952,11 @@ void BSP_AUDIO_IN_HalfTransfer_CallBack(uint32_t Instance)
  80087aa:	46bd      	mov	sp, r7
  80087ac:	bd80      	pop	{r7, pc}
  80087ae:	bf00      	nop
- 80087b0:	24000cc0 	.word	0x24000cc0
+ 80087b0:	38000000 	.word	0x38000000
  80087b4:	e000ed00 	.word	0xe000ed00
- 80087b8:	24005790 	.word	0x24005790
- 80087bc:	24001760 	.word	0x24001760
- 80087c0:	24005794 	.word	0x24005794
+ 80087b8:	24005590 	.word	0x24005590
+ 80087bc:	24001560 	.word	0x24001560
+ 80087c0:	24005594 	.word	0x24005594
 
 080087c4 <BSP_AUDIO_IN_Error_CallBack>:
   * @brief  Audio IN Error callback function
@@ -21403,12 +21399,12 @@ void Camera_demo (void)
  8008aa6:	46bd      	mov	sp, r7
  8008aa8:	bd80      	pop	{r7, pc}
  8008aaa:	bf00      	nop
- 8008aac:	2400579c 	.word	0x2400579c
- 8008ab0:	240057a0 	.word	0x240057a0
+ 8008aac:	2400559c 	.word	0x2400559c
+ 8008ab0:	240055a0 	.word	0x240055a0
  8008ab4:	ff0000ff 	.word	0xff0000ff
  8008ab8:	0802684c 	.word	0x0802684c
- 8008abc:	24005798 	.word	0x24005798
- 8008ac0:	240057a4 	.word	0x240057a4
+ 8008abc:	24005598 	.word	0x24005598
+ 8008ac0:	240055a4 	.word	0x240055a4
  8008ac4:	24000624 	.word	0x24000624
  8008ac8:	08026870 	.word	0x08026870
  8008acc:	08026894 	.word	0x08026894
@@ -21424,7 +21420,7 @@ void Camera_demo (void)
  8008af4:	0802698c 	.word	0x0802698c
  8008af8:	080269b0 	.word	0x080269b0
  8008afc:	080269d4 	.word	0x080269d4
- 8008b00:	240057c0 	.word	0x240057c0
+ 8008b00:	240055c0 	.word	0x240055c0
 
 08008b04 <Camera_SetHint>:
   * @brief  Display Camera demo hint
@@ -21507,12 +21503,12 @@ static void Camera_SetHint(void)
  8008b94:	bd80      	pop	{r7, pc}
  8008b96:	bf00      	nop
  8008b98:	ff0000ff 	.word	0xff0000ff
- 8008b9c:	2400579c 	.word	0x2400579c
+ 8008b9c:	2400559c 	.word	0x2400559c
  8008ba0:	24000a44 	.word	0x24000a44
  8008ba4:	080269f8 	.word	0x080269f8
  8008ba8:	24000a54 	.word	0x24000a54
  8008bac:	08026a08 	.word	0x08026a08
- 8008bb0:	240057a0 	.word	0x240057a0
+ 8008bb0:	240055a0 	.word	0x240055a0
 
 08008bb4 <BSP_CAMERA_FrameEventCallback>:
 
@@ -21556,7 +21552,7 @@ void BSP_CAMERA_FrameEventCallback(uint32_t Instance)
  8008bee:	46bd      	mov	sp, r7
  8008bf0:	bd80      	pop	{r7, pc}
  8008bf2:	bf00      	nop
- 8008bf4:	240057a4 	.word	0x240057a4
+ 8008bf4:	240055a4 	.word	0x240055a4
  8008bf8:	24000634 	.word	0x24000634
  8008bfc:	24000648 	.word	0x24000648
  8008c00:	d0600000 	.word	0xd0600000
@@ -21702,7 +21698,7 @@ static void LCD_LL_Convert_RGB565ToARGB8888(void *pSrc, void *pDst, uint16_t xsi
  8008cd2:	3728      	adds	r7, #40	@ 0x28
  8008cd4:	46bd      	mov	sp, r7
  8008cd6:	bd80      	pop	{r7, pc}
- 8008cd8:	24008824 	.word	0x24008824
+ 8008cd8:	24008624 	.word	0x24008624
  8008cdc:	52001000 	.word	0x52001000
 
 08008ce0 <Joystick_demo>:
@@ -21841,10 +21837,10 @@ void Joystick_demo (void)
   }
 }
  8008db2:	bd80      	pop	{r7, pc}
- 8008db4:	240057b8 	.word	0x240057b8
- 8008db8:	240057a8 	.word	0x240057a8
- 8008dbc:	240057ac 	.word	0x240057ac
- 8008dc0:	240057c0 	.word	0x240057c0
+ 8008db4:	240055b8 	.word	0x240055b8
+ 8008db8:	240055a8 	.word	0x240055a8
+ 8008dbc:	240055ac 	.word	0x240055ac
+ 8008dc0:	240055c0 	.word	0x240055c0
 
 08008dc4 <BSP_JOY_Callback>:
 
@@ -21867,7 +21863,7 @@ void BSP_JOY_Callback(JOY_TypeDef JOY, uint32_t JoyPin)
  8008ddc:	f85d 7b04 	ldr.w	r7, [sp], #4
  8008de0:	4770      	bx	lr
  8008de2:	bf00      	nop
- 8008de4:	240057a8 	.word	0x240057a8
+ 8008de4:	240055a8 	.word	0x240055a8
 
 08008de8 <Joystick_SetCursorPosition>:
 * @brief  Joystick cursor position
@@ -22090,9 +22086,9 @@ static void Joystick_SetCursorPosition()
  8008f46:	bf00      	nop
  8008f48:	bd80      	pop	{r7, pc}
  8008f4a:	bf00      	nop
- 8008f4c:	240057ac 	.word	0x240057ac
+ 8008f4c:	240055ac 	.word	0x240055ac
  8008f50:	2400065c 	.word	0x2400065c
- 8008f54:	240057b4 	.word	0x240057b4
+ 8008f54:	240055b4 	.word	0x240055b4
  8008f58:	2400065e 	.word	0x2400065e
  8008f5c:	ff0000ff 	.word	0xff0000ff
  8008f60:	ffff0000 	.word	0xffff0000
@@ -22199,8 +22195,8 @@ static void Joystick_SetHint(void)
  800901a:	bf00      	nop
  800901c:	46bd      	mov	sp, r7
  800901e:	bd80      	pop	{r7, pc}
- 8009020:	240057b0 	.word	0x240057b0
- 8009024:	240057b4 	.word	0x240057b4
+ 8009020:	240055b0 	.word	0x240055b0
+ 8009024:	240055b4 	.word	0x240055b4
  8009028:	ff0000ff 	.word	0xff0000ff
  800902c:	24000a44 	.word	0x24000a44
  8009030:	08026a3c 	.word	0x08026a3c
@@ -22271,7 +22267,7 @@ void LCD_demo (void)
   }
 }
  800908e:	bd80      	pop	{r7, pc}
- 8009090:	240057bc 	.word	0x240057bc
+ 8009090:	240055bc 	.word	0x240055bc
 
 08009094 <LCD_SetHint>:
   * @brief  Display LCD demo hint
@@ -22952,8 +22948,8 @@ int main(void)
  8009592:	e7d1      	b.n	8009538 <main+0x4c>
  8009594:	0802a310 	.word	0x0802a310
  8009598:	24000a44 	.word	0x24000a44
- 800959c:	240057c0 	.word	0x240057c0
- 80095a0:	240057bd 	.word	0x240057bd
+ 800959c:	240055c0 	.word	0x240055c0
+ 80095a0:	240055bd 	.word	0x240055bd
  80095a4:	24000668 	.word	0x24000668
  80095a8:	24000664 	.word	0x24000664
 
@@ -23259,7 +23255,7 @@ static void Display_DemoDescription(void)
  8009794:	24000a54 	.word	0x24000a54
  8009798:	ff0000ff 	.word	0xff0000ff
  800979c:	08026bf4 	.word	0x08026bf4
- 80097a0:	240057bd 	.word	0x240057bd
+ 80097a0:	240055bd 	.word	0x240055bd
  80097a4:	24000668 	.word	0x24000668
  80097a8:	08026c14 	.word	0x08026c14
 
@@ -23279,7 +23275,7 @@ uint8_t CheckForUserInput(void) { return ButtonState; }
  80097b8:	46bd      	mov	sp, r7
  80097ba:	f85d 7b04 	ldr.w	r7, [sp], #4
  80097be:	4770      	bx	lr
- 80097c0:	240057c0 	.word	0x240057c0
+ 80097c0:	240055c0 	.word	0x240055c0
 
 080097c4 <BSP_PB_Callback>:
  * @brief  Button Callback
@@ -23311,7 +23307,7 @@ void BSP_PB_Callback(Button_TypeDef Button)
  80097e0:	f85d 7b04 	ldr.w	r7, [sp], #4
  80097e4:	4770      	bx	lr
  80097e6:	bf00      	nop
- 80097e8:	240057c0 	.word	0x240057c0
+ 80097e8:	240055c0 	.word	0x240055c0
 
 080097ec <Error_Handler>:
  * @brief  This function is executed in case of error occurrence.
@@ -23983,10 +23979,10 @@ void QSPI_demo (void)
  8009be0:	08026d10 	.word	0x08026d10
  8009be4:	08026d28 	.word	0x08026d28
  8009be8:	08026d40 	.word	0x08026d40
- 8009bec:	240057c8 	.word	0x240057c8
+ 8009bec:	240055c8 	.word	0x240055c8
  8009bf0:	08026d54 	.word	0x08026d54
  8009bf4:	08026d6c 	.word	0x08026d6c
- 8009bf8:	240059c8 	.word	0x240059c8
+ 8009bf8:	240057c8 	.word	0x240057c8
  8009bfc:	08026d84 	.word	0x08026d84
  8009c00:	08026d98 	.word	0x08026d98
  8009c04:	08026db0 	.word	0x08026db0
@@ -24740,7 +24736,7 @@ static void SD_demo(uint32_t Mode)
  800a0b6:	3728      	adds	r7, #40	@ 0x28
  800a0b8:	46bd      	mov	sp, r7
  800a0ba:	bd80      	pop	{r7, pc}
- 800a0bc:	24006fe8 	.word	0x24006fe8
+ 800a0bc:	24006de8 	.word	0x24006de8
  800a0c0:	08026eac 	.word	0x08026eac
  800a0c4:	ffff0000 	.word	0xffff0000
  800a0c8:	08026ec0 	.word	0x08026ec0
@@ -24748,12 +24744,12 @@ static void SD_demo(uint32_t Mode)
  800a0d0:	08026ef0 	.word	0x08026ef0
  800a0d4:	08026f04 	.word	0x08026f04
  800a0d8:	08026f18 	.word	0x08026f18
- 800a0dc:	24005be0 	.word	0x24005be0
- 800a0e0:	24006fe0 	.word	0x24006fe0
+ 800a0dc:	240059e0 	.word	0x240059e0
+ 800a0e0:	24006de0 	.word	0x24006de0
  800a0e4:	08026f28 	.word	0x08026f28
  800a0e8:	08026f3c 	.word	0x08026f3c
- 800a0ec:	240065e0 	.word	0x240065e0
- 800a0f0:	24006fe4 	.word	0x24006fe4
+ 800a0ec:	240063e0 	.word	0x240063e0
+ 800a0f0:	24006de4 	.word	0x24006de4
  800a0f4:	e000ed00 	.word	0xe000ed00
  800a0f8:	08026f4c 	.word	0x08026f4c
  800a0fc:	08026f60 	.word	0x08026f60
@@ -24761,7 +24757,7 @@ static void SD_demo(uint32_t Mode)
  800a104:	08026f88 	.word	0x08026f88
  800a108:	08026f9c 	.word	0x08026f9c
  800a10c:	08026fb8 	.word	0x08026fb8
- 800a110:	240057c0 	.word	0x240057c0
+ 800a110:	240055c0 	.word	0x240055c0
 
 0800a114 <BSP_SD_DetectCallback>:
 * @brief  BSP SD Callback.
@@ -25177,7 +25173,7 @@ void BSP_SD_WriteCpltCallback(uint32_t Instance)
  800a3a0:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a3a4:	4770      	bx	lr
  800a3a6:	bf00      	nop
- 800a3a8:	24006fe0 	.word	0x24006fe0
+ 800a3a8:	24006de0 	.word	0x24006de0
 
 0800a3ac <BSP_SD_ReadCpltCallback>:
 * @brief Rx Transfer completed callbacks
@@ -25201,7 +25197,7 @@ void BSP_SD_ReadCpltCallback(uint32_t Instance)
  800a3c0:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a3c4:	4770      	bx	lr
  800a3c6:	bf00      	nop
- 800a3c8:	24006fe4 	.word	0x24006fe4
+ 800a3c8:	24006de4 	.word	0x24006de4
 
 0800a3cc <SDRAM_demo>:
   * @brief  SDRAM Demo
@@ -25382,17 +25378,17 @@ void SDRAM_demo (void)
  800a4dc:	08027090 	.word	0x08027090
  800a4e0:	080270a4 	.word	0x080270a4
  800a4e4:	a244250f 	.word	0xa244250f
- 800a4e8:	24006fec 	.word	0x24006fec
+ 800a4e8:	24006dec 	.word	0x24006dec
  800a4ec:	d0178000 	.word	0xd0178000
- 800a4f0:	24008a70 	.word	0x24008a70
+ 800a4f0:	24008870 	.word	0x24008870
  800a4f4:	080270c0 	.word	0x080270c0
  800a4f8:	080270d8 	.word	0x080270d8
- 800a4fc:	240073ec 	.word	0x240073ec
+ 800a4fc:	240071ec 	.word	0x240071ec
  800a500:	080270ec 	.word	0x080270ec
  800a504:	08027104 	.word	0x08027104
  800a508:	08027118 	.word	0x08027118
  800a50c:	08027130 	.word	0x08027130
- 800a510:	240057c0 	.word	0x240057c0
+ 800a510:	240055c0 	.word	0x240055c0
 
 0800a514 <SDRAM_DMA_demo>:
   * @brief  SDRAM DMA Demo
@@ -25610,23 +25606,23 @@ void SDRAM_DMA_demo (void)
 }
  800a65c:	bd80      	pop	{r7, pc}
  800a65e:	bf00      	nop
- 800a660:	240057c4 	.word	0x240057c4
+ 800a660:	240055c4 	.word	0x240055c4
  800a664:	08027070 	.word	0x08027070
  800a668:	08027090 	.word	0x08027090
  800a66c:	080270a4 	.word	0x080270a4
  800a670:	a244250f 	.word	0xa244250f
- 800a674:	24006fec 	.word	0x24006fec
- 800a678:	240077ec 	.word	0x240077ec
+ 800a674:	24006dec 	.word	0x24006dec
+ 800a678:	240075ec 	.word	0x240075ec
  800a67c:	d0178000 	.word	0xd0178000
- 800a680:	24008a70 	.word	0x24008a70
+ 800a680:	24008870 	.word	0x24008870
  800a684:	080270c0 	.word	0x080270c0
  800a688:	080270d8 	.word	0x080270d8
- 800a68c:	240073ec 	.word	0x240073ec
+ 800a68c:	240071ec 	.word	0x240071ec
  800a690:	080270ec 	.word	0x080270ec
  800a694:	08027104 	.word	0x08027104
  800a698:	08027118 	.word	0x08027118
  800a69c:	08027130 	.word	0x08027130
- 800a6a0:	240057c0 	.word	0x240057c0
+ 800a6a0:	240055c0 	.word	0x240055c0
 
 0800a6a4 <SDRAM_SetHint>:
   * @brief  Display SDRAM Demo Hint
@@ -26089,7 +26085,7 @@ void HAL_SDRAM_DMA_XferCpltCallback(MDMA_HandleTypeDef *hmdma)
  800a97c:	f85d 7b04 	ldr.w	r7, [sp], #4
  800a980:	4770      	bx	lr
  800a982:	bf00      	nop
- 800a984:	240077ec 	.word	0x240077ec
+ 800a984:	240075ec 	.word	0x240075ec
 
 0800a988 <HAL_SDRAM_DMA_XferErrorCallback>:
   * @brief  DMA transfer complete error callback.
@@ -26546,9 +26542,9 @@ void *_sbrk(ptrdiff_t incr)
  800ab3c:	46bd      	mov	sp, r7
  800ab3e:	bd80      	pop	{r7, pc}
  800ab40:	24080000 	.word	0x24080000
- 800ab44:	00000400 	.word	0x00000400
- 800ab48:	240077f0 	.word	0x240077f0
- 800ab4c:	24008db0 	.word	0x24008db0
+ 800ab44:	00001000 	.word	0x00001000
+ 800ab48:	240075f0 	.word	0x240075f0
+ 800ab4c:	24008bb0 	.word	0x24008bb0
 
 0800ab50 <Touchscreen_demo1>:
   * @brief  Touchscreen Demo1 : test touchscreen calibration and single touch in polling mode
@@ -26822,9 +26818,9 @@ void Touchscreen_demo1(void)
  800ace6:	3718      	adds	r7, #24
  800ace8:	46bd      	mov	sp, r7
  800acea:	bd80      	pop	{r7, pc}
- 800acec:	240057c0 	.word	0x240057c0
- 800acf0:	24007830 	.word	0x24007830
- 800acf4:	240077f8 	.word	0x240077f8
+ 800acec:	240055c0 	.word	0x240055c0
+ 800acf0:	24007630 	.word	0x24007630
+ 800acf4:	240075f8 	.word	0x240075f8
  800acf8:	ff0000ff 	.word	0xff0000ff
  800acfc:	ffff0000 	.word	0xffff0000
 
@@ -26956,9 +26952,9 @@ void Touchscreen_demo2(void)
  800adaa:	3710      	adds	r7, #16
  800adac:	46bd      	mov	sp, r7
  800adae:	bd80      	pop	{r7, pc}
- 800adb0:	24007830 	.word	0x24007830
- 800adb4:	24007834 	.word	0x24007834
- 800adb8:	240057c0 	.word	0x240057c0
+ 800adb0:	24007630 	.word	0x24007630
+ 800adb4:	24007634 	.word	0x24007634
+ 800adb8:	240055c0 	.word	0x240055c0
 
 0800adbc <Touchscreen_Handle_NewTouch>:
   * @brief  Touchscreen_Handle_NewTouch: factorization of touch management
@@ -27345,9 +27341,9 @@ static uint32_t Touchscreen_Handle_NewTouch(void)
  800b068:	46bd      	mov	sp, r7
  800b06a:	bd90      	pop	{r4, r7, pc}
  800b06c:	080272dc 	.word	0x080272dc
- 800b070:	24007804 	.word	0x24007804
+ 800b070:	24007604 	.word	0x24007604
  800b074:	ff0000ff 	.word	0xff0000ff
- 800b078:	240077f4 	.word	0x240077f4
+ 800b078:	240075f4 	.word	0x240075f4
  800b07c:	aaaaaaab 	.word	0xaaaaaaab
  800b080:	24000a54 	.word	0x24000a54
  800b084:	08027230 	.word	0x08027230
@@ -28038,9 +28034,9 @@ LoopFillZerobss:
   ldr r2, =_sidata
  800b614:	0802dfe8 	.word	0x0802dfe8
   ldr r2, =_sbss
- 800b618:	24000ec0 	.word	0x24000ec0
+ 800b618:	24000cc0 	.word	0x24000cc0
   ldr r4, =_ebss
- 800b61c:	24008dac 	.word	0x24008dac
+ 800b61c:	24008bac 	.word	0x24008bac
 
 0800b620 <ADC3_IRQHandler>:
  * @retval None
@@ -28366,7 +28362,7 @@ int32_t  BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef ButtonMode)
  800b82a:	bf00      	nop
  800b82c:	58024400 	.word	0x58024400
  800b830:	240009ec 	.word	0x240009ec
- 800b834:	2400784c 	.word	0x2400784c
+ 800b834:	2400764c 	.word	0x2400764c
  800b838:	0802a274 	.word	0x0802a274
  800b83c:	24000a04 	.word	0x24000a04
  800b840:	24000a08 	.word	0x24000a08
@@ -28423,7 +28419,7 @@ void BSP_PB_IRQHandler(Button_TypeDef Button)
  800b88a:	3708      	adds	r7, #8
  800b88c:	46bd      	mov	sp, r7
  800b88e:	bd80      	pop	{r7, pc}
- 800b890:	2400784c 	.word	0x2400784c
+ 800b890:	2400764c 	.word	0x2400764c
 
 0800b894 <BUTTON_WAKEUP_EXTI_Callback>:
 /**
@@ -28698,11 +28694,11 @@ int32_t BSP_JOY_Init(JOY_TypeDef JOY, JOYMode_TypeDef JoyMode, JOYPin_TypeDef Jo
  800ba5e:	46bd      	mov	sp, r7
  800ba60:	bd80      	pop	{r7, pc}
  800ba62:	bf00      	nop
- 800ba64:	24007854 	.word	0x24007854
+ 800ba64:	24007654 	.word	0x24007654
  800ba68:	58024400 	.word	0x58024400
  800ba6c:	0802a25c 	.word	0x0802a25c
  800ba70:	240009f0 	.word	0x240009f0
- 800ba74:	24007858 	.word	0x24007858
+ 800ba74:	24007658 	.word	0x24007658
  800ba78:	0802a278 	.word	0x0802a278
  800ba7c:	24000a0c 	.word	0x24000a0c
  800ba80:	0802a268 	.word	0x0802a268
@@ -28864,7 +28860,7 @@ int32_t BSP_JOY_DeInit(JOY_TypeDef JOY, JOYPin_TypeDef JoyPins)
  800bb9a:	46bd      	mov	sp, r7
  800bb9c:	bd80      	pop	{r7, pc}
  800bb9e:	bf00      	nop
- 800bba0:	24007854 	.word	0x24007854
+ 800bba0:	24007654 	.word	0x24007654
  800bba4:	58024400 	.word	0x58024400
  800bba8:	240009f0 	.word	0x240009f0
  800bbac:	0802a25c 	.word	0x0802a25c
@@ -28938,7 +28934,7 @@ void BSP_JOY_IRQHandler(JOY_TypeDef JOY, JOYPin_TypeDef JoyPin)
  800bbf6:	3718      	adds	r7, #24
  800bbf8:	46bd      	mov	sp, r7
  800bbfa:	bd80      	pop	{r7, pc}
- 800bbfc:	24007858 	.word	0x24007858
+ 800bbfc:	24007658 	.word	0x24007658
 
 0800bc00 <JOY1_UP_EXTI_Callback>:
 /**
@@ -29350,12 +29346,12 @@ int32_t BSP_AUDIO_OUT_Init(uint32_t Instance, BSP_AUDIO_Init_t* AudioInit)
  800be26:	3750      	adds	r7, #80	@ 0x50
  800be28:	46bd      	mov	sp, r7
  800be2a:	bd80      	pop	{r7, pc}
- 800be2c:	24007a5c 	.word	0x24007a5c
- 800be30:	2400792c 	.word	0x2400792c
+ 800be2c:	2400785c 	.word	0x2400785c
+ 800be30:	2400772c 	.word	0x2400772c
  800be34:	40015804 	.word	0x40015804
  800be38:	51eb851f 	.word	0x51eb851f
- 800be3c:	24007880 	.word	0x24007880
- 800be40:	24007928 	.word	0x24007928
+ 800be3c:	24007680 	.word	0x24007680
+ 800be40:	24007728 	.word	0x24007728
 
 0800be44 <BSP_AUDIO_OUT_DeInit>:
   * @brief  De-initializes the audio out peripheral.
@@ -29448,11 +29444,11 @@ int32_t BSP_AUDIO_OUT_DeInit(uint32_t Instance)
  800beb2:	3710      	adds	r7, #16
  800beb4:	46bd      	mov	sp, r7
  800beb6:	bd80      	pop	{r7, pc}
- 800beb8:	2400792c 	.word	0x2400792c
+ 800beb8:	2400772c 	.word	0x2400772c
  800bebc:	40015804 	.word	0x40015804
- 800bec0:	24007880 	.word	0x24007880
- 800bec4:	24007928 	.word	0x24007928
- 800bec8:	24007a5c 	.word	0x24007a5c
+ 800bec0:	24007680 	.word	0x24007680
+ 800bec4:	24007728 	.word	0x24007728
+ 800bec8:	2400785c 	.word	0x2400785c
 
 0800becc <MX_SAI1_Block_A_Init>:
   * @param  MXConfig SAI configuration structure
@@ -29978,10 +29974,10 @@ int32_t BSP_AUDIO_OUT_Play(uint32_t Instance, uint8_t* pData, uint32_t NbrOfByte
  800c1da:	3718      	adds	r7, #24
  800c1dc:	46bd      	mov	sp, r7
  800c1de:	bd80      	pop	{r7, pc}
- 800c1e0:	24007a5c 	.word	0x24007a5c
- 800c1e4:	2400792c 	.word	0x2400792c
- 800c1e8:	24007880 	.word	0x24007880
- 800c1ec:	24007928 	.word	0x24007928
+ 800c1e0:	2400785c 	.word	0x2400785c
+ 800c1e4:	2400772c 	.word	0x2400772c
+ 800c1e8:	24007680 	.word	0x24007680
+ 800c1ec:	24007728 	.word	0x24007728
 
 0800c1f0 <BSP_AUDIO_OUT_Pause>:
   *          BSP_AUDIO_OUT_Resume() function should be called for resume (use of BSP_AUDIO_OUT_Play()
@@ -30072,10 +30068,10 @@ int32_t BSP_AUDIO_OUT_Pause(uint32_t Instance)
  800c256:	3710      	adds	r7, #16
  800c258:	46bd      	mov	sp, r7
  800c25a:	bd80      	pop	{r7, pc}
- 800c25c:	2400792c 	.word	0x2400792c
- 800c260:	24007880 	.word	0x24007880
- 800c264:	24007928 	.word	0x24007928
- 800c268:	24007a5c 	.word	0x24007a5c
+ 800c25c:	2400772c 	.word	0x2400772c
+ 800c260:	24007680 	.word	0x24007680
+ 800c264:	24007728 	.word	0x24007728
+ 800c268:	2400785c 	.word	0x2400785c
 
 0800c26c <BSP_AUDIO_OUT_Resume>:
   *          BSP_AUDIO_OUT_Resume() function should be called for resume (use of BSP_AUDIO_OUT_Play()
@@ -30165,10 +30161,10 @@ int32_t BSP_AUDIO_OUT_Resume(uint32_t Instance)
  800c2d2:	3710      	adds	r7, #16
  800c2d4:	46bd      	mov	sp, r7
  800c2d6:	bd80      	pop	{r7, pc}
- 800c2d8:	2400792c 	.word	0x2400792c
- 800c2dc:	24007880 	.word	0x24007880
- 800c2e0:	24007928 	.word	0x24007928
- 800c2e4:	24007a5c 	.word	0x24007a5c
+ 800c2d8:	2400772c 	.word	0x2400772c
+ 800c2dc:	24007680 	.word	0x24007680
+ 800c2e0:	24007728 	.word	0x24007728
+ 800c2e4:	2400785c 	.word	0x2400785c
 
 0800c2e8 <BSP_AUDIO_OUT_Stop>:
   * @brief  Stops audio playing and Power down the Audio Codec.
@@ -30277,10 +30273,10 @@ int32_t BSP_AUDIO_OUT_Stop(uint32_t Instance)
  800c36e:	3710      	adds	r7, #16
  800c370:	46bd      	mov	sp, r7
  800c372:	bd80      	pop	{r7, pc}
- 800c374:	24007a5c 	.word	0x24007a5c
- 800c378:	24007880 	.word	0x24007880
- 800c37c:	24007928 	.word	0x24007928
- 800c380:	2400792c 	.word	0x2400792c
+ 800c374:	2400785c 	.word	0x2400785c
+ 800c378:	24007680 	.word	0x24007680
+ 800c37c:	24007728 	.word	0x24007728
+ 800c380:	2400772c 	.word	0x2400772c
 
 0800c384 <BSP_AUDIO_OUT_SetVolume>:
   * @param  Volume    Volume level to be set in percentage from 0% to 100% (0 for
@@ -30397,10 +30393,10 @@ int32_t BSP_AUDIO_OUT_SetVolume(uint32_t Instance, uint32_t Volume)
  800c422:	3714      	adds	r7, #20
  800c424:	46bd      	mov	sp, r7
  800c426:	bd90      	pop	{r4, r7, pc}
- 800c428:	24007880 	.word	0x24007880
- 800c42c:	24007928 	.word	0x24007928
+ 800c428:	24007680 	.word	0x24007680
+ 800c42c:	24007728 	.word	0x24007728
  800c430:	51eb851f 	.word	0x51eb851f
- 800c434:	24007a5c 	.word	0x24007a5c
+ 800c434:	2400785c 	.word	0x2400785c
 
 0800c438 <BSP_AUDIO_OUT_SetDevice>:
   * @param  Instance AUDIO OUT Instance. It can only be 0 (SAI) or 1 (I2S)
@@ -30461,7 +30457,7 @@ int32_t BSP_AUDIO_OUT_SetDevice(uint32_t Instance, uint32_t Device)
  800c478:	f85d 7b04 	ldr.w	r7, [sp], #4
  800c47c:	4770      	bx	lr
  800c47e:	bf00      	nop
- 800c480:	24007a5c 	.word	0x24007a5c
+ 800c480:	2400785c 	.word	0x2400785c
 
 0800c484 <BSP_AUDIO_OUT_IRQHandler>:
   /* Return BSP status */
@@ -30491,7 +30487,7 @@ void BSP_AUDIO_OUT_IRQHandler(uint32_t Instance)
  800c4a2:	46bd      	mov	sp, r7
  800c4a4:	bd80      	pop	{r7, pc}
  800c4a6:	bf00      	nop
- 800c4a8:	2400792c 	.word	0x2400792c
+ 800c4a8:	2400772c 	.word	0x2400772c
 
 0800c4ac <HAL_SAI_TxCpltCallback>:
   * @brief  Tx Transfer completed callbacks.
@@ -31025,14 +31021,14 @@ int32_t BSP_AUDIO_IN_Init(uint32_t Instance, BSP_AUDIO_Init_t* AudioInit)
         return BSP_ERROR_PERIPH_FAILURE;
  800c78a:	f06f 0303 	mvn.w	r3, #3
  800c78e:	e03a      	b.n	800c806 <BSP_AUDIO_IN_Init+0x302>
- 800c790:	24007aa4 	.word	0x24007aa4
- 800c794:	240079c4 	.word	0x240079c4
+ 800c790:	240078a4 	.word	0x240078a4
+ 800c794:	240077c4 	.word	0x240077c4
  800c798:	40015824 	.word	0x40015824
- 800c79c:	2400792c 	.word	0x2400792c
+ 800c79c:	2400772c 	.word	0x2400772c
  800c7a0:	40015804 	.word	0x40015804
  800c7a4:	51eb851f 	.word	0x51eb851f
- 800c7a8:	24007880 	.word	0x24007880
- 800c7ac:	24007928 	.word	0x24007928
+ 800c7a8:	24007680 	.word	0x24007680
+ 800c7ac:	24007728 	.word	0x24007728
  800c7b0:	58005404 	.word	0x58005404
       {
         return BSP_ERROR_PERIPH_FAILURE;
@@ -31096,7 +31092,7 @@ int32_t BSP_AUDIO_IN_Init(uint32_t Instance, BSP_AUDIO_Init_t* AudioInit)
  800c80a:	46bd      	mov	sp, r7
  800c80c:	bd90      	pop	{r4, r7, pc}
  800c80e:	bf00      	nop
- 800c810:	24007aa4 	.word	0x24007aa4
+ 800c810:	240078a4 	.word	0x240078a4
 
 0800c814 <BSP_AUDIO_IN_DeInit>:
   * @param  Instance  AUDIO IN Instance. It can be 0 when SAI is used or 1 if PDM is used
@@ -31266,14 +31262,14 @@ int32_t BSP_AUDIO_IN_DeInit(uint32_t Instance)
  800c8e2:	46bd      	mov	sp, r7
  800c8e4:	bd80      	pop	{r7, pc}
  800c8e6:	bf00      	nop
- 800c8e8:	240079c4 	.word	0x240079c4
+ 800c8e8:	240077c4 	.word	0x240077c4
  800c8ec:	40015824 	.word	0x40015824
- 800c8f0:	2400792c 	.word	0x2400792c
+ 800c8f0:	2400772c 	.word	0x2400772c
  800c8f4:	40015804 	.word	0x40015804
- 800c8f8:	24007880 	.word	0x24007880
- 800c8fc:	24007928 	.word	0x24007928
+ 800c8f8:	24007680 	.word	0x24007680
+ 800c8fc:	24007728 	.word	0x24007728
  800c900:	58005404 	.word	0x58005404
- 800c904:	24007aa4 	.word	0x24007aa4
+ 800c904:	240078a4 	.word	0x240078a4
 
 0800c908 <MX_SAI1_Block_B_Init>:
   * @param  MXConfig SAI configuration structure
@@ -31808,10 +31804,10 @@ int32_t BSP_AUDIO_IN_PDMToPCM_Init(uint32_t Instance, uint32_t AudioFreq, uint32
  800cc3c:	bd80      	pop	{r7, pc}
  800cc3e:	bf00      	nop
  800cc40:	58024400 	.word	0x58024400
- 800cc44:	24007884 	.word	0x24007884
+ 800cc44:	24007684 	.word	0x24007684
  800cc48:	7e809d48 	.word	0x7e809d48
  800cc4c:	10624dd3 	.word	0x10624dd3
- 800cc50:	2400791c 	.word	0x2400791c
+ 800cc50:	2400771c 	.word	0x2400771c
 
 0800cc54 <BSP_AUDIO_IN_PDMToPCM>:
   * @param  PDMBuf    Pointer to PDM buffer data
@@ -31888,8 +31884,8 @@ int32_t BSP_AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCM
  800ccba:	46bd      	mov	sp, r7
  800ccbc:	bd80      	pop	{r7, pc}
  800ccbe:	bf00      	nop
- 800ccc0:	24007884 	.word	0x24007884
- 800ccc4:	24007aa4 	.word	0x24007aa4
+ 800ccc0:	24007684 	.word	0x24007684
+ 800ccc4:	240078a4 	.word	0x240078a4
 
 0800ccc8 <BSP_AUDIO_IN_Record>:
   * @param  pBuf     Main buffer pointer for the recorded data storing
@@ -31957,8 +31953,8 @@ int32_t BSP_AUDIO_IN_Record(uint32_t Instance, uint8_t* pBuf, uint32_t NbrOfByte
  800cd1e:	46bd      	mov	sp, r7
  800cd20:	bd80      	pop	{r7, pc}
  800cd22:	bf00      	nop
- 800cd24:	24007aa4 	.word	0x24007aa4
- 800cd28:	240079c4 	.word	0x240079c4
+ 800cd24:	240078a4 	.word	0x240078a4
+ 800cd28:	240077c4 	.word	0x240077c4
 
 0800cd2c <BSP_AUDIO_IN_Stop>:
   * @brief  Stop audio recording.
@@ -32054,10 +32050,10 @@ int32_t BSP_AUDIO_IN_Stop(uint32_t Instance)
  800cd9a:	46bd      	mov	sp, r7
  800cd9c:	bd80      	pop	{r7, pc}
  800cd9e:	bf00      	nop
- 800cda0:	24007880 	.word	0x24007880
- 800cda4:	24007928 	.word	0x24007928
- 800cda8:	240079c4 	.word	0x240079c4
- 800cdac:	24007aa4 	.word	0x24007aa4
+ 800cda0:	24007680 	.word	0x24007680
+ 800cda4:	24007728 	.word	0x24007728
+ 800cda8:	240077c4 	.word	0x240077c4
+ 800cdac:	240078a4 	.word	0x240078a4
 
 0800cdb0 <BSP_AUDIO_IN_RecordPDM>:
   * @param  pBuf     Main buffer pointer for the recorded data storing
@@ -32126,8 +32122,8 @@ int32_t BSP_AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t* pBuf, uint32_t NbrOfB
  800ce06:	46bd      	mov	sp, r7
  800ce08:	bd80      	pop	{r7, pc}
  800ce0a:	bf00      	nop
- 800ce0c:	24007aa4 	.word	0x24007aa4
- 800ce10:	240079c4 	.word	0x240079c4
+ 800ce0c:	240078a4 	.word	0x240078a4
+ 800ce10:	240077c4 	.word	0x240077c4
 
 0800ce14 <BSP_AUDIO_IN_GetState>:
   * @param  Instance  AUDIO IN Instance. It can be 0 when SAI is used
@@ -32179,7 +32175,7 @@ int32_t BSP_AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
  800ce4c:	46bd      	mov	sp, r7
  800ce4e:	f85d 7b04 	ldr.w	r7, [sp], #4
  800ce52:	4770      	bx	lr
- 800ce54:	24007aa4 	.word	0x24007aa4
+ 800ce54:	240078a4 	.word	0x240078a4
 
 0800ce58 <BSP_AUDIO_IN_IRQHandler>:
   *         - AUDIO_IN_DEVICE_ANALOG_MIC
@@ -32213,7 +32209,7 @@ void BSP_AUDIO_IN_IRQHandler(uint32_t Instance, uint32_t InputDevice)
  800ce7e:	46bd      	mov	sp, r7
  800ce80:	bd80      	pop	{r7, pc}
  800ce82:	bf00      	nop
- 800ce84:	240079c4 	.word	0x240079c4
+ 800ce84:	240077c4 	.word	0x240077c4
 
 0800ce88 <HAL_SAI_RxHalfCpltCallback>:
   * @brief  Half reception complete callback.
@@ -32409,10 +32405,10 @@ static int32_t WM8994_Probe(void)
  800cf78:	0800d809 	.word	0x0800d809
  800cf7c:	0800d7ad 	.word	0x0800d7ad
  800cf80:	0800d865 	.word	0x0800d865
- 800cf84:	24007b04 	.word	0x24007b04
- 800cf88:	24007880 	.word	0x24007880
+ 800cf84:	24007904 	.word	0x24007904
+ 800cf88:	24007680 	.word	0x24007680
  800cf8c:	24000558 	.word	0x24000558
- 800cf90:	24007928 	.word	0x24007928
+ 800cf90:	24007728 	.word	0x24007728
 
 0800cf94 <SAI_MspInit>:
   * @brief  Initialize BSP_AUDIO_OUT MSP.
@@ -32672,11 +32668,11 @@ static void SAI_MspInit(SAI_HandleTypeDef *hsai)
  800d174:	58024400 	.word	0x58024400
  800d178:	58021000 	.word	0x58021000
  800d17c:	58005404 	.word	0x58005404
- 800d180:	240079c4 	.word	0x240079c4
+ 800d180:	240077c4 	.word	0x240077c4
  800d184:	58021800 	.word	0x58021800
  800d188:	40015804 	.word	0x40015804
- 800d18c:	24007a5c 	.word	0x24007a5c
- 800d190:	24007b2c 	.word	0x24007b2c
+ 800d18c:	2400785c 	.word	0x2400785c
+ 800d190:	2400792c 	.word	0x2400792c
     }
     else
     {
@@ -33077,13 +33073,13 @@ static void SAI_MspInit(SAI_HandleTypeDef *hsai)
  800d44c:	f44f 3200 	mov.w	r2, #131072	@ 0x20000
  800d450:	621a      	str	r2, [r3, #32]
  800d452:	e011      	b.n	800d478 <SAI_MspInit+0x4e4>
- 800d454:	24007b2c 	.word	0x24007b2c
+ 800d454:	2400792c 	.word	0x2400792c
  800d458:	40020428 	.word	0x40020428
  800d45c:	58005404 	.word	0x58005404
  800d460:	58024400 	.word	0x58024400
  800d464:	58021000 	.word	0x58021000
  800d468:	58020800 	.word	0x58020800
- 800d46c:	24007ba4 	.word	0x24007ba4
+ 800d46c:	240079a4 	.word	0x240079a4
  800d470:	5802541c 	.word	0x5802541c
  800d474:	40015824 	.word	0x40015824
     hdma_sai_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
@@ -33143,7 +33139,7 @@ static void SAI_MspInit(SAI_HandleTypeDef *hsai)
  800d4c2:	3760      	adds	r7, #96	@ 0x60
  800d4c4:	46bd      	mov	sp, r7
  800d4c6:	bd80      	pop	{r7, pc}
- 800d4c8:	24007ba4 	.word	0x24007ba4
+ 800d4c8:	240079a4 	.word	0x240079a4
  800d4cc:	40020470 	.word	0x40020470
 
 0800d4d0 <SAI_MspDeInit>:
@@ -33372,9 +33368,9 @@ int32_t BSP_I2C4_Init(void)
  800d612:	46bd      	mov	sp, r7
  800d614:	bd80      	pop	{r7, pc}
  800d616:	bf00      	nop
- 800d618:	24008624 	.word	0x24008624
+ 800d618:	24008424 	.word	0x24008424
  800d61c:	58001c00 	.word	0x58001c00
- 800d620:	24007c1c 	.word	0x24007c1c
+ 800d620:	24007a1c 	.word	0x24007a1c
  800d624:	000186a0 	.word	0x000186a0
 
 0800d628 <BSP_I2C4_DeInit>:
@@ -33431,8 +33427,8 @@ int32_t BSP_I2C4_DeInit(void)
  800d662:	46bd      	mov	sp, r7
  800d664:	bd80      	pop	{r7, pc}
  800d666:	bf00      	nop
- 800d668:	24007c1c 	.word	0x24007c1c
- 800d66c:	24008624 	.word	0x24008624
+ 800d668:	24007a1c 	.word	0x24007a1c
+ 800d66c:	24008424 	.word	0x24008424
 
 0800d670 <MX_I2C4_Init>:
   * @param  hI2c I2C handle
@@ -33612,7 +33608,7 @@ int32_t BSP_I2C4_WriteReg(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint16
  800d746:	46bd      	mov	sp, r7
  800d748:	bd80      	pop	{r7, pc}
  800d74a:	bf00      	nop
- 800d74c:	24008624 	.word	0x24008624
+ 800d74c:	24008424 	.word	0x24008424
 
 0800d750 <BSP_I2C4_ReadReg>:
   * @param  pData   Pointer to data buffer
@@ -33686,7 +33682,7 @@ int32_t BSP_I2C4_ReadReg(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint16_
  800d7a2:	46bd      	mov	sp, r7
  800d7a4:	bd80      	pop	{r7, pc}
  800d7a6:	bf00      	nop
- 800d7a8:	24008624 	.word	0x24008624
+ 800d7a8:	24008424 	.word	0x24008424
 
 0800d7ac <BSP_I2C4_WriteReg16>:
   * @param  pData  The target register value to be written
@@ -33760,7 +33756,7 @@ int32_t BSP_I2C4_WriteReg16(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint
  800d7fe:	46bd      	mov	sp, r7
  800d800:	bd80      	pop	{r7, pc}
  800d802:	bf00      	nop
- 800d804:	24008624 	.word	0x24008624
+ 800d804:	24008424 	.word	0x24008424
 
 0800d808 <BSP_I2C4_ReadReg16>:
   * @param  pData   Pointer to data buffer
@@ -33834,7 +33830,7 @@ int32_t BSP_I2C4_ReadReg16(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint1
  800d85a:	46bd      	mov	sp, r7
  800d85c:	bd80      	pop	{r7, pc}
  800d85e:	bf00      	nop
- 800d860:	24008624 	.word	0x24008624
+ 800d860:	24008424 	.word	0x24008424
 
 0800d864 <BSP_GetTick>:
 /**
@@ -34015,7 +34011,7 @@ static uint32_t I2C_GetTiming(uint32_t clock_src_freq, uint32_t i2c_freq)
  800d968:	bd80      	pop	{r7, pc}
  800d96a:	bf00      	nop
  800d96c:	0802a28c 	.word	0x0802a28c
- 800d970:	24007c20 	.word	0x24007c20
+ 800d970:	24007a20 	.word	0x24007a20
 
 0800d974 <I2C_Compute_PRESC_SCLDEL_SDADEL>:
   * @param  clock_src_freq I2C source clock in HZ.
@@ -34316,8 +34312,8 @@ static void I2C_Compute_PRESC_SCLDEL_SDADEL(uint32_t clock_src_freq, uint32_t I2
  800db3e:	bf00      	nop
  800db40:	3b9aca00 	.word	0x3b9aca00
  800db44:	0802a28c 	.word	0x0802a28c
- 800db48:	24008620 	.word	0x24008620
- 800db4c:	24007c20 	.word	0x24007c20
+ 800db48:	24008420 	.word	0x24008420
+ 800db4c:	24007a20 	.word	0x24007a20
 
 0800db50 <I2C_Compute_SCLL_SCLH>:
   * @param  clock_src_freq I2C source clock in HZ.
@@ -34631,8 +34627,8 @@ static uint32_t I2C_Compute_SCLL_SCLH (uint32_t clock_src_freq, uint32_t I2C_spe
  800dd4e:	4770      	bx	lr
  800dd50:	3b9aca00 	.word	0x3b9aca00
  800dd54:	0802a28c 	.word	0x0802a28c
- 800dd58:	24007c20 	.word	0x24007c20
- 800dd5c:	24008620 	.word	0x24008620
+ 800dd58:	24007a20 	.word	0x24007a20
+ 800dd5c:	24008420 	.word	0x24008420
 
 0800dd60 <I2C4_MspInit>:
   * @brief  Initializes I2C MSP.
@@ -34851,7 +34847,7 @@ static int32_t I2C4_WriteReg(uint16_t DevAddr, uint16_t Reg, uint16_t MemAddSize
  800dec2:	46bd      	mov	sp, r7
  800dec4:	bd80      	pop	{r7, pc}
  800dec6:	bf00      	nop
- 800dec8:	24008624 	.word	0x24008624
+ 800dec8:	24008424 	.word	0x24008424
 
 0800decc <I2C4_ReadReg>:
   * @param  pData      The target register value to be read
@@ -34900,7 +34896,7 @@ static int32_t I2C4_ReadReg(uint16_t DevAddr, uint16_t Reg, uint16_t MemAddSize,
  800df0e:	46bd      	mov	sp, r7
  800df10:	bd80      	pop	{r7, pc}
  800df12:	bf00      	nop
- 800df14:	24008624 	.word	0x24008624
+ 800df14:	24008424 	.word	0x24008424
 
 0800df18 <BSP_CAMERA_Init>:
   *         naming QQVGA, QVGA, VGA ...
@@ -35147,10 +35143,10 @@ int32_t BSP_CAMERA_Init(uint32_t Instance, uint32_t Resolution, uint32_t PixelFo
  800e05a:	3718      	adds	r7, #24
  800e05c:	46bd      	mov	sp, r7
  800e05e:	bd80      	pop	{r7, pc}
- 800e060:	2400867c 	.word	0x2400867c
- 800e064:	24008730 	.word	0x24008730
- 800e068:	2400872c 	.word	0x2400872c
- 800e06c:	240086cc 	.word	0x240086cc
+ 800e060:	2400847c 	.word	0x2400847c
+ 800e064:	24008530 	.word	0x24008530
+ 800e068:	2400852c 	.word	0x2400852c
+ 800e06c:	240084cc 	.word	0x240084cc
 
 0800e070 <BSP_CAMERA_DeInit>:
   * @brief  DeInitializes the camera.
@@ -35290,9 +35286,9 @@ int32_t BSP_CAMERA_DeInit(uint32_t Instance)
  800e11e:	3710      	adds	r7, #16
  800e120:	46bd      	mov	sp, r7
  800e122:	bd80      	pop	{r7, pc}
- 800e124:	24008678 	.word	0x24008678
- 800e128:	24008700 	.word	0x24008700
- 800e12c:	2400867c 	.word	0x2400867c
+ 800e124:	24008478 	.word	0x24008478
+ 800e128:	24008500 	.word	0x24008500
+ 800e12c:	2400847c 	.word	0x2400847c
  800e130:	48020000 	.word	0x48020000
 
 0800e134 <MX_DCMI_Init>:
@@ -35358,7 +35354,7 @@ __weak HAL_StatusTypeDef MX_DCMI_Init(DCMI_HandleTypeDef* hdcmi)
  800e180:	bd80      	pop	{r7, pc}
  800e182:	bf00      	nop
  800e184:	48020000 	.word	0x48020000
- 800e188:	2400872c 	.word	0x2400872c
+ 800e188:	2400852c 	.word	0x2400852c
 
 0800e18c <BSP_CAMERA_Start>:
   * @param  pBff     pointer to the camera output buffer
@@ -35433,8 +35429,8 @@ int32_t BSP_CAMERA_Start(uint32_t Instance, uint8_t *pBff, uint32_t Mode)
  800e1f2:	46bd      	mov	sp, r7
  800e1f4:	bd90      	pop	{r4, r7, pc}
  800e1f6:	bf00      	nop
- 800e1f8:	240086cc 	.word	0x240086cc
- 800e1fc:	2400867c 	.word	0x2400867c
+ 800e1f8:	240084cc 	.word	0x240084cc
+ 800e1fc:	2400847c 	.word	0x2400847c
 
 0800e200 <BSP_CAMERA_Stop>:
   * @brief  Stop the CAMERA capture
@@ -35486,7 +35482,7 @@ int32_t BSP_CAMERA_Stop(uint32_t Instance)
  800e232:	3710      	adds	r7, #16
  800e234:	46bd      	mov	sp, r7
  800e236:	bd80      	pop	{r7, pc}
- 800e238:	2400867c 	.word	0x2400867c
+ 800e238:	2400847c 	.word	0x2400847c
 
 0800e23c <BSP_CAMERA_Suspend>:
 /**
@@ -35538,7 +35534,7 @@ int32_t BSP_CAMERA_Suspend(uint32_t Instance)
  800e26e:	46bd      	mov	sp, r7
  800e270:	bd80      	pop	{r7, pc}
  800e272:	bf00      	nop
- 800e274:	2400867c 	.word	0x2400867c
+ 800e274:	2400847c 	.word	0x2400847c
 
 0800e278 <BSP_CAMERA_Resume>:
 /**
@@ -35590,7 +35586,7 @@ int32_t BSP_CAMERA_Resume(uint32_t Instance)
  800e2aa:	3710      	adds	r7, #16
  800e2ac:	46bd      	mov	sp, r7
  800e2ae:	bd80      	pop	{r7, pc}
- 800e2b0:	2400867c 	.word	0x2400867c
+ 800e2b0:	2400847c 	.word	0x2400847c
 
 0800e2b4 <BSP_CAMERA_SetBrightness>:
   * @param  Instance   Camera instance.
@@ -35675,10 +35671,10 @@ int32_t BSP_CAMERA_SetBrightness(uint32_t Instance, int32_t Brightness)
  800e322:	3710      	adds	r7, #16
  800e324:	46bd      	mov	sp, r7
  800e326:	bd80      	pop	{r7, pc}
- 800e328:	24008704 	.word	0x24008704
- 800e32c:	24008700 	.word	0x24008700
- 800e330:	24008678 	.word	0x24008678
- 800e334:	240086cc 	.word	0x240086cc
+ 800e328:	24008504 	.word	0x24008504
+ 800e32c:	24008500 	.word	0x24008500
+ 800e330:	24008478 	.word	0x24008478
+ 800e334:	240084cc 	.word	0x240084cc
 
 0800e338 <BSP_CAMERA_SetContrast>:
   * @param  Instance Camera instance.
@@ -35763,10 +35759,10 @@ int32_t BSP_CAMERA_SetContrast(uint32_t Instance, int32_t Contrast)
  800e3a6:	3710      	adds	r7, #16
  800e3a8:	46bd      	mov	sp, r7
  800e3aa:	bd80      	pop	{r7, pc}
- 800e3ac:	24008704 	.word	0x24008704
- 800e3b0:	24008700 	.word	0x24008700
- 800e3b4:	24008678 	.word	0x24008678
- 800e3b8:	240086cc 	.word	0x240086cc
+ 800e3ac:	24008504 	.word	0x24008504
+ 800e3b0:	24008500 	.word	0x24008500
+ 800e3b4:	24008478 	.word	0x24008478
+ 800e3b8:	240084cc 	.word	0x240084cc
 
 0800e3bc <BSP_CAMERA_SetMirrorFlip>:
   * @param  MirrorFlip CAMERA_MIRRORFLIP_NONE or any combination of
@@ -35846,10 +35842,10 @@ int32_t BSP_CAMERA_SetMirrorFlip(uint32_t Instance, uint32_t MirrorFlip)
  800e41e:	46bd      	mov	sp, r7
  800e420:	bd80      	pop	{r7, pc}
  800e422:	bf00      	nop
- 800e424:	24008704 	.word	0x24008704
- 800e428:	24008700 	.word	0x24008700
- 800e42c:	24008678 	.word	0x24008678
- 800e430:	240086cc 	.word	0x240086cc
+ 800e424:	24008504 	.word	0x24008504
+ 800e428:	24008500 	.word	0x24008500
+ 800e42c:	24008478 	.word	0x24008478
+ 800e430:	240084cc 	.word	0x240084cc
 
 0800e434 <BSP_CAMERA_EnableNightMode>:
   * @brief  Enable the camera night mode
@@ -35919,9 +35915,9 @@ int32_t BSP_CAMERA_EnableNightMode(uint32_t Instance)
  800e482:	46bd      	mov	sp, r7
  800e484:	bd80      	pop	{r7, pc}
  800e486:	bf00      	nop
- 800e488:	24008704 	.word	0x24008704
- 800e48c:	24008700 	.word	0x24008700
- 800e490:	24008678 	.word	0x24008678
+ 800e488:	24008504 	.word	0x24008504
+ 800e48c:	24008500 	.word	0x24008500
+ 800e490:	24008478 	.word	0x24008478
 
 0800e494 <BSP_CAMERA_DisableNightMode>:
   * @brief  Disable the camera night mode
@@ -35991,9 +35987,9 @@ int32_t BSP_CAMERA_DisableNightMode(uint32_t Instance)
  800e4e2:	46bd      	mov	sp, r7
  800e4e4:	bd80      	pop	{r7, pc}
  800e4e6:	bf00      	nop
- 800e4e8:	24008704 	.word	0x24008704
- 800e4ec:	24008700 	.word	0x24008700
- 800e4f0:	24008678 	.word	0x24008678
+ 800e4e8:	24008504 	.word	0x24008504
+ 800e4ec:	24008500 	.word	0x24008500
+ 800e4f0:	24008478 	.word	0x24008478
 
 0800e4f4 <BSP_CAMERA_HwReset>:
   * @brief  CAMERA hardware reset
@@ -36188,7 +36184,7 @@ void BSP_CAMERA_IRQHandler(uint32_t Instance)
  800e606:	46bd      	mov	sp, r7
  800e608:	bd80      	pop	{r7, pc}
  800e60a:	bf00      	nop
- 800e60c:	2400867c 	.word	0x2400867c
+ 800e60c:	2400847c 	.word	0x2400847c
 
 0800e610 <BSP_CAMERA_DMA_IRQHandler>:
   * @brief  This function handles DCMI DMA interrupt request.
@@ -36215,7 +36211,7 @@ void BSP_CAMERA_DMA_IRQHandler(uint32_t Instance)
  800e626:	46bd      	mov	sp, r7
  800e628:	bd80      	pop	{r7, pc}
  800e62a:	bf00      	nop
- 800e62c:	2400867c 	.word	0x2400867c
+ 800e62c:	2400847c 	.word	0x2400847c
 
 0800e630 <GetSize>:
   * @param  Resolution  the current resolution.
@@ -36635,7 +36631,7 @@ static void DCMI_MspInit(DCMI_HandleTypeDef *hdcmi)
  800e8f8:	58020800 	.word	0x58020800
  800e8fc:	58020c00 	.word	0x58020c00
  800e900:	58021800 	.word	0x58021800
- 800e904:	24008734 	.word	0x24008734
+ 800e904:	24008534 	.word	0x24008534
  800e908:	40020458 	.word	0x40020458
 
 0800e90c <DCMI_MspDeInit>:
@@ -37046,12 +37042,12 @@ static int32_t OV9655_Probe(uint32_t Resolution, uint32_t PixelFormat)
  800eb0c:	0800d751 	.word	0x0800d751
  800eb10:	0800d6f5 	.word	0x0800d6f5
  800eb14:	0800d865 	.word	0x0800d865
- 800eb18:	240087ac 	.word	0x240087ac
- 800eb1c:	24008730 	.word	0x24008730
- 800eb20:	24008700 	.word	0x24008700
+ 800eb18:	240085ac 	.word	0x240085ac
+ 800eb1c:	24008530 	.word	0x24008530
+ 800eb20:	24008500 	.word	0x24008500
  800eb24:	24000514 	.word	0x24000514
- 800eb28:	24008678 	.word	0x24008678
- 800eb2c:	24008704 	.word	0x24008704
+ 800eb28:	24008478 	.word	0x24008478
+ 800eb2c:	24008504 	.word	0x24008504
 
 0800eb30 <OV5640_Probe>:
 /**
@@ -37198,12 +37194,12 @@ static int32_t OV5640_Probe(uint32_t Resolution, uint32_t PixelFormat)
  800ebf4:	0800d809 	.word	0x0800d809
  800ebf8:	0800d7ad 	.word	0x0800d7ad
  800ebfc:	0800d865 	.word	0x0800d865
- 800ec00:	240087d4 	.word	0x240087d4
- 800ec04:	24008730 	.word	0x24008730
- 800ec08:	24008700 	.word	0x24008700
+ 800ec00:	240085d4 	.word	0x240085d4
+ 800ec04:	24008530 	.word	0x24008530
+ 800ec08:	24008500 	.word	0x24008500
  800ec0c:	240004d0 	.word	0x240004d0
- 800ec10:	24008678 	.word	0x24008678
- 800ec14:	24008704 	.word	0x24008704
+ 800ec10:	24008478 	.word	0x24008478
+ 800ec14:	24008504 	.word	0x24008504
 
 0800ec18 <BSP_LCD_Init>:
   * @param  Instance    LCD Instance
@@ -37617,13 +37613,13 @@ int32_t BSP_LCD_InitEx(uint32_t Instance, uint32_t Orientation, uint32_t PixelFo
  800ee2e:	3738      	adds	r7, #56	@ 0x38
  800ee30:	46bd      	mov	sp, r7
  800ee32:	bd80      	pop	{r7, pc}
- 800ee34:	24008934 	.word	0x24008934
- 800ee38:	2400888c 	.word	0x2400888c
+ 800ee34:	24008734 	.word	0x24008734
+ 800ee38:	2400868c 	.word	0x2400868c
  800ee3c:	50001000 	.word	0x50001000
- 800ee40:	24008824 	.word	0x24008824
+ 800ee40:	24008624 	.word	0x24008624
  800ee44:	52001000 	.word	0x52001000
- 800ee48:	24008808 	.word	0x24008808
- 800ee4c:	24008950 	.word	0x24008950
+ 800ee48:	24008608 	.word	0x24008608
+ 800ee4c:	24008750 	.word	0x24008750
 
 0800ee50 <BSP_LCD_Reset>:
   *         Hw reset the LCD DSI activating its XRES signal (active low for some time)
@@ -38061,7 +38057,7 @@ __weak HAL_StatusTypeDef MX_DSIHOST_DSI_Init(DSI_HandleTypeDef *hdsi, uint32_t W
  800f0e6:	46bd      	mov	sp, r7
  800f0e8:	bd80      	pop	{r7, pc}
  800f0ea:	bf00      	nop
- 800f0ec:	24008950 	.word	0x24008950
+ 800f0ec:	24008750 	.word	0x24008750
  800f0f0:	0042c1d8 	.word	0x0042c1d8
  800f0f4:	4c751ce3 	.word	0x4c751ce3
 
@@ -38207,7 +38203,7 @@ __weak HAL_StatusTypeDef MX_LTDC_Init(LTDC_HandleTypeDef *hltdc, uint32_t Width,
  800f1d4:	bd80      	pop	{r7, pc}
  800f1d6:	bf00      	nop
  800f1d8:	50001000 	.word	0x50001000
- 800f1dc:	24008950 	.word	0x24008950
+ 800f1dc:	24008750 	.word	0x24008750
 
 0800f1e0 <MX_LTDC_ConfigLayer>:
   * @param  LayerIndex Layer 0 or 1
@@ -38399,7 +38395,7 @@ int32_t BSP_LCD_SetActiveLayer(uint32_t Instance, uint32_t LayerIndex)
  800f2e8:	f85d 7b04 	ldr.w	r7, [sp], #4
  800f2ec:	4770      	bx	lr
  800f2ee:	bf00      	nop
- 800f2f0:	24008934 	.word	0x24008934
+ 800f2f0:	24008734 	.word	0x24008734
 
 0800f2f4 <BSP_LCD_GetPixelFormat>:
   * @param  Instance    LCD Instance
@@ -38452,7 +38448,7 @@ int32_t BSP_LCD_GetPixelFormat(uint32_t Instance, uint32_t *PixelFormat)
  800f32c:	46bd      	mov	sp, r7
  800f32e:	f85d 7b04 	ldr.w	r7, [sp], #4
  800f332:	4770      	bx	lr
- 800f334:	24008934 	.word	0x24008934
+ 800f334:	24008734 	.word	0x24008734
 
 0800f338 <BSP_LCD_GetXSize>:
   * @param  Instance  LCD Instance
@@ -38508,8 +38504,8 @@ int32_t BSP_LCD_GetXSize(uint32_t Instance, uint32_t *XSize)
  800f378:	46bd      	mov	sp, r7
  800f37a:	f85d 7b04 	ldr.w	r7, [sp], #4
  800f37e:	4770      	bx	lr
- 800f380:	24008800 	.word	0x24008800
- 800f384:	24008934 	.word	0x24008934
+ 800f380:	24008600 	.word	0x24008600
+ 800f384:	24008734 	.word	0x24008734
 
 0800f388 <BSP_LCD_GetYSize>:
   * @param  Instance  LCD Instance
@@ -38567,8 +38563,8 @@ int32_t BSP_LCD_GetYSize(uint32_t Instance, uint32_t *YSize)
  800f3cc:	f85d 7b04 	ldr.w	r7, [sp], #4
  800f3d0:	4770      	bx	lr
  800f3d2:	bf00      	nop
- 800f3d4:	24008800 	.word	0x24008800
- 800f3d8:	24008934 	.word	0x24008934
+ 800f3d4:	24008600 	.word	0x24008600
+ 800f3d8:	24008734 	.word	0x24008734
 
 0800f3dc <BSP_LCD_DisplayOn>:
   * @brief  Switch On the display.
@@ -38627,8 +38623,8 @@ int32_t BSP_LCD_DisplayOn(uint32_t Instance)
  800f416:	3710      	adds	r7, #16
  800f418:	46bd      	mov	sp, r7
  800f41a:	bd80      	pop	{r7, pc}
- 800f41c:	24008800 	.word	0x24008800
- 800f420:	24008804 	.word	0x24008804
+ 800f41c:	24008600 	.word	0x24008600
+ 800f420:	24008604 	.word	0x24008604
 
 0800f424 <BSP_LCD_SetBrightness>:
   * @param  Instance    LCD Instance
@@ -38685,8 +38681,8 @@ int32_t BSP_LCD_SetBrightness(uint32_t Instance, uint32_t Brightness)
  800f462:	46bd      	mov	sp, r7
  800f464:	bd80      	pop	{r7, pc}
  800f466:	bf00      	nop
- 800f468:	24008800 	.word	0x24008800
- 800f46c:	24008804 	.word	0x24008804
+ 800f468:	24008600 	.word	0x24008600
+ 800f46c:	24008604 	.word	0x24008604
 
 0800f470 <BSP_LCD_DrawBitmap>:
   * @param  Ypos Bmp Y position in the LCD
@@ -38944,8 +38940,8 @@ int32_t BSP_LCD_DrawBitmap(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint
  800f606:	46bd      	mov	sp, r7
  800f608:	bd90      	pop	{r4, r7, pc}
  800f60a:	bf00      	nop
- 800f60c:	24008934 	.word	0x24008934
- 800f610:	2400888c 	.word	0x2400888c
+ 800f60c:	24008734 	.word	0x24008734
+ 800f610:	2400868c 	.word	0x2400868c
 
 0800f614 <BSP_LCD_FillRGBRect>:
   * @param  Width Rectangle width.
@@ -39046,7 +39042,7 @@ int32_t BSP_LCD_FillRGBRect(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uin
  800f6a2:	46bd      	mov	sp, r7
  800f6a4:	bd80      	pop	{r7, pc}
  800f6a6:	bf00      	nop
- 800f6a8:	24008934 	.word	0x24008934
+ 800f6a8:	24008734 	.word	0x24008734
 
 0800f6ac <BSP_LCD_DrawHLine>:
   * @param  Length  Line length
@@ -39153,8 +39149,8 @@ int32_t BSP_LCD_DrawHLine(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint3
  800f756:	371c      	adds	r7, #28
  800f758:	46bd      	mov	sp, r7
  800f75a:	bd90      	pop	{r4, r7, pc}
- 800f75c:	24008934 	.word	0x24008934
- 800f760:	2400888c 	.word	0x2400888c
+ 800f75c:	24008734 	.word	0x24008734
+ 800f760:	2400868c 	.word	0x2400868c
 
 0800f764 <BSP_LCD_DrawVLine>:
   * @param  Length  Line length
@@ -39271,8 +39267,8 @@ int32_t BSP_LCD_DrawVLine(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint3
  800f822:	371c      	adds	r7, #28
  800f824:	46bd      	mov	sp, r7
  800f826:	bd90      	pop	{r4, r7, pc}
- 800f828:	24008934 	.word	0x24008934
- 800f82c:	2400888c 	.word	0x2400888c
+ 800f828:	24008734 	.word	0x24008734
+ 800f82c:	2400868c 	.word	0x2400868c
 
 0800f830 <BSP_LCD_FillRect>:
   * @param  Height Rectangle height
@@ -39361,8 +39357,8 @@ int32_t BSP_LCD_FillRect(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint32
  800f8be:	46bd      	mov	sp, r7
  800f8c0:	bd90      	pop	{r4, r7, pc}
  800f8c2:	bf00      	nop
- 800f8c4:	24008934 	.word	0x24008934
- 800f8c8:	2400888c 	.word	0x2400888c
+ 800f8c4:	24008734 	.word	0x24008734
+ 800f8c8:	2400868c 	.word	0x2400868c
 
 0800f8cc <BSP_LCD_ReadPixel>:
   * @param  Ypos Y position
@@ -39482,8 +39478,8 @@ int32_t BSP_LCD_ReadPixel(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint3
  800f994:	f85d 7b04 	ldr.w	r7, [sp], #4
  800f998:	4770      	bx	lr
  800f99a:	bf00      	nop
- 800f99c:	24008934 	.word	0x24008934
- 800f9a0:	2400888c 	.word	0x2400888c
+ 800f99c:	24008734 	.word	0x24008734
+ 800f9a0:	2400868c 	.word	0x2400868c
 
 0800f9a4 <BSP_LCD_WritePixel>:
   * @param  Ypos Y position
@@ -39601,8 +39597,8 @@ int32_t BSP_LCD_WritePixel(uint32_t Instance, uint32_t Xpos, uint32_t Ypos, uint
  800fa68:	f85d 7b04 	ldr.w	r7, [sp], #4
  800fa6c:	4770      	bx	lr
  800fa6e:	bf00      	nop
- 800fa70:	24008934 	.word	0x24008934
- 800fa74:	2400888c 	.word	0x2400888c
+ 800fa70:	24008734 	.word	0x24008734
+ 800fa74:	2400868c 	.word	0x2400868c
 
 0800fa78 <LL_FillBuffer>:
   * @param  ySize Buffer height
@@ -39746,8 +39742,8 @@ static void LL_FillBuffer(uint32_t Instance, uint32_t *pDst, uint32_t xSize, uin
  800fb4e:	3718      	adds	r7, #24
  800fb50:	46bd      	mov	sp, r7
  800fb52:	bd80      	pop	{r7, pc}
- 800fb54:	24008934 	.word	0x24008934
- 800fb58:	24008824 	.word	0x24008824
+ 800fb54:	24008734 	.word	0x24008734
+ 800fb58:	24008624 	.word	0x24008624
  800fb5c:	52001000 	.word	0x52001000
 
 0800fb60 <LL_ConvertLineToRGB>:
@@ -39873,8 +39869,8 @@ static void LL_ConvertLineToRGB(uint32_t Instance, uint32_t *pSrc, uint32_t *pDs
  800fbfe:	46bd      	mov	sp, r7
  800fc00:	bd80      	pop	{r7, pc}
  800fc02:	bf00      	nop
- 800fc04:	24008934 	.word	0x24008934
- 800fc08:	24008824 	.word	0x24008824
+ 800fc04:	24008734 	.word	0x24008734
+ 800fc08:	24008624 	.word	0x24008624
  800fc0c:	52001000 	.word	0x52001000
 
 0800fc10 <LTDC_MspInit>:
@@ -40118,7 +40114,7 @@ static int32_t DSI_IO_Write(uint16_t ChannelNbr, uint16_t Reg, uint8_t *pData, u
  800fd9e:	46bd      	mov	sp, r7
  800fda0:	bd80      	pop	{r7, pc}
  800fda2:	bf00      	nop
- 800fda4:	24008808 	.word	0x24008808
+ 800fda4:	24008608 	.word	0x24008608
 
 0800fda8 <DSI_IO_Read>:
   * @param  pData pointer to a buffer to store the payload of a read back operation.
@@ -40172,7 +40168,7 @@ static int32_t DSI_IO_Read(uint16_t ChannelNbr, uint16_t Reg, uint8_t *pData, ui
  800fdee:	46bd      	mov	sp, r7
  800fdf0:	bd80      	pop	{r7, pc}
  800fdf2:	bf00      	nop
- 800fdf4:	24008808 	.word	0x24008808
+ 800fdf4:	24008608 	.word	0x24008608
 
 0800fdf8 <NT35510_Probe>:
 /**
@@ -40296,9 +40292,9 @@ int32_t NT35510_Probe(uint32_t ColorCoding, uint32_t Orientation)
  800fe94:	0800d865 	.word	0x0800d865
  800fe98:	0800fd31 	.word	0x0800fd31
  800fe9c:	0800fda9 	.word	0x0800fda9
- 800fea0:	24008954 	.word	0x24008954
- 800fea4:	24008804 	.word	0x24008804
- 800fea8:	24008800 	.word	0x24008800
+ 800fea0:	24008754 	.word	0x24008754
+ 800fea4:	24008604 	.word	0x24008604
+ 800fea8:	24008600 	.word	0x24008600
  800feac:	24000438 	.word	0x24000438
 
 0800feb0 <OTM8009A_Probe>:
@@ -40423,9 +40419,9 @@ static int32_t OTM8009A_Probe(uint32_t ColorCoding, uint32_t Orientation)
  800ff4c:	0800d865 	.word	0x0800d865
  800ff50:	0800fd31 	.word	0x0800fd31
  800ff54:	0800fda9 	.word	0x0800fda9
- 800ff58:	24008974 	.word	0x24008974
- 800ff5c:	24008804 	.word	0x24008804
- 800ff60:	24008800 	.word	0x24008800
+ 800ff58:	24008774 	.word	0x24008774
+ 800ff5c:	24008604 	.word	0x24008604
+ 800ff60:	24008600 	.word	0x24008600
  800ff64:	24000484 	.word	0x24000484
 
 0800ff68 <BSP_QSPI_Init>:
@@ -40647,8 +40643,8 @@ int32_t BSP_QSPI_Init(uint32_t Instance, BSP_QSPI_Init_t *Init)
  80100aa:	3740      	adds	r7, #64	@ 0x40
  80100ac:	46bd      	mov	sp, r7
  80100ae:	bd80      	pop	{r7, pc}
- 80100b0:	240089e0 	.word	0x240089e0
- 80100b4:	24008994 	.word	0x24008994
+ 80100b0:	240087e0 	.word	0x240087e0
+ 80100b4:	24008794 	.word	0x24008794
  80100b8:	0802a33c 	.word	0x0802a33c
 
 080100bc <MX_QSPI_Init>:
@@ -40826,8 +40822,8 @@ int32_t BSP_QSPI_Read(uint32_t Instance, uint8_t *pData, uint32_t ReadAddr, uint
  80101b2:	46bd      	mov	sp, r7
  80101b4:	bd80      	pop	{r7, pc}
  80101b6:	bf00      	nop
- 80101b8:	240089e0 	.word	0x240089e0
- 80101bc:	24008994 	.word	0x24008994
+ 80101b8:	240087e0 	.word	0x240087e0
+ 80101bc:	24008794 	.word	0x24008794
 
 080101c0 <BSP_QSPI_Write>:
   * @param  WriteAddr  Write start address
@@ -41034,8 +41030,8 @@ int32_t BSP_QSPI_Write(uint32_t Instance, uint8_t *pData, uint32_t WriteAddr, ui
  80102ea:	46bd      	mov	sp, r7
  80102ec:	bd80      	pop	{r7, pc}
  80102ee:	bf00      	nop
- 80102f0:	240089e0 	.word	0x240089e0
- 80102f4:	24008994 	.word	0x24008994
+ 80102f0:	240087e0 	.word	0x240087e0
+ 80102f4:	24008794 	.word	0x24008794
 
 080102f8 <BSP_QSPI_EraseBlock>:
   * @param  BlockAddress Block address to erase
@@ -41150,8 +41146,8 @@ int32_t BSP_QSPI_EraseBlock(uint32_t Instance, uint32_t BlockAddress, BSP_QSPI_E
  8010396:	46bd      	mov	sp, r7
  8010398:	bd80      	pop	{r7, pc}
  801039a:	bf00      	nop
- 801039c:	240089e0 	.word	0x240089e0
- 80103a0:	24008994 	.word	0x24008994
+ 801039c:	240087e0 	.word	0x240087e0
+ 80103a0:	24008794 	.word	0x24008794
 
 080103a4 <BSP_QSPI_GetInfo>:
   * @param  Instance  QSPI instance
@@ -41322,8 +41318,8 @@ int32_t BSP_QSPI_EnableMemoryMappedMode(uint32_t Instance)
  801047a:	3710      	adds	r7, #16
  801047c:	46bd      	mov	sp, r7
  801047e:	bd80      	pop	{r7, pc}
- 8010480:	240089e0 	.word	0x240089e0
- 8010484:	24008994 	.word	0x24008994
+ 8010480:	240087e0 	.word	0x240087e0
+ 8010484:	24008794 	.word	0x24008794
 
 08010488 <BSP_QSPI_ConfigFlash>:
   * @param  Mode      QSPI mode
@@ -41518,8 +41514,8 @@ int32_t BSP_QSPI_ConfigFlash(uint32_t Instance, BSP_QSPI_Interface_t Mode, BSP_Q
  801057e:	3710      	adds	r7, #16
  8010580:	46bd      	mov	sp, r7
  8010582:	bd80      	pop	{r7, pc}
- 8010584:	240089e0 	.word	0x240089e0
- 8010588:	24008994 	.word	0x24008994
+ 8010584:	240087e0 	.word	0x240087e0
+ 8010588:	24008794 	.word	0x24008794
 
 0801058c <QSPI_MspInit>:
   *           - Peripheral's GPIO Configuration
@@ -41973,8 +41969,8 @@ static int32_t QSPI_ResetMemory(uint32_t Instance)
  80108e6:	3710      	adds	r7, #16
  80108e8:	46bd      	mov	sp, r7
  80108ea:	bd80      	pop	{r7, pc}
- 80108ec:	24008994 	.word	0x24008994
- 80108f0:	240089e0 	.word	0x240089e0
+ 80108ec:	24008794 	.word	0x24008794
+ 80108f0:	240087e0 	.word	0x240087e0
 
 080108f4 <QSPI_DummyCyclesCfg>:
   *         Dummy cycle bit locate in Configuration Register[7:6]
@@ -42138,8 +42134,8 @@ static int32_t QSPI_DummyCyclesCfg(uint32_t Instance)
  80109e2:	46bd      	mov	sp, r7
  80109e4:	bd80      	pop	{r7, pc}
  80109e6:	bf00      	nop
- 80109e8:	24008994 	.word	0x24008994
- 80109ec:	240089e0 	.word	0x240089e0
+ 80109e8:	24008794 	.word	0x24008794
+ 80109ec:	240087e0 	.word	0x240087e0
  80109f0:	ffff8080 	.word	0xffff8080
 
 080109f4 <BSP_SD_Init>:
@@ -42303,7 +42299,7 @@ int32_t BSP_SD_Init(uint32_t Instance)
  8010ade:	bd80      	pop	{r7, pc}
  8010ae0:	58024400 	.word	0x58024400
  8010ae4:	58022000 	.word	0x58022000
- 8010ae8:	240089ec 	.word	0x240089ec
+ 8010ae8:	240087ec 	.word	0x240087ec
 
 08010aec <BSP_SD_DeInit>:
   * @brief  DeInitializes the SD card device.
@@ -42387,7 +42383,7 @@ int32_t BSP_SD_DeInit(uint32_t Instance)
  8010b52:	46bd      	mov	sp, r7
  8010b54:	bd80      	pop	{r7, pc}
  8010b56:	bf00      	nop
- 8010b58:	240089ec 	.word	0x240089ec
+ 8010b58:	240087ec 	.word	0x240087ec
  8010b5c:	58022000 	.word	0x58022000
 
 08010b60 <MX_SDMMC1_SD_Init>:
@@ -42574,7 +42570,7 @@ int32_t BSP_SD_DetectITConfig(uint32_t Instance)
  8010c50:	16700008 	.word	0x16700008
  8010c54:	24000a34 	.word	0x24000a34
  8010c58:	58022000 	.word	0x58022000
- 8010c5c:	24008a68 	.word	0x24008a68
+ 8010c5c:	24008868 	.word	0x24008868
  8010c60:	24000a38 	.word	0x24000a38
 
 08010c64 <BSP_SD_IsDetected>:
@@ -42705,7 +42701,7 @@ int32_t BSP_SD_ReadBlocks(uint32_t Instance, uint32_t *pData, uint32_t BlockIdx,
  8010d02:	3718      	adds	r7, #24
  8010d04:	46bd      	mov	sp, r7
  8010d06:	bd80      	pop	{r7, pc}
- 8010d08:	240089ec 	.word	0x240089ec
+ 8010d08:	240087ec 	.word	0x240087ec
 
 08010d0c <BSP_SD_WriteBlocks>:
   * @param  BlockIdx   Block index from where data is to be written
@@ -42774,7 +42770,7 @@ int32_t BSP_SD_WriteBlocks(uint32_t Instance, uint32_t *pData, uint32_t BlockIdx
  8010d62:	3718      	adds	r7, #24
  8010d64:	46bd      	mov	sp, r7
  8010d66:	bd80      	pop	{r7, pc}
- 8010d68:	240089ec 	.word	0x240089ec
+ 8010d68:	240087ec 	.word	0x240087ec
 
 08010d6c <BSP_SD_ReadBlocks_DMA>:
   * @param  BlockIdx   Block index from where data is to be read
@@ -42837,7 +42833,7 @@ int32_t BSP_SD_ReadBlocks_DMA(uint32_t Instance, uint32_t *pData, uint32_t Block
  8010db6:	46bd      	mov	sp, r7
  8010db8:	bd80      	pop	{r7, pc}
  8010dba:	bf00      	nop
- 8010dbc:	240089ec 	.word	0x240089ec
+ 8010dbc:	240087ec 	.word	0x240087ec
 
 08010dc0 <BSP_SD_WriteBlocks_DMA>:
   * @param  BlockIdx   Block index from where data is to be written
@@ -42900,7 +42896,7 @@ int32_t BSP_SD_WriteBlocks_DMA(uint32_t Instance, uint32_t *pData, uint32_t Bloc
  8010e0a:	46bd      	mov	sp, r7
  8010e0c:	bd80      	pop	{r7, pc}
  8010e0e:	bf00      	nop
- 8010e10:	240089ec 	.word	0x240089ec
+ 8010e10:	240087ec 	.word	0x240087ec
 
 08010e14 <BSP_SD_ReadBlocks_IT>:
   * @param  BlockIdx   Block index from where data is to be read
@@ -42963,7 +42959,7 @@ int32_t BSP_SD_ReadBlocks_IT(uint32_t Instance, uint32_t *pData, uint32_t BlockI
  8010e5e:	46bd      	mov	sp, r7
  8010e60:	bd80      	pop	{r7, pc}
  8010e62:	bf00      	nop
- 8010e64:	240089ec 	.word	0x240089ec
+ 8010e64:	240087ec 	.word	0x240087ec
 
 08010e68 <BSP_SD_WriteBlocks_IT>:
   * @param  BlockIdx   Block index from where data is to be written
@@ -43026,7 +43022,7 @@ int32_t BSP_SD_WriteBlocks_IT(uint32_t Instance, uint32_t *pData, uint32_t Block
  8010eb2:	46bd      	mov	sp, r7
  8010eb4:	bd80      	pop	{r7, pc}
  8010eb6:	bf00      	nop
- 8010eb8:	240089ec 	.word	0x240089ec
+ 8010eb8:	240087ec 	.word	0x240087ec
 
 08010ebc <BSP_SD_Erase>:
   * @param  BlockIdx   Block index from where data is to be
@@ -43089,7 +43085,7 @@ int32_t BSP_SD_Erase(uint32_t Instance, uint32_t BlockIdx, uint32_t BlocksNbr)
  8010f06:	3718      	adds	r7, #24
  8010f08:	46bd      	mov	sp, r7
  8010f0a:	bd80      	pop	{r7, pc}
- 8010f0c:	240089ec 	.word	0x240089ec
+ 8010f0c:	240087ec 	.word	0x240087ec
 
 08010f10 <BSP_SD_GetCardState>:
   *          This value can be one of the following values:
@@ -43123,7 +43119,7 @@ int32_t BSP_SD_GetCardState(uint32_t Instance)
  8010f3a:	3708      	adds	r7, #8
  8010f3c:	46bd      	mov	sp, r7
  8010f3e:	bd80      	pop	{r7, pc}
- 8010f40:	240089ec 	.word	0x240089ec
+ 8010f40:	240087ec 	.word	0x240087ec
 
 08010f44 <HAL_SD_TxCpltCallback>:
   * @brief Tx Transfer completed callbacks
@@ -43151,7 +43147,7 @@ void HAL_SD_TxCpltCallback(SD_HandleTypeDef *hsd)
  8010f62:	3708      	adds	r7, #8
  8010f64:	46bd      	mov	sp, r7
  8010f66:	bd80      	pop	{r7, pc}
- 8010f68:	240089ec 	.word	0x240089ec
+ 8010f68:	240087ec 	.word	0x240087ec
 
 08010f6c <HAL_SD_RxCpltCallback>:
   * @brief Rx Transfer completed callbacks
@@ -43179,7 +43175,7 @@ void HAL_SD_RxCpltCallback(SD_HandleTypeDef *hsd)
  8010f8a:	3708      	adds	r7, #8
  8010f8c:	46bd      	mov	sp, r7
  8010f8e:	bd80      	pop	{r7, pc}
- 8010f90:	240089ec 	.word	0x240089ec
+ 8010f90:	240087ec 	.word	0x240087ec
 
 08010f94 <BSP_SD_IRQHandler>:
   * @brief  This function handles SDMMC interrupt requests.
@@ -43207,7 +43203,7 @@ void BSP_SD_IRQHandler(uint32_t Instance)
  8010fb2:	3708      	adds	r7, #8
  8010fb4:	46bd      	mov	sp, r7
  8010fb6:	bd80      	pop	{r7, pc}
- 8010fb8:	240089ec 	.word	0x240089ec
+ 8010fb8:	240087ec 	.word	0x240087ec
 
 08010fbc <SD_EXTI_Callback>:
 /**
@@ -43401,7 +43397,7 @@ static void SD_MspInit(SD_HandleTypeDef *hsd)
  80110ee:	3730      	adds	r7, #48	@ 0x30
  80110f0:	46bd      	mov	sp, r7
  80110f2:	bd80      	pop	{r7, pc}
- 80110f4:	240089ec 	.word	0x240089ec
+ 80110f4:	240087ec 	.word	0x240087ec
  80110f8:	58024400 	.word	0x58024400
  80110fc:	58022400 	.word	0x58022400
  8011100:	58020800 	.word	0x58020800
@@ -43480,7 +43476,7 @@ static void SD_MspDeInit(SD_HandleTypeDef *hsd)
  801115e:	3720      	adds	r7, #32
  8011160:	46bd      	mov	sp, r7
  8011162:	bd80      	pop	{r7, pc}
- 8011164:	240089ec 	.word	0x240089ec
+ 8011164:	240087ec 	.word	0x240087ec
  8011168:	58024400 	.word	0x58024400
  801116c:	58022400 	.word	0x58022400
  8011170:	58020800 	.word	0x58020800
@@ -43597,8 +43593,8 @@ int32_t BSP_SDRAM_Init(uint32_t Instance)
  80111fa:	3710      	adds	r7, #16
  80111fc:	46bd      	mov	sp, r7
  80111fe:	bd80      	pop	{r7, pc}
- 8011200:	24008a70 	.word	0x24008a70
- 8011204:	24008aa4 	.word	0x24008aa4
+ 8011200:	24008870 	.word	0x24008870
+ 8011204:	240088a4 	.word	0x240088a4
 
 08011208 <BSP_SDRAM_DeInit>:
   * @brief  DeInitializes the SDRAM device.
@@ -43669,7 +43665,7 @@ int32_t BSP_SDRAM_DeInit(uint32_t Instance)
  801125e:	3710      	adds	r7, #16
  8011260:	46bd      	mov	sp, r7
  8011262:	bd80      	pop	{r7, pc}
- 8011264:	24008a70 	.word	0x24008a70
+ 8011264:	24008870 	.word	0x24008870
  8011268:	52004140 	.word	0x52004140
 
 0801126c <MX_SDRAM_Init>:
@@ -43778,7 +43774,7 @@ __weak HAL_StatusTypeDef MX_SDRAM_Init(SDRAM_HandleTypeDef *hSdram)
  80112f4:	46bd      	mov	sp, r7
  80112f6:	bd80      	pop	{r7, pc}
  80112f8:	52004140 	.word	0x52004140
- 80112fc:	24008a70 	.word	0x24008a70
+ 80112fc:	24008870 	.word	0x24008870
 
 08011300 <BSP_SDRAM_IRQHandler>:
 /**
@@ -43810,7 +43806,7 @@ void BSP_SDRAM_IRQHandler(uint32_t Instance)
  8011322:	46bd      	mov	sp, r7
  8011324:	bd80      	pop	{r7, pc}
  8011326:	bf00      	nop
- 8011328:	24008a70 	.word	0x24008a70
+ 8011328:	24008870 	.word	0x24008870
 
 0801132c <SDRAM_MspInit>:
   * @brief  Initializes SDRAM MSP.
@@ -44108,7 +44104,7 @@ static void SDRAM_MspInit(SDRAM_HandleTypeDef  *hsdram)
  8011544:	58021800 	.word	0x58021800
  8011548:	58021c00 	.word	0x58021c00
  801154c:	58022000 	.word	0x58022000
- 8011550:	24008ac4 	.word	0x24008ac4
+ 8011550:	240088c4 	.word	0x240088c4
  8011554:	52000040 	.word	0x52000040
 
 08011558 <SDRAM_MspDeInit>:
@@ -44145,7 +44141,7 @@ static void SDRAM_MspDeInit(SDRAM_HandleTypeDef  *hsdram)
  8011576:	46bd      	mov	sp, r7
  8011578:	bd80      	pop	{r7, pc}
  801157a:	bf00      	nop
- 801157c:	24008b30 	.word	0x24008b30
+ 801157c:	24008930 	.word	0x24008930
  8011580:	52000040 	.word	0x52000040
 
 08011584 <BSP_TS_Init>:
@@ -44374,9 +44370,9 @@ int32_t BSP_TS_Init(uint32_t Instance, TS_Init_t *TS_Init)
  80116ea:	3720      	adds	r7, #32
  80116ec:	46bd      	mov	sp, r7
  80116ee:	bd80      	pop	{r7, pc}
- 80116f0:	24008ba0 	.word	0x24008ba0
- 80116f4:	24008b9c 	.word	0x24008b9c
- 80116f8:	24008bc8 	.word	0x24008bc8
+ 80116f0:	240089a0 	.word	0x240089a0
+ 80116f4:	2400899c 	.word	0x2400899c
+ 80116f8:	240089c8 	.word	0x240089c8
 
 080116fc <BSP_TS_DeInit>:
   * @brief  De-Initializes the touch screen functionalities
@@ -44438,8 +44434,8 @@ int32_t BSP_TS_DeInit(uint32_t Instance)
  801173e:	3710      	adds	r7, #16
  8011740:	46bd      	mov	sp, r7
  8011742:	bd80      	pop	{r7, pc}
- 8011744:	24008b9c 	.word	0x24008b9c
- 8011748:	24008bc8 	.word	0x24008bc8
+ 8011744:	2400899c 	.word	0x2400899c
+ 8011748:	240089c8 	.word	0x240089c8
 
 0801174c <BSP_TS_GetState>:
   * @param  Instance  TS instance. Could be only 0.
@@ -44855,9 +44851,9 @@ int32_t BSP_TS_GetState(uint32_t Instance, TS_State_t *TS_State)
  80119ee:	46bd      	mov	sp, r7
  80119f0:	bd80      	pop	{r7, pc}
  80119f2:	bf00      	nop
- 80119f4:	24008b9c 	.word	0x24008b9c
- 80119f8:	24008bc8 	.word	0x24008bc8
- 80119fc:	24008ba0 	.word	0x24008ba0
+ 80119f4:	2400899c 	.word	0x2400899c
+ 80119f8:	240089c8 	.word	0x240089c8
+ 80119fc:	240089a0 	.word	0x240089a0
 
 08011a00 <BSP_TS_Get_MultiTouchState>:
   * @param  Instance  TS instance. Could be only 0.
@@ -45220,9 +45216,9 @@ int32_t BSP_TS_Get_MultiTouchState(uint32_t Instance, TS_MultiTouch_State_t *TS_
  8011c86:	1acb      	subs	r3, r1, r3
  8011c88:	e016      	b.n	8011cb8 <BSP_TS_Get_MultiTouchState+0x2b8>
  8011c8a:	bf00      	nop
- 8011c8c:	24008b9c 	.word	0x24008b9c
- 8011c90:	24008bc8 	.word	0x24008bc8
- 8011c94:	24008ba0 	.word	0x24008ba0
+ 8011c8c:	2400899c 	.word	0x2400899c
+ 8011c90:	240089c8 	.word	0x240089c8
+ 8011c94:	240089a0 	.word	0x240089a0
           (Ts_Ctx[Instance].PreviousY[0] - TS_State->TouchY[index]);
  8011c98:	4953      	ldr	r1, [pc, #332]	@ (8011de8 <BSP_TS_Get_MultiTouchState+0x3e8>)
  8011c9a:	687a      	ldr	r2, [r7, #4]
@@ -45416,7 +45412,7 @@ int32_t BSP_TS_Get_MultiTouchState(uint32_t Instance, TS_MultiTouch_State_t *TS_
  8011de2:	46bd      	mov	sp, r7
  8011de4:	bd80      	pop	{r7, pc}
  8011de6:	bf00      	nop
- 8011de8:	24008ba0 	.word	0x24008ba0
+ 8011de8:	240089a0 	.word	0x240089a0
 
 08011dec <BSP_TS_GestureConfig>:
   * @param  Instance      TS instance. Could be only 0.
@@ -45474,8 +45470,8 @@ int32_t BSP_TS_GestureConfig(uint32_t Instance, TS_Gesture_Config_t *GestureConf
  8011e2e:	46bd      	mov	sp, r7
  8011e30:	bd80      	pop	{r7, pc}
  8011e32:	bf00      	nop
- 8011e34:	24008b9c 	.word	0x24008b9c
- 8011e38:	24008bc8 	.word	0x24008bc8
+ 8011e34:	2400899c 	.word	0x2400899c
+ 8011e38:	240089c8 	.word	0x240089c8
 
 08011e3c <BSP_TS_GetGestureId>:
   * @param  Instance   TS instance. Could be only 0.
@@ -45645,8 +45641,8 @@ int32_t BSP_TS_GetGestureId(uint32_t Instance, uint32_t *GestureId)
  8011f5e:	3710      	adds	r7, #16
  8011f60:	46bd      	mov	sp, r7
  8011f62:	bd80      	pop	{r7, pc}
- 8011f64:	24008b9c 	.word	0x24008b9c
- 8011f68:	24008bc8 	.word	0x24008bc8
+ 8011f64:	2400899c 	.word	0x2400899c
+ 8011f68:	240089c8 	.word	0x240089c8
 
 08011f6c <FT6X06_Probe>:
   * @brief  Register Bus IOs if component ID is OK
@@ -45807,9 +45803,9 @@ static int32_t FT6X06_Probe(uint32_t Instance)
  8012054:	0800d751 	.word	0x0800d751
  8012058:	0800d6f5 	.word	0x0800d6f5
  801205c:	0800d865 	.word	0x0800d865
- 8012060:	24008bcc 	.word	0x24008bcc
- 8012064:	24008bc8 	.word	0x24008bc8
- 8012068:	24008b9c 	.word	0x24008b9c
+ 8012060:	240089cc 	.word	0x240089cc
+ 8012064:	240089c8 	.word	0x240089c8
+ 8012068:	2400899c 	.word	0x2400899c
  801206c:	24000408 	.word	0x24000408
 
 08012070 <HAL_Init>:
@@ -46005,7 +46001,7 @@ __weak void HAL_IncTick(void)
  8012170:	4770      	bx	lr
  8012172:	bf00      	nop
  8012174:	24000a40 	.word	0x24000a40
- 8012178:	24008bf4 	.word	0x24008bf4
+ 8012178:	240089f4 	.word	0x240089f4
 
 0801217c <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other
@@ -46025,7 +46021,7 @@ __weak uint32_t HAL_GetTick(void)
  8012188:	f85d 7b04 	ldr.w	r7, [sp], #4
  801218c:	4770      	bx	lr
  801218e:	bf00      	nop
- 8012190:	24008bf4 	.word	0x24008bf4
+ 8012190:	240089f4 	.word	0x240089f4
 
 08012194 <HAL_Delay>:
   *       implementations in user file.
@@ -89077,11 +89073,11 @@ void UTIL_LCD_SetFuncDriver(const LCD_UTILS_Drv_t *pDrv)
  802263e:	3708      	adds	r7, #8
  8022640:	46bd      	mov	sp, r7
  8022642:	bd80      	pop	{r7, pc}
- 8022644:	24008c38 	.word	0x24008c38
- 8022648:	24008bf8 	.word	0x24008bf8
- 802264c:	24008c0c 	.word	0x24008c0c
- 8022650:	24008c10 	.word	0x24008c10
- 8022654:	24008c14 	.word	0x24008c14
+ 8022644:	24008a38 	.word	0x24008a38
+ 8022648:	240089f8 	.word	0x240089f8
+ 802264c:	24008a0c 	.word	0x24008a0c
+ 8022650:	24008a10 	.word	0x24008a10
+ 8022654:	24008a14 	.word	0x24008a14
 
 08022658 <UTIL_LCD_SetTextColor>:
 /**
@@ -89109,7 +89105,7 @@ void UTIL_LCD_SetTextColor(uint32_t Color)
  8022674:	f85d 7b04 	ldr.w	r7, [sp], #4
  8022678:	4770      	bx	lr
  802267a:	bf00      	nop
- 802267c:	24008bf8 	.word	0x24008bf8
+ 802267c:	240089f8 	.word	0x240089f8
 
 08022680 <UTIL_LCD_SetBackColor>:
 /**
@@ -89137,7 +89133,7 @@ void UTIL_LCD_SetBackColor(uint32_t Color)
  802269c:	46bd      	mov	sp, r7
  802269e:	f85d 7b04 	ldr.w	r7, [sp], #4
  80226a2:	4770      	bx	lr
- 80226a4:	24008bf8 	.word	0x24008bf8
+ 80226a4:	240089f8 	.word	0x240089f8
 
 080226a8 <UTIL_LCD_SetFont>:
 /**
@@ -89165,7 +89161,7 @@ void UTIL_LCD_SetFont(sFONT *fonts)
  80226c4:	46bd      	mov	sp, r7
  80226c6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80226ca:	4770      	bx	lr
- 80226cc:	24008bf8 	.word	0x24008bf8
+ 80226cc:	240089f8 	.word	0x240089f8
 
 080226d0 <UTIL_LCD_GetFont>:
 /**
@@ -89189,7 +89185,7 @@ sFONT *UTIL_LCD_GetFont(void)
  80226e4:	46bd      	mov	sp, r7
  80226e6:	f85d 7b04 	ldr.w	r7, [sp], #4
  80226ea:	4770      	bx	lr
- 80226ec:	24008bf8 	.word	0x24008bf8
+ 80226ec:	240089f8 	.word	0x240089f8
 
 080226f0 <UTIL_LCD_FillRGBRect>:
   * @param  Xpos    X position
@@ -89225,8 +89221,8 @@ void UTIL_LCD_FillRGBRect(uint32_t Xpos, uint32_t Ypos, uint8_t *pData, uint32_t
  802271a:	46bd      	mov	sp, r7
  802271c:	bd90      	pop	{r4, r7, pc}
  802271e:	bf00      	nop
- 8022720:	24008c38 	.word	0x24008c38
- 8022724:	24008bf8 	.word	0x24008bf8
+ 8022720:	24008a38 	.word	0x24008a38
+ 8022724:	240089f8 	.word	0x240089f8
 
 08022728 <UTIL_LCD_DrawHLine>:
   * @param  Ypos    Y position
@@ -89295,8 +89291,8 @@ void UTIL_LCD_DrawHLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t 
  8022786:	3714      	adds	r7, #20
  8022788:	46bd      	mov	sp, r7
  802278a:	bd90      	pop	{r4, r7, pc}
- 802278c:	24008bf8 	.word	0x24008bf8
- 8022790:	24008c38 	.word	0x24008c38
+ 802278c:	240089f8 	.word	0x240089f8
+ 8022790:	24008a38 	.word	0x24008a38
 
 08022794 <UTIL_LCD_DrawVLine>:
   * @param  Ypos    Y position
@@ -89365,8 +89361,8 @@ void UTIL_LCD_DrawVLine(uint32_t Xpos, uint32_t Ypos, uint32_t Length, uint32_t 
  80227f2:	3714      	adds	r7, #20
  80227f4:	46bd      	mov	sp, r7
  80227f6:	bd90      	pop	{r4, r7, pc}
- 80227f8:	24008bf8 	.word	0x24008bf8
- 80227fc:	24008c38 	.word	0x24008c38
+ 80227f8:	240089f8 	.word	0x240089f8
+ 80227fc:	24008a38 	.word	0x24008a38
 
 08022800 <UTIL_LCD_SetPixel>:
   * @param  Xpos     X position
@@ -89433,8 +89429,8 @@ void UTIL_LCD_SetPixel(uint16_t Xpos, uint16_t Ypos, uint32_t Color)
  802285a:	3708      	adds	r7, #8
  802285c:	46bd      	mov	sp, r7
  802285e:	bdb0      	pop	{r4, r5, r7, pc}
- 8022860:	24008bf8 	.word	0x24008bf8
- 8022864:	24008c38 	.word	0x24008c38
+ 8022860:	240089f8 	.word	0x240089f8
+ 8022864:	24008a38 	.word	0x24008a38
 
 08022868 <UTIL_LCD_Clear>:
 /**
@@ -89465,7 +89461,7 @@ void UTIL_LCD_Clear(uint32_t Color)
  802288a:	46bd      	mov	sp, r7
  802288c:	bd80      	pop	{r7, pc}
  802288e:	bf00      	nop
- 8022890:	24008bf8 	.word	0x24008bf8
+ 8022890:	240089f8 	.word	0x240089f8
 
 08022894 <UTIL_LCD_DisplayChar>:
   * @param  Ypos Line where to display the character shape.
@@ -89529,7 +89525,7 @@ void UTIL_LCD_DisplayChar(uint32_t Xpos, uint32_t Ypos, uint8_t Ascii)
  80228f6:	3710      	adds	r7, #16
  80228f8:	46bd      	mov	sp, r7
  80228fa:	bd80      	pop	{r7, pc}
- 80228fc:	24008bf8 	.word	0x24008bf8
+ 80228fc:	240089f8 	.word	0x240089f8
 
 08022900 <UTIL_LCD_DisplayStringAt>:
   *            @arg  CENTER_MODE
@@ -89758,7 +89754,7 @@ void UTIL_LCD_DisplayStringAt(uint32_t Xpos, uint32_t Ypos, uint8_t *Text, Text_
  8022a52:	46bd      	mov	sp, r7
  8022a54:	bd80      	pop	{r7, pc}
  8022a56:	bf00      	nop
- 8022a58:	24008bf8 	.word	0x24008bf8
+ 8022a58:	240089f8 	.word	0x240089f8
 
 08022a5c <UTIL_LCD_DrawLine>:
   * @param  Xpos2 Point 2 X position
@@ -90397,7 +90393,7 @@ void UTIL_LCD_DrawCircle(uint32_t Xpos, uint32_t Ypos, uint32_t Radius, uint32_t
  8022e32:	46bd      	mov	sp, r7
  8022e34:	bd80      	pop	{r7, pc}
  8022e36:	bf00      	nop
- 8022e38:	24008bf8 	.word	0x24008bf8
+ 8022e38:	240089f8 	.word	0x240089f8
 
 08022e3c <UTIL_LCD_DrawPolygon>:
   * @param  Points      Pointer to the points array
@@ -90727,8 +90723,8 @@ void UTIL_LCD_DrawBitmap(uint32_t Xpos, uint32_t Ypos, uint8_t *pData)
  80230a6:	3714      	adds	r7, #20
  80230a8:	46bd      	mov	sp, r7
  80230aa:	bd90      	pop	{r4, r7, pc}
- 80230ac:	24008c38 	.word	0x24008c38
- 80230b0:	24008bf8 	.word	0x24008bf8
+ 80230ac:	24008a38 	.word	0x24008a38
+ 80230b0:	240089f8 	.word	0x240089f8
 
 080230b4 <UTIL_LCD_FillRect>:
   * @param  Width  Rectangle width
@@ -90801,8 +90797,8 @@ void UTIL_LCD_FillRect(uint32_t Xpos, uint32_t Ypos, uint32_t Width, uint32_t He
  802311a:	3714      	adds	r7, #20
  802311c:	46bd      	mov	sp, r7
  802311e:	bd90      	pop	{r4, r7, pc}
- 8023120:	24008bf8 	.word	0x24008bf8
- 8023124:	24008c38 	.word	0x24008c38
+ 8023120:	240089f8 	.word	0x240089f8
+ 8023124:	24008a38 	.word	0x24008a38
 
 08023128 <UTIL_LCD_FillCircle>:
   * @param  Ypos   Y position
@@ -91871,7 +91867,7 @@ static void DrawChar(uint32_t Xpos, uint32_t Ypos, const uint8_t *pData)
  80238ca:	46bd      	mov	sp, r7
  80238cc:	bd80      	pop	{r7, pc}
  80238ce:	bf00      	nop
- 80238d0:	24008bf8 	.word	0x24008bf8
+ 80238d0:	240089f8 	.word	0x240089f8
 
 080238d4 <FillTriangle>:
   * @brief  Fills a triangle (between 3 points).
@@ -94436,7 +94432,7 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
  802557e:	e7a7      	b.n	80254d0 <PDM_Filter_Init+0x44>
  8025580:	b5e8b5cd 	.word	0xb5e8b5cd
  8025584:	f407a5c2 	.word	0xf407a5c2
- 8025588:	24000edc 	.word	0x24000edc
+ 8025588:	24000cdc 	.word	0x24000cdc
  802558c:	23fffffc 	.word	0x23fffffc
  8025590:	000ffc00 	.word	0x000ffc00
  8025594:	3ff00000 	.word	0x3ff00000
@@ -95091,7 +95087,7 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
  8025bc2:	d1f2      	bne.n	8025baa <sbrk_aligned+0x22>
  8025bc4:	e7ef      	b.n	8025ba6 <sbrk_aligned+0x1e>
  8025bc6:	bf00      	nop
- 8025bc8:	24008da0 	.word	0x24008da0
+ 8025bc8:	24008ba0 	.word	0x24008ba0
 
 08025bcc <_malloc_r>:
  8025bcc:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -95201,7 +95197,7 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
  8025cc2:	6005      	str	r5, [r0, #0]
  8025cc4:	e7d6      	b.n	8025c74 <_malloc_r+0xa8>
  8025cc6:	bf00      	nop
- 8025cc8:	24008da4 	.word	0x24008da4
+ 8025cc8:	24008ba4 	.word	0x24008ba4
 
 08025ccc <_printf_common>:
  8025ccc:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -95537,13 +95533,13 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
  8025fe4:	4801      	ldr	r0, [pc, #4]	@ (8025fec <__malloc_lock+0x8>)
  8025fe6:	f7ff bc67 	b.w	80258b8 <__retarget_lock_acquire_recursive>
  8025fea:	bf00      	nop
- 8025fec:	24008d9c 	.word	0x24008d9c
+ 8025fec:	24008b9c 	.word	0x24008b9c
 
 08025ff0 <__malloc_unlock>:
  8025ff0:	4801      	ldr	r0, [pc, #4]	@ (8025ff8 <__malloc_unlock+0x8>)
  8025ff2:	f7ff bc62 	b.w	80258ba <__retarget_lock_release_recursive>
  8025ff6:	bf00      	nop
- 8025ff8:	24008d9c 	.word	0x24008d9c
+ 8025ff8:	24008b9c 	.word	0x24008b9c
 
 08025ffc <_realloc_r>:
  8025ffc:	e92d 41f0 	stmdb	sp!, {r4, r5, r6, r7, r8, lr}
@@ -95620,7 +95616,7 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
  80260a2:	b103      	cbz	r3, 80260a6 <_sbrk_r+0x1a>
  80260a4:	6023      	str	r3, [r4, #0]
  80260a6:	bd38      	pop	{r3, r4, r5, pc}
- 80260a8:	24008da8 	.word	0x24008da8
+ 80260a8:	24008ba8 	.word	0x24008ba8
 
 080260ac <_free_r>:
  80260ac:	b538      	push	{r3, r4, r5, lr}
@@ -95691,7 +95687,7 @@ static void FillTriangle(Triangle_Positions_t *Positions, uint32_t Color)
  8026136:	e7ca      	b.n	80260ce <_free_r+0x22>
  8026138:	bd38      	pop	{r3, r4, r5, pc}
  802613a:	bf00      	nop
- 802613c:	24008da4 	.word	0x24008da4
+ 802613c:	24008ba4 	.word	0x24008ba4
 
 08026140 <_malloc_usable_size_r>:
  8026140:	f851 3c04 	ldr.w	r3, [r1, #-4]
