@@ -85,14 +85,6 @@ void AudioRecord(void)
     BSP_AUDIO_OUT_Play(0, (uint8_t *)&PCMBuffer[0], 2 * BUFFER_SIZE);
 
     // PCMBuffer is filled with the recorded data
-
-    while (1)
-    {
-        BSP_AUDIO_OUT_Stop(0);
-        BSP_AUDIO_OUT_DeInit(0);
-        BSP_AUDIO_IN_Stop(1);
-        BSP_AUDIO_IN_DeInit(1);
-    }
 }
 
 /**
