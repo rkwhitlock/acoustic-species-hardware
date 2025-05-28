@@ -1,0 +1,3 @@
+../Core/Src/mel_spectrogram.c:23:5:mel_spectrogram_init	24	static
+../Core/Src/mel_spectrogram.c:53:5:calculate_mel_spectrogram	12368	static
+../Core/Src/mel_spectrogram.c:119:6:normalize_spectrogram	40	static

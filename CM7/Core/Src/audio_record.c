@@ -10,6 +10,13 @@ extern AUDIO_ErrorTypeDef AUDIO_Start(uint32_t audio_start_address, uint32_t aud
 #define AUDIO_IN_PDM_BUFFER_SIZE (uint32_t)(128 * AUDIO_FREQUENCY / 16000 * 2)
 #define AUDIO_NB_BLOCKS ((uint32_t)4)
 #define AUDIO_BLOCK_SIZE ((uint32_t)0xFFFE)
+
+// fft hyperparams for audio processing
+#define FFT_SIZE 512
+#define HOP_LENGTH 256
+#define MEL_BANDS 64
+#define PCM_SCALING (1.0f / 32768.0f)
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Define record Buf at D3SRAM @0x38000000 since the BDMA for SAI4 use only this memory */
@@ -54,7 +61,6 @@ void AudioRecord(void)
 {
     uint32_t channel_nbr = 2;
 
-    uint32_t x_size, y_size;
 
     AudioFreq_ptr = AudioFreq + 2; /* AUDIO_FREQUENCY_16K; */
 
@@ -84,7 +90,39 @@ void AudioRecord(void)
     /* Play the recorded buffer*/
     BSP_AUDIO_OUT_Play(0, (uint8_t *)&PCMBuffer[0], 2 * BUFFER_SIZE);
 
+    // IMPLEMENT SOME SEGMENT OR DUTY CYCLING for recording?
+
     // PCMBuffer is filled with the recorded data
+
+    // CODE HERE TO PROCESS PCMBuffer
+    // ALIGN_32BYTES(uint16_t PCMBuffer[2 * BUFFER_SIZE]);
+
+    // USE CMSIS DSP Library to process PCMBuffer
+
+    // define configuration - match trained model
+    MelSpectrogramConfig_t config = {.fft_size = 512,
+                                     .hop_length = 256,
+                                     .n_mels = 64,
+                                     .sample_rate = 16000.0f,
+                                     .f_min = 0.0f,
+                                     .f_max = 8000.0f};
+
+    mel_spectrogram_init(&config);
+
+    // output spectrogram buffer
+    // n_mels x n_frames
+    static float mel_spec[64 * 64];
+    // zero out mel spectrogram buffer
+    memset(mel_spec, 0, sizeof(mel_spec));
+
+    // call DSP pipeline for PCMBuffer -> mel_spec
+    int n_frames = calculate_mel_spectrogram((const int16_t *)PCMBuffer, BUFFER_SIZE, mel_spec,
+                                             64); // max columns
+
+    // normalize to [0, 1]
+    normalize_spectrogram(mel_spec, config.n_mels, n_frames);
+
+    // DO STUFF FOR ML INFERENCE
 }
 
 /**

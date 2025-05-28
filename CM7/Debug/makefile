@@ -10,10 +10,30 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include Src/Legacy/subdir.mk
+-include Src-common/subdir.mk
 -include Src/subdir.mk
+-include Source/TransformFunctions/subdir.mk
+-include Source/SupportFunctions/subdir.mk
+-include Source/StatisticsFunctions/subdir.mk
+-include Source/MatrixFunctions/subdir.mk
+-include Source/FilteringFunctions/subdir.mk
+-include Source/FastMathFunctions/subdir.mk
+-include Source/ControllerFunctions/subdir.mk
+-include Source/ComplexMathFunctions/subdir.mk
+-include Source/CommonTables/subdir.mk
+-include Source/BasicMathFunctions/subdir.mk
+-include STM32H747I-DISCO-src/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
--include Common/Src/subdir.mk
+-include Components-bsp/wm8994/subdir.mk
+-include Components-bsp/ov9655/subdir.mk
+-include Components-bsp/ov5640/subdir.mk
+-include Components-bsp/otm8009a/subdir.mk
+-include Components-bsp/nt35510/subdir.mk
+-include Components-bsp/mt25tl01g/subdir.mk
+-include Components-bsp/is42s32800j/subdir.mk
+-include Components-bsp/ft6x06/subdir.mk
+-include Components-bsp/adv7533/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -87,7 +107,7 @@ main-build: decible_meter_CM7.elf secondary-outputs
 
 # Tool invocations
 decible_meter_CM7.elf decible_meter_CM7.map: $(OBJS) $(USER_OBJS) /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/STM32H747XIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "decible_meter_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/STM32H747XIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="decible_meter_CM7.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "decible_meter_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/STM32H747XIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="decible_meter_CM7.map" -Wl,--gc-sections -static -L"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/Lib/" -u _printf_float --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

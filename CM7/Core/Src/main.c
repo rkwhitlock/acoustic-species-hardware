@@ -27,11 +27,10 @@ UART_HandleTypeDef huart1; // For printf statements for debugging
 
 /* Function prototypes */
 static void SystemClock_Config(void);
-static void Display_DemoDescription(void);
 static void MPU_Config(void);
 static void CPU_CACHE_Enable(void);
 
-float calculate_decibel(int16_t *buffer, size_t size);
+// float calculate_decibel(int16_t *buffer, size_t size);
 
 /**
  * @brief  Calculates the sound pressure level (SPL) in decibels from audio samples
@@ -39,21 +38,21 @@ float calculate_decibel(int16_t *buffer, size_t size);
  * @param  size: Number of samples in the buffer
  * @return Sound pressure level in decibels (dB)
  */
-float calculate_decibel(uint16_t *buffer, size_t size)
-{
-    float sum = 0.0f;
+// float calculate_decibel(uint16_t *buffer, size_t size)
+// {
+//     float sum = 0.0f;
 
-    for (size_t i = 0; i < size; i++)
-    {
-        float voltage = (float)buffer[i] / 65536.0f; // Normalize 16-bit value
-        sum += voltage * voltage;
-    }
+//     for (size_t i = 0; i < size; i++)
+//     {
+//         float voltage = (float)buffer[i] / 65536.0f; // Normalize 16-bit value
+//         sum += voltage * voltage;
+//     }
 
-    float rms = sqrtf(sum / size);
-    float spl = 20.0f * log10f(rms / REFERENCE_VOLTAGE);
+//     float rms = sqrtf(sum / size);
+//     float spl = 20.0f * log10f(rms / REFERENCE_VOLTAGE);
 
-    return spl;
-}
+//     return spl;
+// }
 
 /**
  * @brief  Redirects printf output to UART1
@@ -89,7 +88,7 @@ int _write(int file, char *ptr, int len)
 int main(void)
 {
 
-    memset(audio_buffer, 0xAA, sizeof(audio_buffer)); // Initialize buffer with known pattern
+    // memset(audio_buffer, 0xAA, sizeof(audio_buffer)); // Initialize buffer with known pattern
 
     /* Wait until CPU2 (CM4) boots and enters in stop mode or timeout*/
     int32_t timeout = 0xFFFF;
@@ -139,15 +138,15 @@ int main(void)
     while (1)
     {
         AudioRecord();
-        printf("Audio Buffer Data:\r\n");
-        for (int i = 0; i < 10; i++)
-        {
-            printf("[%d]: %h\r\n", i, audio_buffer[i]);
-        }
+        // printf("Audio Buffer Data:\r\n");
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     printf("[%d]: %h\r\n", i, audio_buffer[i]);
+        // }
 
-        /* Calculate and display sound pressure level */
-        float decibel_level = calculate_decibel(audio_buffer, BUFFER_SIZE * 2);
-        printf("SPL: %.2f dB\r\n", decibel_level);
+        // /* Calculate and display sound pressure level */
+        // float decibel_level = calculate_decibel(audio_buffer, BUFFER_SIZE * 2);
+        // printf("SPL: %.2f dB\r\n", decibel_level);
 
         /* Wait one second before next update */
         HAL_Delay(1000);

@@ -38,9 +38,29 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Common/Src \
+Components-bsp/adv7533 \
+Components-bsp/ft6x06 \
+Components-bsp/is42s32800j \
+Components-bsp/mt25tl01g \
+Components-bsp/nt35510 \
+Components-bsp/otm8009a \
+Components-bsp/ov5640 \
+Components-bsp/ov9655 \
+Components-bsp/wm8994 \
 Core/Src \
 Core/Startup \
+STM32H747I-DISCO-src \
+Source/BasicMathFunctions \
+Source/CommonTables \
+Source/ComplexMathFunctions \
+Source/ControllerFunctions \
+Source/FastMathFunctions \
+Source/FilteringFunctions \
+Source/MatrixFunctions \
+Source/StatisticsFunctions \
+Source/SupportFunctions \
+Source/TransformFunctions \
 Src/Legacy \
 Src \
+Src-common \
 

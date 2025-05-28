@@ -37,14 +37,29 @@
 			<location>/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</location>
 		</link>
 		<link>
-			<name>Common</name>
+			<name>Components-bsp</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Common</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/BSP/Components</locationURI>
+		</link>
+		<link>
+			<name>STM32H747I-DISCO-src</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO</locationURI>
+		</link>
+		<link>
+			<name>Source</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/CMSIS/DSP/Source</locationURI>
 		</link>
 		<link>
 			<name>Src</name>
 			<type>2</type>
 			<location>/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</location>
+		</link>
+		<link>
+			<name>Src-common</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Common/Src</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

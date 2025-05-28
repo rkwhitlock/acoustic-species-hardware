@@ -1,0 +1,15 @@
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:120:9:BSP_TS_Init	10
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:171:9:BSP_TS_DeInit	3
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:200:9:BSP_TS_GetCapabilities	2
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:222:9:BSP_TS_EnableIT	3
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:268:9:BSP_TS_DisableIT	3
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:304:13:BSP_TS_Callback	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:319:9:BSP_TS_GetState	11
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:405:9:BSP_TS_Get_MultiTouchState	13
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:496:9:BSP_TS_GestureConfig	3
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:521:9:BSP_TS_GetGestureId	13
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:578:9:BSP_TS_Set_Orientation	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:590:9:BSP_TS_Get_Orientation	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:601:6:BSP_TS_IRQHandler	1
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:618:16:FT6X06_Probe	6
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO/stm32h747i_discovery_ts.c:675:13:TS_EXTI_Callback	1

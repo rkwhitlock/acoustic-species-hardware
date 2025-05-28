@@ -28,8 +28,16 @@ extern "C"
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include "mel_filterbank.h"
+#include "mel_spectrogram.h"
 #include "stm32h747i_discovery_audio.h"
+#include "stm32h747i_discovery_sdram.h"
 #include "stm32h7xx_hal.h"
+
+#include <stdint.h>
+#include <string.h>
+
+#define BUFFER_SIZE 4096 // Size of the audio buffer
 
     /* Exported types ------------------------------------------------------------*/
     typedef enum
@@ -60,8 +68,6 @@ extern "C"
  * Assuming Camera frame buffer is of size 800x480 and format ARGB8888 (32 bits per pixel).
  */
 #define SDRAM_WRITE_READ_ADDR_OFFSET ((uint32_t)0x0800)
-
-#define BUFFER_SIZE 4096 // Size of the audio buffer
 
 // TODO: check if sdram write read address offset can be 0
 

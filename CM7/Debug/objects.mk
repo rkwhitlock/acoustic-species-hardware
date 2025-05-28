@@ -5,5 +5,5 @@
 
 USER_OBJS :=
 
-LIBS :=
+LIBS := -lPDMFilter_CM7_GCC_wc32
 

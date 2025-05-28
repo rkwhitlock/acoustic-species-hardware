@@ -1,8 +1,11 @@
 {
-    "files.associations": {
-        ".c": "cl",
-        "Dockerfile": "cmake",
-        "stm32h7xx_hal.h": "c",
-        "main.h": "c"
-    }
+  "files.associations": {
+    ".c": "cl",
+    "Dockerfile": "cmake",
+    "csv": "csv",
+    "stm32h7xx_hal.h": "c",
+    "main.h": "c",
+    "stm32h747i_discovery_sdram.h": "c",
+    "stm32h7xx_ll_fmc.h": "c"
+  }
 }

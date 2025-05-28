@@ -1,0 +1,3 @@
+../Core/Src/mel_filterbank.c:9:14:hz_to_mel	16	static
+../Core/Src/mel_filterbank.c:12:14:mel_to_hz	16	static
+../Core/Src/mel_filterbank.c:33:6:create_mel_filterbank	1120	static
