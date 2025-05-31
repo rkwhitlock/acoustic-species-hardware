@@ -18,6 +18,7 @@ static MelSpectrogramConfig_t cfg;
 static arm_rfft_fast_instance_f32 fft_instance;
 // internal buffers
 static float window_buffer[MAX_FFT_SIZE];
+// __attribute__((section(".sdram_data")))
 static float mel_filters[MAX_MEL_BANDS * (MAX_FFT_SIZE / 2 + 1)];
 
 int mel_spectrogram_init(MelSpectrogramConfig_t *config)

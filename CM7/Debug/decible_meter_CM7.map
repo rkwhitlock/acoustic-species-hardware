@@ -39864,7 +39864,7 @@ Memory Configuration
 
 Name             Origin             Length             Attributes
 RAM_D1           0x24000000         0x00080000         xrw
-FLASH            0x08000000         0x00100000         xr
+FLASH            0x08000000         0x001f0000         xr
 DTCMRAM          0x20000000         0x00020000         xrw
 RAM_D2           0x30000000         0x00048000         xrw
 RAM_D3           0x38000000         0x00010000         xrw
@@ -41584,7 +41584,7 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
                 0x24000660                recordPDMBuf
                 0x24000860                        . = ALIGN (0x4)
 
-.bss            0x24000860     0xc050 load address 0x08029880
+.bss            0x24000860    0x8b24c load address 0x08029880
                 0x24000860                        _sbss = .
                 0x24000860                        __bss_start__ = _sbss
  *(.bss)
@@ -41623,84 +41623,85 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
  .bss.window_buffer
                 0x2400895c     0x2000 ./Core/Src/mel_spectrogram.o
  .bss.mel_filters
-                0x2400a95c     0x1004 ./Core/Src/mel_spectrogram.o
+                0x2400a95c    0x80200 ./Core/Src/mel_spectrogram.o
  .bss.SAI4_client
-                0x2400b960        0x4 ./Core/Src/stm32h7xx_hal_msp.o
+                0x2408ab5c        0x4 ./Core/Src/stm32h7xx_hal_msp.o
  .bss.__sbrk_heap_end
-                0x2400b964        0x4 ./Core/Src/sysmem.o
+                0x2408ab60        0x4 ./Core/Src/sysmem.o
  .bss.Audio_Drv
-                0x2400b968        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ab64        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
  .bss.PDM_FilterHandler
-                0x2400b96c       0x98 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ab68       0x98 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
  .bss.PDM_FilterConfig
-                0x2400ba04        0xc ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ac00        0xc ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
  .bss.Audio_CompObj
-                0x2400ba10        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
-                0x2400ba10                Audio_CompObj
+                0x2408ac0c        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ac0c                Audio_CompObj
  .bss.haudio_out_sai
-                0x2400ba14       0x98 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
-                0x2400ba14                haudio_out_sai
+                0x2408ac10       0x98 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ac10                haudio_out_sai
  .bss.haudio_in_sai
-                0x2400baac       0x98 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
-                0x2400baac                haudio_in_sai
+                0x2408aca8       0x98 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408aca8                haudio_in_sai
  .bss.Audio_Out_Ctx
-                0x2400bb44       0x48 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
-                0x2400bb44                Audio_Out_Ctx
+                0x2408ad40       0x48 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ad40                Audio_Out_Ctx
  .bss.Audio_In_Ctx
-                0x2400bb8c       0x60 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
-                0x2400bb8c                Audio_In_Ctx
+                0x2408ad88       0x60 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ad88                Audio_In_Ctx
  .bss.WM8994Obj.2
-                0x2400bbec       0x28 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ade8       0x28 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
  .bss.hdma_sai_tx.1
-                0x2400bc14       0x78 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ae10       0x78 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
  .bss.hdma_sai_rx.0
-                0x2400bc8c       0x78 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+                0x2408ae88       0x78 ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
  .bss.I2c4InitCounter
-                0x2400bd04        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
+                0x2408af00        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
  .bss.I2c_valid_timing
-                0x2400bd08      0xa00 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
+                0x2408af04      0xa00 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
  .bss.I2c_valid_timing_nbr
-                0x2400c708        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
+                0x2408b904        0x4 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
  .bss.hbus_i2c4
-                0x2400c70c       0x54 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
-                0x2400c70c                hbus_i2c4
- .bss.uwTick    0x2400c760        0x4 ./Src/stm32h7xx_hal.o
-                0x2400c760                uwTick
- .bss.__sf      0x2400c764      0x138 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-findfp.o)
-                0x2400c764                __sf
+                0x2408b908       0x54 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
+                0x2408b908                hbus_i2c4
+ .bss.uwTick    0x2408b95c        0x4 ./Src/stm32h7xx_hal.o
+                0x2408b95c                uwTick
+ .bss.__sf      0x2408b960      0x138 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-findfp.o)
+                0x2408b960                __sf
  .bss.__stdio_exit_handler
-                0x2400c89c        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-findfp.o)
-                0x2400c89c                __stdio_exit_handler
+                0x2408ba98        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-findfp.o)
+                0x2408ba98                __stdio_exit_handler
  .bss.__lock___malloc_recursive_mutex
-                0x2400c8a0        0x1 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-lock.o)
-                0x2400c8a0                __lock___malloc_recursive_mutex
+                0x2408ba9c        0x1 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-lock.o)
+                0x2408ba9c                __lock___malloc_recursive_mutex
  .bss.__lock___sfp_recursive_mutex
-                0x2400c8a1        0x1 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-lock.o)
-                0x2400c8a1                __lock___sfp_recursive_mutex
- *fill*         0x2400c8a2        0x2 
+                0x2408ba9d        0x1 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-lock.o)
+                0x2408ba9d                __lock___sfp_recursive_mutex
+ *fill*         0x2408ba9e        0x2 
  .bss.__malloc_sbrk_start
-                0x2400c8a4        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
-                0x2400c8a4                __malloc_sbrk_start
+                0x2408baa0        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
+                0x2408baa0                __malloc_sbrk_start
  .bss.__malloc_free_list
-                0x2400c8a8        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
-                0x2400c8a8                __malloc_free_list
- .bss.errno     0x2400c8ac        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-reent.o)
-                0x2400c8ac                errno
+                0x2408baa4        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-mallocr.o)
+                0x2408baa4                __malloc_free_list
+ .bss.errno     0x2408baa8        0x4 /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libc_nano.a(libc_a-reent.o)
+                0x2408baa8                errno
  *(COMMON)
-                0x2400c8b0                        . = ALIGN (0x4)
-                0x2400c8b0                        _ebss = .
-                0x2400c8b0                        __bss_end__ = _ebss
+                0x2408baac                        . = ALIGN (0x4)
+                0x2408baac                        _ebss = .
+                0x2408baac                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x2400c8b0      0x600 load address 0x08029880
-                0x2400c8b0                        . = ALIGN (0x8)
+                0x2408baac      0x604 load address 0x08029880
+                0x2408bab0                        . = ALIGN (0x8)
+ *fill*         0x2408baac        0x4 
                 [!provide]                        PROVIDE (end = .)
-                0x2400c8b0                        PROVIDE (_end = .)
-                0x2400cab0                        . = (. + _Min_Heap_Size)
- *fill*         0x2400c8b0      0x200 
-                0x2400ceb0                        . = (. + _Min_Stack_Size)
- *fill*         0x2400cab0      0x400 
-                0x2400ceb0                        . = ALIGN (0x8)
+                0x2408bab0                        PROVIDE (_end = .)
+                0x2408bcb0                        . = (. + _Min_Heap_Size)
+ *fill*         0x2408bab0      0x200 
+                0x2408c0b0                        . = (. + _Min_Stack_Size)
+ *fill*         0x2408bcb0      0x400 
+                0x2408c0b0                        . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -41894,73 +41895,73 @@ LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.id
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+dp/hard/libm.a
 LOAD /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.13.3.rel1.macos64_1.0.0.202411102158/tools/bin/../lib/gcc/arm-none-eabi/13.3.1/thumb/v7e-m+dp/hard/libgcc.a
 
-.debug_info     0x00000000    0x1f5ad
+.debug_info     0x00000000    0x1f5c0
  .debug_info    0x00000000      0xc52 ./Components-bsp/wm8994/wm8994.o
  .debug_info    0x00000c52     0x6bd7 ./Components-bsp/wm8994/wm8994_reg.o
  .debug_info    0x00007829      0xa9d ./Core/Src/audio_record.o
  .debug_info    0x000082c6     0x1add ./Core/Src/main.o
  .debug_info    0x00009da3      0x2f1 ./Core/Src/mel_filterbank.o
- .debug_info    0x0000a094      0x606 ./Core/Src/mel_spectrogram.o
- .debug_info    0x0000a69a     0x169c ./Core/Src/stm32h7xx_hal_msp.o
- .debug_info    0x0000bd36      0x166 ./Core/Src/stm32h7xx_it.o
- .debug_info    0x0000be9c      0x6a3 ./Core/Src/syscalls.o
- .debug_info    0x0000c53f      0x168 ./Core/Src/sysmem.o
- .debug_info    0x0000c6a7       0x30 ./Core/Startup/startup_stm32h747xihx.o
- .debug_info    0x0000c6d7     0x321e ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
- .debug_info    0x0000f8f5     0x1557 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
- .debug_info    0x00010e4c      0xf6c ./Source/CommonTables/arm_common_tables.o
- .debug_info    0x00011db8      0x17f ./Source/FastMathFunctions/arm_cos_f32.o
- .debug_info    0x00011f37      0x1b3 ./Source/TransformFunctions/arm_bitreversal2.o
- .debug_info    0x000120ea      0x55a ./Source/TransformFunctions/arm_cfft_f32.o
- .debug_info    0x00012644      0x43f ./Source/TransformFunctions/arm_cfft_radix8_f32.o
- .debug_info    0x00012a83      0x44b ./Source/TransformFunctions/arm_rfft_fast_f32.o
- .debug_info    0x00012ece      0x5f9 ./Source/TransformFunctions/arm_rfft_fast_init_f32.o
- .debug_info    0x000134c7     0x177a ./Src/stm32h7xx_hal.o
- .debug_info    0x00014c41     0x10d5 ./Src/stm32h7xx_hal_cortex.o
- .debug_info    0x00015d16      0xc43 ./Src/stm32h7xx_hal_dma.o
- .debug_info    0x00016959      0x831 ./Src/stm32h7xx_hal_dma_ex.o
- .debug_info    0x0001718a      0xd06 ./Src/stm32h7xx_hal_gpio.o
- .debug_info    0x00017e90      0x3d3 ./Src/stm32h7xx_hal_hsem.o
- .debug_info    0x00018263     0x22c9 ./Src/stm32h7xx_hal_i2c.o
- .debug_info    0x0001a52c      0xd84 ./Src/stm32h7xx_hal_i2c_ex.o
- .debug_info    0x0001b2b0      0xe67 ./Src/stm32h7xx_hal_rcc.o
- .debug_info    0x0001c117     0x130f ./Src/stm32h7xx_hal_rcc_ex.o
- .debug_info    0x0001d426     0x13d7 ./Src/stm32h7xx_hal_sai.o
- .debug_info    0x0001e7fd      0xdb0 ./Src-common/system_stm32h7xx_dualcore_boot_cm4_cm7.o
+ .debug_info    0x0000a094      0x619 ./Core/Src/mel_spectrogram.o
+ .debug_info    0x0000a6ad     0x169c ./Core/Src/stm32h7xx_hal_msp.o
+ .debug_info    0x0000bd49      0x166 ./Core/Src/stm32h7xx_it.o
+ .debug_info    0x0000beaf      0x6a3 ./Core/Src/syscalls.o
+ .debug_info    0x0000c552      0x168 ./Core/Src/sysmem.o
+ .debug_info    0x0000c6ba       0x30 ./Core/Startup/startup_stm32h747xihx.o
+ .debug_info    0x0000c6ea     0x321e ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+ .debug_info    0x0000f908     0x1557 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
+ .debug_info    0x00010e5f      0xf6c ./Source/CommonTables/arm_common_tables.o
+ .debug_info    0x00011dcb      0x17f ./Source/FastMathFunctions/arm_cos_f32.o
+ .debug_info    0x00011f4a      0x1b3 ./Source/TransformFunctions/arm_bitreversal2.o
+ .debug_info    0x000120fd      0x55a ./Source/TransformFunctions/arm_cfft_f32.o
+ .debug_info    0x00012657      0x43f ./Source/TransformFunctions/arm_cfft_radix8_f32.o
+ .debug_info    0x00012a96      0x44b ./Source/TransformFunctions/arm_rfft_fast_f32.o
+ .debug_info    0x00012ee1      0x5f9 ./Source/TransformFunctions/arm_rfft_fast_init_f32.o
+ .debug_info    0x000134da     0x177a ./Src/stm32h7xx_hal.o
+ .debug_info    0x00014c54     0x10d5 ./Src/stm32h7xx_hal_cortex.o
+ .debug_info    0x00015d29      0xc43 ./Src/stm32h7xx_hal_dma.o
+ .debug_info    0x0001696c      0x831 ./Src/stm32h7xx_hal_dma_ex.o
+ .debug_info    0x0001719d      0xd06 ./Src/stm32h7xx_hal_gpio.o
+ .debug_info    0x00017ea3      0x3d3 ./Src/stm32h7xx_hal_hsem.o
+ .debug_info    0x00018276     0x22c9 ./Src/stm32h7xx_hal_i2c.o
+ .debug_info    0x0001a53f      0xd84 ./Src/stm32h7xx_hal_i2c_ex.o
+ .debug_info    0x0001b2c3      0xe67 ./Src/stm32h7xx_hal_rcc.o
+ .debug_info    0x0001c12a     0x130f ./Src/stm32h7xx_hal_rcc_ex.o
+ .debug_info    0x0001d439     0x13d7 ./Src/stm32h7xx_hal_sai.o
+ .debug_info    0x0001e810      0xdb0 ./Src-common/system_stm32h7xx_dualcore_boot_cm4_cm7.o
 
-.debug_abbrev   0x00000000     0x3abb
+.debug_abbrev   0x00000000     0x3ac4
  .debug_abbrev  0x00000000      0x1db ./Components-bsp/wm8994/wm8994.o
  .debug_abbrev  0x000001db      0x153 ./Components-bsp/wm8994/wm8994_reg.o
  .debug_abbrev  0x0000032e      0x27f ./Core/Src/audio_record.o
  .debug_abbrev  0x000005ad      0x3d2 ./Core/Src/main.o
  .debug_abbrev  0x0000097f      0x140 ./Core/Src/mel_filterbank.o
- .debug_abbrev  0x00000abf      0x1c7 ./Core/Src/mel_spectrogram.o
- .debug_abbrev  0x00000c86      0x23f ./Core/Src/stm32h7xx_hal_msp.o
- .debug_abbrev  0x00000ec5       0xa0 ./Core/Src/stm32h7xx_it.o
- .debug_abbrev  0x00000f65      0x1b6 ./Core/Src/syscalls.o
- .debug_abbrev  0x0000111b       0xbc ./Core/Src/sysmem.o
- .debug_abbrev  0x000011d7       0x24 ./Core/Startup/startup_stm32h747xihx.o
- .debug_abbrev  0x000011fb      0x36b ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
- .debug_abbrev  0x00001566      0x348 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
- .debug_abbrev  0x000018ae       0xb1 ./Source/CommonTables/arm_common_tables.o
- .debug_abbrev  0x0000195f       0xc6 ./Source/FastMathFunctions/arm_cos_f32.o
- .debug_abbrev  0x00001a25       0x8d ./Source/TransformFunctions/arm_bitreversal2.o
- .debug_abbrev  0x00001ab2      0x164 ./Source/TransformFunctions/arm_cfft_f32.o
- .debug_abbrev  0x00001c16       0x98 ./Source/TransformFunctions/arm_cfft_radix8_f32.o
- .debug_abbrev  0x00001cae      0x167 ./Source/TransformFunctions/arm_rfft_fast_f32.o
- .debug_abbrev  0x00001e15      0x192 ./Source/TransformFunctions/arm_rfft_fast_init_f32.o
- .debug_abbrev  0x00001fa7      0x295 ./Src/stm32h7xx_hal.o
- .debug_abbrev  0x0000223c      0x339 ./Src/stm32h7xx_hal_cortex.o
- .debug_abbrev  0x00002575      0x248 ./Src/stm32h7xx_hal_dma.o
- .debug_abbrev  0x000027bd      0x1cc ./Src/stm32h7xx_hal_dma_ex.o
- .debug_abbrev  0x00002989      0x205 ./Src/stm32h7xx_hal_gpio.o
- .debug_abbrev  0x00002b8e      0x1d3 ./Src/stm32h7xx_hal_hsem.o
- .debug_abbrev  0x00002d61      0x25d ./Src/stm32h7xx_hal_i2c.o
- .debug_abbrev  0x00002fbe      0x1f5 ./Src/stm32h7xx_hal_i2c_ex.o
- .debug_abbrev  0x000031b3      0x2c8 ./Src/stm32h7xx_hal_rcc.o
- .debug_abbrev  0x0000347b      0x269 ./Src/stm32h7xx_hal_rcc_ex.o
- .debug_abbrev  0x000036e4      0x28b ./Src/stm32h7xx_hal_sai.o
- .debug_abbrev  0x0000396f      0x14c ./Src-common/system_stm32h7xx_dualcore_boot_cm4_cm7.o
+ .debug_abbrev  0x00000abf      0x1d0 ./Core/Src/mel_spectrogram.o
+ .debug_abbrev  0x00000c8f      0x23f ./Core/Src/stm32h7xx_hal_msp.o
+ .debug_abbrev  0x00000ece       0xa0 ./Core/Src/stm32h7xx_it.o
+ .debug_abbrev  0x00000f6e      0x1b6 ./Core/Src/syscalls.o
+ .debug_abbrev  0x00001124       0xbc ./Core/Src/sysmem.o
+ .debug_abbrev  0x000011e0       0x24 ./Core/Startup/startup_stm32h747xihx.o
+ .debug_abbrev  0x00001204      0x36b ./STM32H747I-DISCO-src/stm32h747i_discovery_audio.o
+ .debug_abbrev  0x0000156f      0x348 ./STM32H747I-DISCO-src/stm32h747i_discovery_bus.o
+ .debug_abbrev  0x000018b7       0xb1 ./Source/CommonTables/arm_common_tables.o
+ .debug_abbrev  0x00001968       0xc6 ./Source/FastMathFunctions/arm_cos_f32.o
+ .debug_abbrev  0x00001a2e       0x8d ./Source/TransformFunctions/arm_bitreversal2.o
+ .debug_abbrev  0x00001abb      0x164 ./Source/TransformFunctions/arm_cfft_f32.o
+ .debug_abbrev  0x00001c1f       0x98 ./Source/TransformFunctions/arm_cfft_radix8_f32.o
+ .debug_abbrev  0x00001cb7      0x167 ./Source/TransformFunctions/arm_rfft_fast_f32.o
+ .debug_abbrev  0x00001e1e      0x192 ./Source/TransformFunctions/arm_rfft_fast_init_f32.o
+ .debug_abbrev  0x00001fb0      0x295 ./Src/stm32h7xx_hal.o
+ .debug_abbrev  0x00002245      0x339 ./Src/stm32h7xx_hal_cortex.o
+ .debug_abbrev  0x0000257e      0x248 ./Src/stm32h7xx_hal_dma.o
+ .debug_abbrev  0x000027c6      0x1cc ./Src/stm32h7xx_hal_dma_ex.o
+ .debug_abbrev  0x00002992      0x205 ./Src/stm32h7xx_hal_gpio.o
+ .debug_abbrev  0x00002b97      0x1d3 ./Src/stm32h7xx_hal_hsem.o
+ .debug_abbrev  0x00002d6a      0x25d ./Src/stm32h7xx_hal_i2c.o
+ .debug_abbrev  0x00002fc7      0x1f5 ./Src/stm32h7xx_hal_i2c_ex.o
+ .debug_abbrev  0x000031bc      0x2c8 ./Src/stm32h7xx_hal_rcc.o
+ .debug_abbrev  0x00003484      0x269 ./Src/stm32h7xx_hal_rcc_ex.o
+ .debug_abbrev  0x000036ed      0x28b ./Src/stm32h7xx_hal_sai.o
+ .debug_abbrev  0x00003978      0x14c ./Src-common/system_stm32h7xx_dualcore_boot_cm4_cm7.o
 
 .debug_aranges  0x00000000     0x1c38
  .debug_aranges

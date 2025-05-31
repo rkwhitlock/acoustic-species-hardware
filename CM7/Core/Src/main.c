@@ -119,6 +119,7 @@ int main(void)
     /* Configure the system clock to 400 MHz */
     SystemClock_Config();
 
+
     /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
     HSEM notification */
     __HAL_RCC_HSEM_CLK_ENABLE();    // Enable semaphore clock

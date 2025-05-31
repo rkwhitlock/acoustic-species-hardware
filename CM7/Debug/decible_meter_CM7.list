@@ -9,11 +9,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   2 .rodata       00013fdc  08015048  08015048  00016048  2**3
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08029024  08029024  0002b860  2**0
+  3 .ARM.extab    00000000  08029024  08029024  000ac200  2**0
                   CONTENTS, READONLY
   4 .ARM          00000008  08029024  08029024  0002a024  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  0802902c  0802902c  0002b860  2**0
+  5 .preinit_array 00000000  0802902c  0802902c  000ac200  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   6 .init_array   00000004  0802902c  0802902c  0002a02c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
@@ -23,31 +23,33 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   9 .RAM_D3       00000200  24000660  08029680  0002b660  2**5
                   CONTENTS, ALLOC, LOAD, DATA
- 10 .bss          0000c050  24000860  08029880  0002b860  2**5
+ 10 .bss          0000b04c  24000860  08029880  0002b860  2**5
                   ALLOC
- 11 ._user_heap_stack 00000600  2400c8b0  08029880  0002b8b0  2**0
+ 11 ._user_heap_stack 00000604  2400b8ac  08029880  0002b8ac  2**0
                   ALLOC
- 12 .ARM.attributes 0000002e  00000000  00000000  0002b860  2**0
+ 12 .sdram        00080200  70000000  70000000  0002c000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+ 13 .ARM.attributes 0000002e  00000000  00000000  000ac200  2**0
                   CONTENTS, READONLY
- 13 .debug_info   0001f5ad  00000000  00000000  0002b88e  2**0
+ 14 .debug_info   0001f5c0  00000000  00000000  000ac22e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00003abb  00000000  00000000  0004ae3b  2**0
+ 15 .debug_abbrev 00003ac4  00000000  00000000  000cb7ee  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00001c38  00000000  00000000  0004e8f8  2**3
+ 16 .debug_aranges 00001c38  00000000  00000000  000cf2b8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 00001569  00000000  00000000  00050530  2**0
+ 17 .debug_rnglists 00001569  00000000  00000000  000d0ef0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  00007a44  00000000  00000000  00051a99  2**0
+ 18 .debug_macro  00007a44  00000000  00000000  000d2459  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   000230ee  00000000  00000000  000594dd  2**0
+ 19 .debug_line   000230ee  00000000  00000000  000d9e9d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    001aee9c  00000000  00000000  0007c5cb  2**0
+ 20 .debug_str    001aee9c  00000000  00000000  000fcf8b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .comment      000000c2  00000000  00000000  0022b467  2**0
+ 21 .comment      000000c2  00000000  00000000  002abe27  2**0
                   CONTENTS, READONLY
- 21 .debug_frame  00008564  00000000  00000000  0022b52c  2**2
+ 22 .debug_frame  00008564  00000000  00000000  002abeec  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 22 .debug_line_str 00000071  00000000  00000000  00233a90  2**0
+ 23 .debug_line_str 00000071  00000000  00000000  002b4450  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -5493,6 +5495,7 @@ int main(void)
     SystemClock_Config();
  8002606:	f000 f835 	bl	8002674 <SystemClock_Config>
 
+
     /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
     HSEM notification */
     __HAL_RCC_HSEM_CLK_ENABLE();    // Enable semaphore clock
@@ -6387,9 +6390,9 @@ void create_mel_filterbank(float *filterbank, uint16_t n_mels, uint16_t n_fft, f
  8002ce4:	358637bd 	.word	0x358637bd
 
 08002ce8 <mel_spectrogram_init>:
-// internal buffers
 static float window_buffer[MAX_FFT_SIZE];
-static float mel_filters[1 * (MAX_FFT_SIZE / 2 + 1)];
+__attribute__((section(".sdram_data")))
+static float mel_filters[MAX_MEL_BANDS * (MAX_FFT_SIZE / 2 + 1)];
 
 int mel_spectrogram_init(MelSpectrogramConfig_t *config)
 {
@@ -6514,7 +6517,7 @@ int mel_spectrogram_init(MelSpectrogramConfig_t *config)
  8002ddc:	24008944 	.word	0x24008944
  8002de0:	40c90fdb 	.word	0x40c90fdb
  8002de4:	2400895c 	.word	0x2400895c
- 8002de8:	2400a95c 	.word	0x2400a95c
+ 8002de8:	70000000 	.word	0x70000000
 
 08002dec <calculate_mel_spectrogram>:
 
@@ -6986,7 +6989,7 @@ int calculate_mel_spectrogram(const int16_t *pcm_data, uint32_t pcm_size, float 
  8003246:	46bd      	mov	sp, r7
  8003248:	bd90      	pop	{r4, r7, pc}
  800324a:	bf00      	nop
- 800324c:	2400a95c 	.word	0x2400a95c
+ 800324c:	70000000 	.word	0x70000000
  8003250:	358637bd 	.word	0x358637bd
  8003254:	c2a00000 	.word	0xc2a00000
  8003258:	c2a00000 	.word	0xc2a00000
@@ -7373,7 +7376,7 @@ void HAL_SAI_MspInit(SAI_HandleTypeDef* hsai)
  80034c8:	bd80      	pop	{r7, pc}
  80034ca:	bf00      	nop
  80034cc:	58005404 	.word	0x58005404
- 80034d0:	2400b960 	.word	0x2400b960
+ 80034d0:	2400a95c 	.word	0x2400a95c
  80034d4:	58024400 	.word	0x58024400
  80034d8:	58021000 	.word	0x58021000
  80034dc:	58020800 	.word	0x58020800
@@ -7816,8 +7819,8 @@ void *_sbrk(ptrdiff_t incr)
  800369a:	bd80      	pop	{r7, pc}
  800369c:	24080000 	.word	0x24080000
  80036a0:	00000400 	.word	0x00000400
- 80036a4:	2400b964 	.word	0x2400b964
- 80036a8:	2400c8b0 	.word	0x2400c8b0
+ 80036a4:	2400a960 	.word	0x2400a960
+ 80036a8:	2400b8b0 	.word	0x2400b8b0
 
 080036ac <Reset_Handler>:
 
@@ -7908,7 +7911,7 @@ LoopFillZerobss:
   ldr r2, =_sbss
  80036f4:	24000860 	.word	0x24000860
   ldr r4, =_ebss
- 80036f8:	2400c8b0 	.word	0x2400c8b0
+ 80036f8:	2400b8ac 	.word	0x2400b8ac
 
 080036fc <ADC3_IRQHandler>:
  * @retval None
@@ -8245,12 +8248,12 @@ int32_t BSP_AUDIO_OUT_Init(uint32_t Instance, BSP_AUDIO_Init_t* AudioInit)
  80038d6:	3750      	adds	r7, #80	@ 0x50
  80038d8:	46bd      	mov	sp, r7
  80038da:	bd80      	pop	{r7, pc}
- 80038dc:	2400bb44 	.word	0x2400bb44
- 80038e0:	2400ba14 	.word	0x2400ba14
+ 80038dc:	2400ab40 	.word	0x2400ab40
+ 80038e0:	2400aa10 	.word	0x2400aa10
  80038e4:	40015804 	.word	0x40015804
  80038e8:	51eb851f 	.word	0x51eb851f
- 80038ec:	2400b968 	.word	0x2400b968
- 80038f0:	2400ba10 	.word	0x2400ba10
+ 80038ec:	2400a964 	.word	0x2400a964
+ 80038f0:	2400aa0c 	.word	0x2400aa0c
 
 080038f4 <MX_SAI1_Block_A_Init>:
   * @param  MXConfig SAI configuration structure
@@ -8776,10 +8779,10 @@ int32_t BSP_AUDIO_OUT_Play(uint32_t Instance, uint8_t* pData, uint32_t NbrOfByte
  8003c02:	3718      	adds	r7, #24
  8003c04:	46bd      	mov	sp, r7
  8003c06:	bd80      	pop	{r7, pc}
- 8003c08:	2400bb44 	.word	0x2400bb44
- 8003c0c:	2400ba14 	.word	0x2400ba14
- 8003c10:	2400b968 	.word	0x2400b968
- 8003c14:	2400ba10 	.word	0x2400ba10
+ 8003c08:	2400ab40 	.word	0x2400ab40
+ 8003c0c:	2400aa10 	.word	0x2400aa10
+ 8003c10:	2400a964 	.word	0x2400a964
+ 8003c14:	2400aa0c 	.word	0x2400aa0c
 
 08003c18 <BSP_AUDIO_OUT_SetDevice>:
   * @param  Instance AUDIO OUT Instance. It can only be 0 (SAI) or 1 (I2S)
@@ -8840,7 +8843,7 @@ int32_t BSP_AUDIO_OUT_SetDevice(uint32_t Instance, uint32_t Device)
  8003c58:	f85d 7b04 	ldr.w	r7, [sp], #4
  8003c5c:	4770      	bx	lr
  8003c5e:	bf00      	nop
- 8003c60:	2400bb44 	.word	0x2400bb44
+ 8003c60:	2400ab40 	.word	0x2400ab40
 
 08003c64 <HAL_SAI_TxCpltCallback>:
   * @brief  Tx Transfer completed callbacks.
@@ -9434,14 +9437,14 @@ int32_t BSP_AUDIO_IN_Init(uint32_t Instance, BSP_AUDIO_Init_t* AudioInit)
         return BSP_ERROR_PERIPH_FAILURE;
  8003f7e:	f06f 0303 	mvn.w	r3, #3
  8003f82:	e03a      	b.n	8003ffa <BSP_AUDIO_IN_Init+0x302>
- 8003f84:	2400bb8c 	.word	0x2400bb8c
- 8003f88:	2400baac 	.word	0x2400baac
+ 8003f84:	2400ab88 	.word	0x2400ab88
+ 8003f88:	2400aaa8 	.word	0x2400aaa8
  8003f8c:	40015824 	.word	0x40015824
- 8003f90:	2400ba14 	.word	0x2400ba14
+ 8003f90:	2400aa10 	.word	0x2400aa10
  8003f94:	40015804 	.word	0x40015804
  8003f98:	51eb851f 	.word	0x51eb851f
- 8003f9c:	2400b968 	.word	0x2400b968
- 8003fa0:	2400ba10 	.word	0x2400ba10
+ 8003f9c:	2400a964 	.word	0x2400a964
+ 8003fa0:	2400aa0c 	.word	0x2400aa0c
  8003fa4:	58005404 	.word	0x58005404
       {
         return BSP_ERROR_PERIPH_FAILURE;
@@ -9505,7 +9508,7 @@ int32_t BSP_AUDIO_IN_Init(uint32_t Instance, BSP_AUDIO_Init_t* AudioInit)
  8003ffe:	46bd      	mov	sp, r7
  8004000:	bd90      	pop	{r4, r7, pc}
  8004002:	bf00      	nop
- 8004004:	2400bb8c 	.word	0x2400bb8c
+ 8004004:	2400ab88 	.word	0x2400ab88
 
 08004008 <MX_SAI1_Block_B_Init>:
   * @param  MXConfig SAI configuration structure
@@ -10040,10 +10043,10 @@ int32_t BSP_AUDIO_IN_PDMToPCM_Init(uint32_t Instance, uint32_t AudioFreq, uint32
  800433c:	bd80      	pop	{r7, pc}
  800433e:	bf00      	nop
  8004340:	58024400 	.word	0x58024400
- 8004344:	2400b96c 	.word	0x2400b96c
+ 8004344:	2400a968 	.word	0x2400a968
  8004348:	7e809d48 	.word	0x7e809d48
  800434c:	10624dd3 	.word	0x10624dd3
- 8004350:	2400ba04 	.word	0x2400ba04
+ 8004350:	2400aa00 	.word	0x2400aa00
 
 08004354 <BSP_AUDIO_IN_PDMToPCM>:
   * @param  PDMBuf    Pointer to PDM buffer data
@@ -10120,8 +10123,8 @@ int32_t BSP_AUDIO_IN_PDMToPCM(uint32_t Instance, uint16_t *PDMBuf, uint16_t *PCM
  80043ba:	46bd      	mov	sp, r7
  80043bc:	bd80      	pop	{r7, pc}
  80043be:	bf00      	nop
- 80043c0:	2400b96c 	.word	0x2400b96c
- 80043c4:	2400bb8c 	.word	0x2400bb8c
+ 80043c0:	2400a968 	.word	0x2400a968
+ 80043c4:	2400ab88 	.word	0x2400ab88
 
 080043c8 <BSP_AUDIO_IN_RecordPDM>:
   * @param  pBuf     Main buffer pointer for the recorded data storing
@@ -10190,8 +10193,8 @@ int32_t BSP_AUDIO_IN_RecordPDM(uint32_t Instance, uint8_t* pBuf, uint32_t NbrOfB
  800441e:	46bd      	mov	sp, r7
  8004420:	bd80      	pop	{r7, pc}
  8004422:	bf00      	nop
- 8004424:	2400bb8c 	.word	0x2400bb8c
- 8004428:	2400baac 	.word	0x2400baac
+ 8004424:	2400ab88 	.word	0x2400ab88
+ 8004428:	2400aaa8 	.word	0x2400aaa8
 
 0800442c <BSP_AUDIO_IN_GetState>:
   * @param  Instance  AUDIO IN Instance. It can be 0 when SAI is used
@@ -10243,7 +10246,7 @@ int32_t BSP_AUDIO_IN_GetState(uint32_t Instance, uint32_t *State)
  8004464:	46bd      	mov	sp, r7
  8004466:	f85d 7b04 	ldr.w	r7, [sp], #4
  800446a:	4770      	bx	lr
- 800446c:	2400bb8c 	.word	0x2400bb8c
+ 800446c:	2400ab88 	.word	0x2400ab88
 
 08004470 <BSP_AUDIO_IN_IRQHandler>:
   *         - AUDIO_IN_DEVICE_ANALOG_MIC
@@ -10277,7 +10280,7 @@ void BSP_AUDIO_IN_IRQHandler(uint32_t Instance, uint32_t InputDevice)
  8004496:	46bd      	mov	sp, r7
  8004498:	bd80      	pop	{r7, pc}
  800449a:	bf00      	nop
- 800449c:	2400baac 	.word	0x2400baac
+ 800449c:	2400aaa8 	.word	0x2400aaa8
 
 080044a0 <HAL_SAI_RxHalfCpltCallback>:
   * @brief  Half reception complete callback.
@@ -10473,10 +10476,10 @@ static int32_t WM8994_Probe(void)
  8004590:	08004c85 	.word	0x08004c85
  8004594:	08004c29 	.word	0x08004c29
  8004598:	08004ce1 	.word	0x08004ce1
- 800459c:	2400bbec 	.word	0x2400bbec
- 80045a0:	2400b968 	.word	0x2400b968
+ 800459c:	2400abe8 	.word	0x2400abe8
+ 80045a0:	2400a964 	.word	0x2400a964
  80045a4:	24000400 	.word	0x24000400
- 80045a8:	2400ba10 	.word	0x2400ba10
+ 80045a8:	2400aa0c 	.word	0x2400aa0c
 
 080045ac <SAI_MspInit>:
   * @brief  Initialize BSP_AUDIO_OUT MSP.
@@ -10736,11 +10739,11 @@ static void SAI_MspInit(SAI_HandleTypeDef *hsai)
  800478c:	58024400 	.word	0x58024400
  8004790:	58021000 	.word	0x58021000
  8004794:	58005404 	.word	0x58005404
- 8004798:	2400baac 	.word	0x2400baac
+ 8004798:	2400aaa8 	.word	0x2400aaa8
  800479c:	58021800 	.word	0x58021800
  80047a0:	40015804 	.word	0x40015804
- 80047a4:	2400bb44 	.word	0x2400bb44
- 80047a8:	2400bc14 	.word	0x2400bc14
+ 80047a4:	2400ab40 	.word	0x2400ab40
+ 80047a8:	2400ac10 	.word	0x2400ac10
     }
     else
     {
@@ -11141,13 +11144,13 @@ static void SAI_MspInit(SAI_HandleTypeDef *hsai)
  8004a64:	f44f 3200 	mov.w	r2, #131072	@ 0x20000
  8004a68:	621a      	str	r2, [r3, #32]
  8004a6a:	e011      	b.n	8004a90 <SAI_MspInit+0x4e4>
- 8004a6c:	2400bc14 	.word	0x2400bc14
+ 8004a6c:	2400ac10 	.word	0x2400ac10
  8004a70:	40020428 	.word	0x40020428
  8004a74:	58005404 	.word	0x58005404
  8004a78:	58024400 	.word	0x58024400
  8004a7c:	58021000 	.word	0x58021000
  8004a80:	58020800 	.word	0x58020800
- 8004a84:	2400bc8c 	.word	0x2400bc8c
+ 8004a84:	2400ac88 	.word	0x2400ac88
  8004a88:	5802541c 	.word	0x5802541c
  8004a8c:	40015824 	.word	0x40015824
     hdma_sai_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;
@@ -11207,7 +11210,7 @@ static void SAI_MspInit(SAI_HandleTypeDef *hsai)
  8004ada:	3760      	adds	r7, #96	@ 0x60
  8004adc:	46bd      	mov	sp, r7
  8004ade:	bd80      	pop	{r7, pc}
- 8004ae0:	2400bc8c 	.word	0x2400bc8c
+ 8004ae0:	2400ac88 	.word	0x2400ac88
  8004ae4:	40020470 	.word	0x40020470
 
 08004ae8 <BSP_I2C4_Init>:
@@ -11291,9 +11294,9 @@ int32_t BSP_I2C4_Init(void)
  8004b46:	46bd      	mov	sp, r7
  8004b48:	bd80      	pop	{r7, pc}
  8004b4a:	bf00      	nop
- 8004b4c:	2400c70c 	.word	0x2400c70c
+ 8004b4c:	2400b708 	.word	0x2400b708
  8004b50:	58001c00 	.word	0x58001c00
- 8004b54:	2400bd04 	.word	0x2400bd04
+ 8004b54:	2400ad00 	.word	0x2400ad00
  8004b58:	000186a0 	.word	0x000186a0
 
 08004b5c <BSP_I2C4_DeInit>:
@@ -11350,8 +11353,8 @@ int32_t BSP_I2C4_DeInit(void)
  8004b96:	46bd      	mov	sp, r7
  8004b98:	bd80      	pop	{r7, pc}
  8004b9a:	bf00      	nop
- 8004b9c:	2400bd04 	.word	0x2400bd04
- 8004ba0:	2400c70c 	.word	0x2400c70c
+ 8004b9c:	2400ad00 	.word	0x2400ad00
+ 8004ba0:	2400b708 	.word	0x2400b708
 
 08004ba4 <MX_I2C4_Init>:
   * @param  hI2c I2C handle
@@ -11531,7 +11534,7 @@ int32_t BSP_I2C4_WriteReg16(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint
  8004c7a:	46bd      	mov	sp, r7
  8004c7c:	bd80      	pop	{r7, pc}
  8004c7e:	bf00      	nop
- 8004c80:	2400c70c 	.word	0x2400c70c
+ 8004c80:	2400b708 	.word	0x2400b708
 
 08004c84 <BSP_I2C4_ReadReg16>:
   * @param  pData   Pointer to data buffer
@@ -11605,7 +11608,7 @@ int32_t BSP_I2C4_ReadReg16(uint16_t DevAddr, uint16_t Reg, uint8_t *pData, uint1
  8004cd6:	46bd      	mov	sp, r7
  8004cd8:	bd80      	pop	{r7, pc}
  8004cda:	bf00      	nop
- 8004cdc:	2400c70c 	.word	0x2400c70c
+ 8004cdc:	2400b708 	.word	0x2400b708
 
 08004ce0 <BSP_GetTick>:
 /**
@@ -11786,7 +11789,7 @@ static uint32_t I2C_GetTiming(uint32_t clock_src_freq, uint32_t i2c_freq)
  8004de4:	bd80      	pop	{r7, pc}
  8004de6:	bf00      	nop
  8004de8:	08015094 	.word	0x08015094
- 8004dec:	2400bd08 	.word	0x2400bd08
+ 8004dec:	2400ad04 	.word	0x2400ad04
 
 08004df0 <I2C_Compute_PRESC_SCLDEL_SDADEL>:
   * @param  clock_src_freq I2C source clock in HZ.
@@ -12087,8 +12090,8 @@ static void I2C_Compute_PRESC_SCLDEL_SDADEL(uint32_t clock_src_freq, uint32_t I2
  8004fba:	bf00      	nop
  8004fbc:	3b9aca00 	.word	0x3b9aca00
  8004fc0:	08015094 	.word	0x08015094
- 8004fc4:	2400c708 	.word	0x2400c708
- 8004fc8:	2400bd08 	.word	0x2400bd08
+ 8004fc4:	2400b704 	.word	0x2400b704
+ 8004fc8:	2400ad04 	.word	0x2400ad04
 
 08004fcc <I2C_Compute_SCLL_SCLH>:
   * @param  clock_src_freq I2C source clock in HZ.
@@ -12402,8 +12405,8 @@ static uint32_t I2C_Compute_SCLL_SCLH (uint32_t clock_src_freq, uint32_t I2C_spe
  80051ca:	4770      	bx	lr
  80051cc:	3b9aca00 	.word	0x3b9aca00
  80051d0:	08015094 	.word	0x08015094
- 80051d4:	2400bd08 	.word	0x2400bd08
- 80051d8:	2400c708 	.word	0x2400c708
+ 80051d4:	2400ad04 	.word	0x2400ad04
+ 80051d8:	2400b704 	.word	0x2400b704
 
 080051dc <I2C4_MspInit>:
   * @brief  Initializes I2C MSP.
@@ -12622,7 +12625,7 @@ static int32_t I2C4_WriteReg(uint16_t DevAddr, uint16_t Reg, uint16_t MemAddSize
  800533e:	46bd      	mov	sp, r7
  8005340:	bd80      	pop	{r7, pc}
  8005342:	bf00      	nop
- 8005344:	2400c70c 	.word	0x2400c70c
+ 8005344:	2400b708 	.word	0x2400b708
 
 08005348 <I2C4_ReadReg>:
   * @param  pData      The target register value to be read
@@ -12671,7 +12674,7 @@ static int32_t I2C4_ReadReg(uint16_t DevAddr, uint16_t Reg, uint16_t MemAddSize,
  800538a:	46bd      	mov	sp, r7
  800538c:	bd80      	pop	{r7, pc}
  800538e:	bf00      	nop
- 8005390:	2400c70c 	.word	0x2400c70c
+ 8005390:	2400b708 	.word	0x2400b708
 
 08005394 <arm_cos_f32>:
   @return        cos(x)
@@ -17542,7 +17545,7 @@ __weak void HAL_IncTick(void)
  8007f0c:	4770      	bx	lr
  8007f0e:	bf00      	nop
  8007f10:	24000478 	.word	0x24000478
- 8007f14:	2400c760 	.word	0x2400c760
+ 8007f14:	2400b75c 	.word	0x2400b75c
 
 08007f18 <HAL_GetTick>:
   * @note This function is declared as __weak to be overwritten in case of other
@@ -17562,7 +17565,7 @@ __weak uint32_t HAL_GetTick(void)
  8007f24:	f85d 7b04 	ldr.w	r7, [sp], #4
  8007f28:	4770      	bx	lr
  8007f2a:	bf00      	nop
- 8007f2c:	2400c760 	.word	0x2400c760
+ 8007f2c:	2400b75c 	.word	0x2400b75c
 
 08007f30 <HAL_Delay>:
   *       implementations in user file.
@@ -42451,7 +42454,7 @@ void SystemInit (void)
  8013118:	08014877 	.word	0x08014877
  801311c:	080148af 	.word	0x080148af
  8013120:	080148d3 	.word	0x080148d3
- 8013124:	2400c764 	.word	0x2400c764
+ 8013124:	2400b760 	.word	0x2400b760
 
 08013128 <stdio_exit_handler>:
  8013128:	4a02      	ldr	r2, [pc, #8]	@ (8013134 <stdio_exit_handler+0xc>)
@@ -42486,9 +42489,9 @@ void SystemInit (void)
  801316c:	f000 bfc4 	b.w	80140f8 <_fflush_r>
  8013170:	bd10      	pop	{r4, pc}
  8013172:	bf00      	nop
- 8013174:	2400c764 	.word	0x2400c764
- 8013178:	2400c7cc 	.word	0x2400c7cc
- 801317c:	2400c834 	.word	0x2400c834
+ 8013174:	2400b760 	.word	0x2400b760
+ 8013178:	2400b7c8 	.word	0x2400b7c8
+ 801317c:	2400b830 	.word	0x2400b830
 
 08013180 <global_stdio_init.part.0>:
  8013180:	b510      	push	{r4, lr}
@@ -42509,21 +42512,21 @@ void SystemInit (void)
  80131a6:	e8bd 4010 	ldmia.w	sp!, {r4, lr}
  80131aa:	2112      	movs	r1, #18
  80131ac:	f7ff bf86 	b.w	80130bc <std>
- 80131b0:	2400c89c 	.word	0x2400c89c
- 80131b4:	2400c764 	.word	0x2400c764
+ 80131b0:	2400b898 	.word	0x2400b898
+ 80131b4:	2400b760 	.word	0x2400b760
  80131b8:	08013129 	.word	0x08013129
 
 080131bc <__sfp_lock_acquire>:
  80131bc:	4801      	ldr	r0, [pc, #4]	@ (80131c4 <__sfp_lock_acquire+0x8>)
  80131be:	f000 b872 	b.w	80132a6 <__retarget_lock_acquire_recursive>
  80131c2:	bf00      	nop
- 80131c4:	2400c8a1 	.word	0x2400c8a1
+ 80131c4:	2400b89d 	.word	0x2400b89d
 
 080131c8 <__sfp_lock_release>:
  80131c8:	4801      	ldr	r0, [pc, #4]	@ (80131d0 <__sfp_lock_release+0x8>)
  80131ca:	f000 b86d 	b.w	80132a8 <__retarget_lock_release_recursive>
  80131ce:	bf00      	nop
- 80131d0:	2400c8a1 	.word	0x2400c8a1
+ 80131d0:	2400b89d 	.word	0x2400b89d
 
 080131d4 <__sinit>:
  80131d4:	b510      	push	{r4, lr}
@@ -42543,7 +42546,7 @@ void SystemInit (void)
  80131f8:	e7f2      	b.n	80131e0 <__sinit+0xc>
  80131fa:	bf00      	nop
  80131fc:	08013141 	.word	0x08013141
- 8013200:	2400c89c 	.word	0x2400c89c
+ 8013200:	2400b898 	.word	0x2400b898
 
 08013204 <_fwalk_sglue>:
  8013204:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -43813,7 +43816,7 @@ void SystemInit (void)
  8013ee6:	d1f2      	bne.n	8013ece <sbrk_aligned+0x22>
  8013ee8:	e7ef      	b.n	8013eca <sbrk_aligned+0x1e>
  8013eea:	bf00      	nop
- 8013eec:	2400c8a4 	.word	0x2400c8a4
+ 8013eec:	2400b8a0 	.word	0x2400b8a0
 
 08013ef0 <_malloc_r>:
  8013ef0:	e92d 43f8 	stmdb	sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -43923,7 +43926,7 @@ void SystemInit (void)
  8013fe6:	6005      	str	r5, [r0, #0]
  8013fe8:	e7d6      	b.n	8013f98 <_malloc_r+0xa8>
  8013fea:	bf00      	nop
- 8013fec:	2400c8a8 	.word	0x2400c8a8
+ 8013fec:	2400b8a4 	.word	0x2400b8a4
 
 08013ff0 <__sflush_r>:
  8013ff0:	f9b1 200c 	ldrsh.w	r2, [r1, #12]
@@ -44086,13 +44089,13 @@ void SystemInit (void)
  8014148:	4801      	ldr	r0, [pc, #4]	@ (8014150 <__malloc_lock+0x8>)
  801414a:	f7ff b8ac 	b.w	80132a6 <__retarget_lock_acquire_recursive>
  801414e:	bf00      	nop
- 8014150:	2400c8a0 	.word	0x2400c8a0
+ 8014150:	2400b89c 	.word	0x2400b89c
 
 08014154 <__malloc_unlock>:
  8014154:	4801      	ldr	r0, [pc, #4]	@ (801415c <__malloc_unlock+0x8>)
  8014156:	f7ff b8a7 	b.w	80132a8 <__retarget_lock_release_recursive>
  801415a:	bf00      	nop
- 801415c:	2400c8a0 	.word	0x2400c8a0
+ 801415c:	2400b89c 	.word	0x2400b89c
 
 08014160 <_Balloc>:
  8014160:	b570      	push	{r4, r5, r6, lr}
@@ -44873,7 +44876,7 @@ void SystemInit (void)
  80148f6:	b103      	cbz	r3, 80148fa <_lseek_r+0x1e>
  80148f8:	6023      	str	r3, [r4, #0]
  80148fa:	bd38      	pop	{r3, r4, r5, pc}
- 80148fc:	2400c8ac 	.word	0x2400c8ac
+ 80148fc:	2400b8a8 	.word	0x2400b8a8
 
 08014900 <_read_r>:
  8014900:	b538      	push	{r3, r4, r5, lr}
@@ -44891,7 +44894,7 @@ void SystemInit (void)
  801491a:	b103      	cbz	r3, 801491e <_read_r+0x1e>
  801491c:	6023      	str	r3, [r4, #0]
  801491e:	bd38      	pop	{r3, r4, r5, pc}
- 8014920:	2400c8ac 	.word	0x2400c8ac
+ 8014920:	2400b8a8 	.word	0x2400b8a8
 
 08014924 <_sbrk_r>:
  8014924:	b538      	push	{r3, r4, r5, lr}
@@ -44907,7 +44910,7 @@ void SystemInit (void)
  801493a:	b103      	cbz	r3, 801493e <_sbrk_r+0x1a>
  801493c:	6023      	str	r3, [r4, #0]
  801493e:	bd38      	pop	{r3, r4, r5, pc}
- 8014940:	2400c8ac 	.word	0x2400c8ac
+ 8014940:	2400b8a8 	.word	0x2400b8a8
 
 08014944 <_write_r>:
  8014944:	b538      	push	{r3, r4, r5, lr}
@@ -44925,7 +44928,7 @@ void SystemInit (void)
  801495e:	b103      	cbz	r3, 8014962 <_write_r+0x1e>
  8014960:	6023      	str	r3, [r4, #0]
  8014962:	bd38      	pop	{r3, r4, r5, pc}
- 8014964:	2400c8ac 	.word	0x2400c8ac
+ 8014964:	2400b8a8 	.word	0x2400b8a8
 
 08014968 <_close_r>:
  8014968:	b538      	push	{r3, r4, r5, lr}
@@ -44941,7 +44944,7 @@ void SystemInit (void)
  801497e:	b103      	cbz	r3, 8014982 <_close_r+0x1a>
  8014980:	6023      	str	r3, [r4, #0]
  8014982:	bd38      	pop	{r3, r4, r5, pc}
- 8014984:	2400c8ac 	.word	0x2400c8ac
+ 8014984:	2400b8a8 	.word	0x2400b8a8
 
 08014988 <__assert_func>:
  8014988:	b51f      	push	{r0, r1, r2, r3, r4, lr}
@@ -45056,7 +45059,7 @@ void SystemInit (void)
  8014a76:	e7ca      	b.n	8014a0e <_free_r+0x22>
  8014a78:	bd38      	pop	{r3, r4, r5, pc}
  8014a7a:	bf00      	nop
- 8014a7c:	2400c8a8 	.word	0x2400c8a8
+ 8014a7c:	2400b8a4 	.word	0x2400b8a4
 
 08014a80 <__ascii_mbtowc>:
  8014a80:	b082      	sub	sp, #8
@@ -45656,7 +45659,7 @@ void SystemInit (void)
  8014fd6:	b103      	cbz	r3, 8014fda <_isatty_r+0x1a>
  8014fd8:	6023      	str	r3, [r4, #0]
  8014fda:	bd38      	pop	{r3, r4, r5, pc}
- 8014fdc:	2400c8ac 	.word	0x2400c8ac
+ 8014fdc:	2400b8a8 	.word	0x2400b8a8
 
 08014fe0 <_kill_r>:
  8014fe0:	b538      	push	{r3, r4, r5, lr}
@@ -45674,7 +45677,7 @@ void SystemInit (void)
  8014ffa:	6023      	str	r3, [r4, #0]
  8014ffc:	bd38      	pop	{r3, r4, r5, pc}
  8014ffe:	bf00      	nop
- 8015000:	2400c8ac 	.word	0x2400c8ac
+ 8015000:	2400b8a8 	.word	0x2400b8a8
 
 08015004 <_getpid_r>:
  8015004:	f7ee baa7 	b.w	8003556 <_getpid>
@@ -45695,7 +45698,7 @@ void SystemInit (void)
  8015022:	6023      	str	r3, [r4, #0]
  8015024:	bd38      	pop	{r3, r4, r5, pc}
  8015026:	bf00      	nop
- 8015028:	2400c8ac 	.word	0x2400c8ac
+ 8015028:	2400b8a8 	.word	0x2400b8a8
 
 0801502c <_init>:
  801502c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
