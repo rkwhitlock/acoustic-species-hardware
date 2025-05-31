@@ -9,6 +9,7 @@
 #include "main.h"
 #include "math.h"
 #include "stm32h7xx_hal.h"
+#include "fmc_sdram.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h> // Added for memset
@@ -119,6 +120,16 @@ int main(void)
     /* Configure the system clock to 400 MHz */
     SystemClock_Config();
 
+    if (MX_FMC_Init() != HAL_OK)
+    {
+        Error_Handler();
+    }
+
+    // Optional: Test SDRAM
+    if (SDRAM_Test() != 0)
+    {
+        Error_Handler();
+    }
 
     /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
     HSEM notification */
