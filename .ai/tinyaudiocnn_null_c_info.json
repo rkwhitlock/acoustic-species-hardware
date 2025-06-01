@@ -616,16 +616,15 @@
     }
   ],
   "environment": {
-    "device": "stm32 family - 0x450 - STM32H743/53/50xx and STM32H745/55/47/57xx @400/200MHz",
     "generated_model": {
-      "generated_time": "2025-05-31T18:30:20-0700",
+      "generated_time": "2025-05-31T17:09:40-0700",
       "name": "tinyaudiocnn"
     },
-    "network_signature": "0xae1c9d364925e8d8",
+    "network_signature": "0xe28bdef95c506b84",
     "test_name": "",
     "tools": [
       {
-        "arguments": "validate --target stm32h7 --name tinyaudiocnn -m /Users/zachl/Clone Hero/buow_tinycnn3_int8.tflite --compression none --verbosity 1 --workspace /var/folders/rj/tjcj95tx32q97ft46gzv_wym0000gn/T/mxAI_workspace1579290558470913879684850312642538 --output /Users/zachl/.stm32cubemx/tinyaudiocnn_output --mode target --desc serial:57600",
+        "arguments": "validate --target stm32h7 --name tinyaudiocnn -m /Users/zachl/Clone Hero/buow_tinycnn3_int8.tflite --compression none --verbosity 1 --workspace /var/folders/rj/tjcj95tx32q97ft46gzv_wym0000gn/T/mxAI_workspace122182640442503503609472482679188 --output /Users/zachl/.stm32cubemx/tinyaudiocnn_output --mode target --desc serial:/dev/tty.usbmodem103:115200",
         "environment": [
           "STATS_TYPE=X-CUBE-AI"
         ],
@@ -720,13 +719,6 @@
           }
         }
       ],
-      "exec_time": {
-        "counters": null,
-        "cycles": 73680556,
-        "cycles_by_macc": 6.6232820991690575,
-        "duration_ms": 184.2013908600435,
-        "percentage": 100.0
-      },
       "id": 0,
       "inputs": [
         105
@@ -752,15 +744,6 @@
             "weights_prefetch": "True"
           },
           "description": "Conv2D",
-          "exec_time": {
-            "counters": [
-              20463481
-            ],
-            "cycles": 20463481,
-            "cycles_by_macc": 14.082986709463588,
-            "duration_ms": 51.15870323181152,
-            "percentage": 27.77324481262033
-          },
           "id": 14,
           "inputs": [
             105,
@@ -804,15 +787,6 @@
             "weights_prefetch": "True"
           },
           "description": "Conv2D",
-          "exec_time": {
-            "counters": [
-              30367748
-            ],
-            "cycles": 30367748,
-            "cycles_by_macc": 6.213914471207206,
-            "duration_ms": 75.91937103271485,
-            "percentage": 41.21541682082005
-          },
           "id": 15,
           "inputs": [
             107,
@@ -851,15 +825,6 @@
             "weights_prefetch": "True"
           },
           "description": "Conv2D",
-          "exec_time": {
-            "counters": [
-              171398
-            ],
-            "cycles": 171398,
-            "cycles_by_macc": 0.036323724882508124,
-            "duration_ms": 0.4284959971904755,
-            "percentage": 0.2326236491428273
-          },
           "id": 16,
           "inputs": [
             109,
@@ -888,7 +853,6 @@
             "nonlinearity": "relu"
           },
           "description": "Nonlinearity",
-          "exec_time": {},
           "id": 17,
           "inputs": [
             111
@@ -916,15 +880,6 @@
             "orig_axes": "[2, 1]"
           },
           "description": "Reduce",
-          "exec_time": {
-            "counters": [
-              725886
-            ],
-            "cycles": 725886,
-            "cycles_by_macc": 22.15228271484375,
-            "duration_ms": 1.8147167563438416,
-            "percentage": 0.9851808109976034
-          },
           "id": 18,
           "inputs": [
             113
@@ -950,15 +905,6 @@
             "use_bias": "True"
           },
           "description": "Dense",
-          "exec_time": {
-            "counters": [
-              1986
-            ],
-            "cycles": 1986,
-            "cycles_by_macc": 10.030303030303031,
-            "duration_ms": 0.004965749941766262,
-            "percentage": 0.0026958265182369045
-          },
           "id": 19,
           "inputs": [
             115,
@@ -1033,20 +979,6 @@
     }
   ],
   "json_schema_version": "2.0",
-  "memory_footprint": {
-    "activations": 197184,
-    "io": [
-      0,
-      0
-    ],
-    "kernel_flash": null,
-    "kernel_ram": null,
-    "series": "generic",
-    "toolchain": null,
-    "toolchain_flash": null,
-    "toolchain_ram": null,
-    "weights": 24344
-  },
   "memory_pools": [
     {
       "address": "NULL",
@@ -1110,22 +1042,5 @@
       "user_allocated": false,
       "virtual": false
     }
-  ],
-  "validation": {
-    "val_error": 0.0018415161175653338,
-    "val_error_desc": "x-cross (l2r) #1",
-    "val_metrics": [
-      {
-        "acc": "n.a.",
-        "cos": 0.9999983906745911,
-        "desc": "X-cross #1",
-        "l2r": 0.0018415161175653338,
-        "mae": 0.042387399822473526,
-        "mean": -0.004724946338683367,
-        "nse": 0.9999949485609293,
-        "rmse": 0.054722536355257034,
-        "std": 0.05497824773192406
-      }
-    ]
-  }
+  ]
 }
