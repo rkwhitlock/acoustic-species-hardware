@@ -120,16 +120,20 @@ int main(void)
     /* Configure the system clock to 400 MHz */
     SystemClock_Config();
 
-    // if (MX_FMC_Init() != HAL_OK)
-    // {
-    //     Error_Handler();
-    // }
+    if (MX_SDRAM_Init() != 0)
+    {
+        printf("SDRAM Init Failed!\r\n");
+        Error_Handler();
+    }
 
-    // // Optional: Test SDRAM
-    // if (SDRAM_Test() != 0)
-    // {
-    //     Error_Handler();
-    // }
+    // Optional: Test SDRAM
+    if (SDRAM_QuickTest() != 0)
+    {
+        printf("SDRAM Test Failed!\r\n");
+        Error_Handler();
+    }
+
+    printf("SDRAM Init and Test: OK\r\n");
 
     /* When system initialization is finished, Cortex-M7 will release Cortex-M4 by means of
     HSEM notification */

@@ -2,17 +2,16 @@
 #define FMC_SDRAM_H
 
 #include "stm32h7xx_hal.h"
+#include <stdint.h>
 
-// SDRAM base address
+// SDRAM base address (should match your BSP configuration)
 #define SDRAM_DEVICE_ADDR 0xD0000000
 #define SDRAM_DEVICE_SIZE 0x2000000 // 32MB
 
 // Function prototypes
-HAL_StatusTypeDef MX_FMC_Init(void);
-static void MX_FMC_GPIO_Init(void);
+int MX_SDRAM_Init(void);
 int SDRAM_Test(void);
-
-// External handle
-extern SDRAM_HandleTypeDef hsdram1;
+int SDRAM_QuickTest(void);
+int SDRAM_InitMelFilters(float *mel_filters, uint32_t size);
 
 #endif /* FMC_SDRAM_H */
