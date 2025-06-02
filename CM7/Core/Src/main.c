@@ -120,7 +120,7 @@ int main(void)
     /* Configure the system clock to 400 MHz */
     SystemClock_Config();
 
-    if (MX_SDRAM_Init() != 0)
+    if (SDRAM_BSP_Init() != 0)
     {
         printf("SDRAM Init Failed!\r\n");
         Error_Handler();

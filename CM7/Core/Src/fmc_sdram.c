@@ -8,14 +8,21 @@
 #include "main.h"
 #include "fmc_sdram.h"
 
-// External SDRAM handle (from BSP)
-extern SDRAM_HandleTypeDef hsdram[1];
+/*
+ * SDRAM Helper Functions for STM32H747I-DISCO
+ * Uses existing BSP SDRAM functions
+ * External SDRAM: IS42S32800J-6BLI (32MB)
+ * Base Address: 0xD0000000 (defined in BSP)
+ */
+
+#include "stm32h7xx_hal.h"
+#include "stm32h747i_discovery_sdram.h" // BSP SDRAM header
 
 /**
  * @brief  Initialize SDRAM using BSP functions
  * @retval 0 if success, -1 if error
  */
-int MX_SDRAM_Init(void)
+int SDRAM_BSP_Init(void)
 {
     // Initialize SDRAM using BSP function
     if (BSP_SDRAM_Init(0) != BSP_ERROR_NONE)
@@ -35,8 +42,11 @@ int SDRAM_Test(void)
 #define TEST_BUFFER_SIZE 1000
 #define TEST_WRITE_ADDR 0x0800
 
-    uint32_t test_tx_buffer[TEST_BUFFER_SIZE];
-    uint32_t test_rx_buffer[TEST_BUFFER_SIZE];
+    static uint32_t test_tx_buffer[TEST_BUFFER_SIZE];
+    static uint32_t test_rx_buffer[TEST_BUFFER_SIZE];
+
+    // Get SDRAM handle from BSP
+    extern SDRAM_HandleTypeDef hsdram[];
 
     // Fill test buffer with known pattern
     for (uint32_t i = 0; i < TEST_BUFFER_SIZE; i++)
@@ -125,4 +135,14 @@ int SDRAM_InitMelFilters(float *mel_filters, uint32_t size)
         return 0;
     }
     return -1;
+}
+
+/**
+ * @brief  Get pointer to SDRAM for mel filters
+ * @param  offset: offset from SDRAM base address
+ * @retval Pointer to SDRAM location
+ */
+float *SDRAM_GetMelFilterPointer(uint32_t offset)
+{
+    return (float *)(SDRAM_DEVICE_ADDR + offset);
 }

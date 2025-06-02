@@ -19,7 +19,9 @@ static arm_rfft_fast_instance_f32 fft_instance;
 // internal buffers
 static float window_buffer[MAX_FFT_SIZE];
 // __attribute__((section(".sdram_data")))
-static float mel_filters[MAX_MEL_BANDS * (MAX_FFT_SIZE / 2 + 1)];
+// static float mel_filters[MAX_MEL_BANDS * (MAX_FFT_SIZE / 2 + 1)];
+
+static float *mel_filters = NULL;
 
 int mel_spectrogram_init(MelSpectrogramConfig_t *config)
 {
@@ -42,7 +44,11 @@ int mel_spectrogram_init(MelSpectrogramConfig_t *config)
         window_buffer[i] = 0.5f * (1.0f - arm_cos_f32(2.0f * PI * i / (cfg.fft_size - 1)));
     }
 
-    SDRAM_InitMelFilters(mel_filters, sizeof(mel_filters));
+    mel_filters = SDRAM_GetMelFilterPointer(0x100000);
+
+    // Initialize mel filter memory
+    uint32_t filter_size = cfg.n_mels * (cfg.fft_size / 2 + 1) * sizeof(float);
+    SDRAM_InitMelFilters(mel_filters, filter_size);
 
     // create Mel filterbank
     create_mel_filterbank(mel_filters, cfg.n_mels, cfg.fft_size, cfg.sample_rate, cfg.f_min,
