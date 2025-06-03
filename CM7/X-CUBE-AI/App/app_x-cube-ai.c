@@ -98,6 +98,9 @@ static ai_handle tinyaudiocnn = AI_HANDLE_NULL;
 static ai_buffer* ai_input;
 static ai_buffer* ai_output;
 
+// simulated spectrogram 64 mel bands × 258 time frames = 16512 float values
+// float dummy_mel_spectrogram[64 * 258];
+
 static void ai_log_err(const ai_error err, const char *fct)
 {
   /* USER CODE BEGIN log */
@@ -168,6 +171,19 @@ static int ai_run(void)
   return 0;
 }
 
+// this buffer is used to store the mel-spectrogram data
+// n_mels x n_frames = 64 x 258 = 16512
+
+// need to add for later in audio_recording.c
+/*
+#define MEL_N_MELS 64
+#define MEL_N_FRAMES 258
+#define MEL_SPEC_SIZE (MEL_N_MELS * MEL_N_FRAMES)
+*/
+
+// non dummy integration part
+// extern float mel_spec_buffer[64 * 258]; 
+
 /* USER CODE BEGIN 2 */
 int acquire_and_process_data(ai_i8* data[])
 {
@@ -178,7 +194,30 @@ int acquire_and_process_data(ai_i8* data[])
   }
 
   */
-  return 0;
+
+    // data[0] is a void pointer to a float buffer
+    float *dst = (float *)data[0]; 
+
+    // fill dummy spectrogram with constant or patterned float values
+    for (int i = 0; i < AI_TINYAUDIOCNN_IN_1_SIZE; ++i) {
+        // use normalized mid values
+        dst[i] = 0.5f;  
+    }
+
+    printf("Dummy input spectrogram to model input buffer.\r\n");
+
+    return 0;
+
+    // non dummy example
+//     // receives the raw pointers to model input tensor setup in ai_boostrap()
+//     float *input_tensor = (float *)data[0];
+
+//     // copy mel spectrogram into model input buffer
+//     for (int i = 0; i < 40 * 20; ++i) {
+//         input_tensor[i] = mel_spec_buffer[i];
+//     }
+
+//   return 0;
 }
 
 int post_process(ai_i8* data[])
@@ -190,7 +229,36 @@ int post_process(ai_i8* data[])
   }
 
   */
-  return 0;
+
+    // data[0] is a void pointer to a float buffer
+    float *predictions = (float *)data[0]; 
+
+    printf("Model Predictions: \r\n");
+    for (int i = 0; i < AI_TINYAUDIOCNN_OUT_1_SIZE; ++i) {
+        printf("Class %d: %.5f\r\n", i, predictions[i]);
+    }
+
+    return 0;
+
+    // output tensor is the first element of data array
+
+
+    // NON DUMMY EXAMPLE
+    // float *output = (float *)data[0];
+
+    // float max_val = output[0];
+    // int max_idx = 0;
+
+    // for (int i = 1; i < AI_TINYAUDIOCNN_OUT_NUM; ++i) {
+    //     // find the index of the maximum value in the output tensor
+    //     if (output[i] > max_val) {
+    //         max_val = output[i];
+    //         max_idx = i;
+    //     }
+    // }
+
+    // printf("Predicted class: %d with confidence %.2f\n", max_idx, max_val);
+    // return 0;
 }
 /* USER CODE END 2 */
 
