@@ -1,2 +1,2 @@
-/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/Components/ov5640/ov5640_reg.c:45:9:ov5640_read_reg	32	static
-/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/Components/ov5640/ov5640_reg.c:58:9:ov5640_write_reg	32	static
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/Components/ov5640/ov5640_reg.c:46:9:ov5640_read_reg	32	static
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/Libraries/STM32CubeH7/Drivers/BSP/Components/ov5640/ov5640_reg.c:59:9:ov5640_write_reg	32	static

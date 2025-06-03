@@ -61,20 +61,7 @@ static void MPU_Config(void);
 static void CPU_CACHE_Enable(void);
 
 BSP_DemoTypedef BSP_examples[] = {
-    {Joystick_demo, "JOYSTICK EXTI", 0},
-    {Touchscreen_demo1, "TOUCHSCREEN DEMO1", 0},
-    {Touchscreen_demo2, "TOUCHSCREEN DEMO2", 0},
-    {LCD_demo, "LCD", 0},
-    {Camera_demo, "CAMERA", 0},
-    {AudioPlay_demo, "AUDIO PLAY", 0},
-    {AnalogAudioRecord_demo, "ANALOG AUDIO PLAY", 0},
     {AudioRecord_demo, "AUDIO RECORD", 0},
-    {SD_DMA_demo, "SD", 0},
-    {SD_IT_demo, "SD", 0},
-    {SD_POLLING_demo, "SD", 0},
-    {QSPI_demo, "QSPI", 0},
-    {SDRAM_demo, "SDRAM", 0},
-    {SDRAM_DMA_demo, "SDRAM MDMA", 0},
 
 };
 /* Private functions ---------------------------------------------------------*/

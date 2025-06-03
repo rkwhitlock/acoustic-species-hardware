@@ -127,6 +127,7 @@
 "./Src/stm32h7xx_hal_swpmi.o"
 "./Src/stm32h7xx_hal_tim.o"
 "./Src/stm32h7xx_hal_tim_ex.o"
+"./Src/stm32h7xx_hal_timebase_tim_template.o"
 "./Src/stm32h7xx_hal_uart.o"
 "./Src/stm32h7xx_hal_uart_ex.o"
 "./Src/stm32h7xx_hal_usart.o"
