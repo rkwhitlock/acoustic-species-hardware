@@ -278,8 +278,6 @@ void MX_X_CUBE_AI_Process(void)
     /* USER CODE BEGIN 6 */
   int res = -1;
 
-  printf("TEMPLATE - run - main loop\r\n");
-
   if (tinyaudiocnn) {
 
     do {

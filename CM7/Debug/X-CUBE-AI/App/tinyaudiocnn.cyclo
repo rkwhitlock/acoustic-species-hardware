@@ -1,0 +1,13 @@
+../X-CUBE-AI/App/tinyaudiocnn.c:487:9:tinyaudiocnn_configure_activations	2
+../X-CUBE-AI/App/tinyaudiocnn.c:530:9:tinyaudiocnn_configure_weights	2
+../X-CUBE-AI/App/tinyaudiocnn.c:575:9:ai_tinyaudiocnn_get_info	4
+../X-CUBE-AI/App/tinyaudiocnn.c:622:9:ai_tinyaudiocnn_get_report	4
+../X-CUBE-AI/App/tinyaudiocnn.c:669:10:ai_tinyaudiocnn_get_error	1
+../X-CUBE-AI/App/tinyaudiocnn.c:676:10:ai_tinyaudiocnn_create	1
+../X-CUBE-AI/App/tinyaudiocnn.c:687:10:ai_tinyaudiocnn_create_and_init	8
+../X-CUBE-AI/App/tinyaudiocnn.c:722:12:ai_tinyaudiocnn_inputs_get	2
+../X-CUBE-AI/App/tinyaudiocnn.c:733:12:ai_tinyaudiocnn_outputs_get	2
+../X-CUBE-AI/App/tinyaudiocnn.c:744:11:ai_tinyaudiocnn_destroy	1
+../X-CUBE-AI/App/tinyaudiocnn.c:751:9:ai_tinyaudiocnn_init	2
+../X-CUBE-AI/App/tinyaudiocnn.c:768:8:ai_tinyaudiocnn_run	1
+../X-CUBE-AI/App/tinyaudiocnn.c:776:8:ai_tinyaudiocnn_forward	1
