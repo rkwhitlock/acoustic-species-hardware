@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    ".c": "cl",
+    "Dockerfile": "cmake",
+    "csv": "csv",
+    "tinyaudiocnn_data.h": "c"
+  }
+}

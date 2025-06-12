@@ -46,7 +46,8 @@
 
 /* Private variables ---------------------------------------------------------*/
 
-UART_HandleTypeDef huart1;
+// UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
@@ -147,7 +148,11 @@ Error_Handler();
   {
     /* USER CODE END WHILE */
 
+  printf("PROCESSING AUDIO...\r\n");
+  HAL_Delay(3000);
+
   MX_X_CUBE_AI_Process();
+  HAL_Delay(3000); // Delay to allow processing time, adjust as needed
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

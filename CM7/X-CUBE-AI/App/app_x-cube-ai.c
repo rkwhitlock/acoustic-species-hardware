@@ -56,6 +56,15 @@
 #include "ai_datatypes_defines.h"
 #include "tinyaudiocnn.h"
 #include "tinyaudiocnn_data.h"
+#include "mel_spec_buffer.h"
+
+int _write(int file, char *ptr, int len)
+{
+    HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
+    return len;
+}
+
+// extern float mel_spec_buffer[64 * 258];
 
 /* USER CODE BEGIN includes */
 /* USER CODE END includes */
@@ -195,30 +204,15 @@ int acquire_and_process_data(ai_i8* data[])
 
   */
 
-    // data[0] is a void pointer to a float buffer
-    float *dst = (float *)data[0]; 
+    float *dst = (float *)data[0];
 
-    // fill dummy spectrogram with constant or patterned float values
     for (int i = 0; i < AI_TINYAUDIOCNN_IN_1_SIZE; ++i) {
-        // use normalized mid values
-        dst[i] = 0.5f;  
+        dst[i] = mel_spec_buffer[i];  // 64 * 258 = 16512
     }
 
-    printf("Dummy input spectrogram to model input buffer.\r\n");
-
     return 0;
-
-    // non dummy example
-//     // receives the raw pointers to model input tensor setup in ai_boostrap()
-//     float *input_tensor = (float *)data[0];
-
-//     // copy mel spectrogram into model input buffer
-//     for (int i = 0; i < 40 * 20; ++i) {
-//         input_tensor[i] = mel_spec_buffer[i];
-//     }
-
-//   return 0;
 }
+
 
 int post_process(ai_i8* data[])
 {
@@ -233,10 +227,33 @@ int post_process(ai_i8* data[])
     // data[0] is a void pointer to a float buffer
     float *predictions = (float *)data[0]; 
 
-    printf("Model Predictions: \r\n");
+    char *class_names[] = {
+        "Cluck", 
+        "Coocoo",
+        "Twitter",
+        "Alarm",
+        "Chick Begging",
+        "no_buow"
+    };
+
+    int max_index = 0;
+    float max_value = predictions[0];
     for (int i = 0; i < AI_TINYAUDIOCNN_OUT_1_SIZE; ++i) {
-        printf("Class %d: %.5f\r\n", i, predictions[i]);
+        if (predictions[i] > max_value) {
+            max_value = predictions[i];
+            max_index = i;
+        }
+        int predict = predictions[i] * 100;
+        int whole_part = predict / 100;
+        if (predict < 0) {
+          predict -= 2 * predict; // convert to positive
+        }
+
+      printf("Class: %s, Score: %d.%d\n\r", class_names[i], whole_part, predict%100);
+      HAL_Delay(2000);
     }
+    printf("Predicted Class: %s\n\r", class_names[max_index]);
+    HAL_Delay(8000);
 
     return 0;
 

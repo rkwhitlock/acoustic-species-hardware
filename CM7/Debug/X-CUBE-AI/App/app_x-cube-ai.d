@@ -36,7 +36,8 @@ X-CUBE-AI/App/app_x-cube-ai.o: ../X-CUBE-AI/App/app_x-cube-ai.c \
  ../../Middlewares/ST/AI/Inc/core_assert.h \
  ../X-CUBE-AI/App/tinyaudiocnn.h ../X-CUBE-AI/App/tinyaudiocnn_config.h \
  ../X-CUBE-AI/App/tinyaudiocnn_data.h \
- ../X-CUBE-AI/App/tinyaudiocnn_data_params.h
+ ../X-CUBE-AI/App/tinyaudiocnn_data_params.h \
+ ../Core/Inc/mel_spec_buffer.h
 ../X-CUBE-AI/App/app_x-cube-ai.h:
 ../../Middlewares/ST/AI/Inc/ai_platform.h:
 ../Core/Inc/main.h:
@@ -77,3 +78,4 @@ X-CUBE-AI/App/app_x-cube-ai.o: ../X-CUBE-AI/App/app_x-cube-ai.c \
 ../X-CUBE-AI/App/tinyaudiocnn_config.h:
 ../X-CUBE-AI/App/tinyaudiocnn_data.h:
 ../X-CUBE-AI/App/tinyaudiocnn_data_params.h:
+../Core/Inc/mel_spec_buffer.h:
