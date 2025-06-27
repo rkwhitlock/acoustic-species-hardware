@@ -134,6 +134,8 @@ This hardware implementation is designed to work with models trained by the soft
 
 ## Next Steps
 
+Most updated branch is `inference-template`. It has all 3 components but needs debugging.
+
 - [ ] Complete integration of all three components
 - [ ] System testing and optimization
 - [ ] Performance benchmarking
