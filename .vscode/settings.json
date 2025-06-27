@@ -3,6 +3,7 @@
     ".c": "cl",
     "Dockerfile": "cmake",
     "csv": "csv",
-    "tinyaudiocnn_data.h": "c"
+    "tinyaudiocnn_data.h": "c",
+    "*.copy": "c"
   }
 }

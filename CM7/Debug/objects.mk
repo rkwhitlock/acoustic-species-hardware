@@ -5,5 +5,5 @@
 
 USER_OBJS :=
 
-LIBS := -l:NetworkRuntime1010_CM7_GCC.a
+LIBS := -l:NetworkRuntime1010_CM7_GCC.a -l:libPDMFilter_CM7_GCC_wc32.a
 

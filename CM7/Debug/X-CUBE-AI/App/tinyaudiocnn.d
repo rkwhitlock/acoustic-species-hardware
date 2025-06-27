@@ -1,122 +1,122 @@
 X-CUBE-AI/App/tinyaudiocnn.o: ../X-CUBE-AI/App/tinyaudiocnn.c \
  ../X-CUBE-AI/App/tinyaudiocnn.h ../X-CUBE-AI/App/tinyaudiocnn_config.h \
- ../../Middlewares/ST/AI/Inc/ai_platform.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform.h \
  ../X-CUBE-AI/App/tinyaudiocnn_data.h \
  ../X-CUBE-AI/App/tinyaudiocnn_data_params.h \
- ../../Middlewares/ST/AI/Inc/ai_platform_interface.h \
- ../../Middlewares/ST/AI/Inc/ai_platform.h \
- ../../Middlewares/ST/AI/Inc/datatypes_network.h \
- ../../Middlewares/ST/AI/Inc/ai_datatypes.h \
- ../../Middlewares/ST/AI/Inc/ai_platform_interface.h \
- ../../Middlewares/ST/AI/Inc/ai_datatypes_defines.h \
- ../../Middlewares/ST/AI/Inc/core_assert.h \
- ../../Middlewares/ST/AI/Inc/ai_datatypes_format.h \
- ../../Middlewares/ST/AI/Inc/formats_list.h \
- ../../Middlewares/ST/AI/Inc/stai.h \
- ../../Middlewares/ST/AI/Inc/ai_math_helpers.h \
- ../../Middlewares/ST/AI/Inc/ai_lite_math_helpers.h \
- ../../Middlewares/ST/AI/Inc/core_common.h \
- ../../Middlewares/ST/AI/Inc/core_datatypes.h \
- ../../Middlewares/ST/AI/Inc/core_convert.h \
- ../../Middlewares/ST/AI/Inc/core_common.h \
- ../../Middlewares/ST/AI/Inc/layers.h \
- ../../Middlewares/ST/AI/Inc/layers_common.h \
- ../../Middlewares/ST/AI/Inc/ai_common_config.h \
- ../../Middlewares/ST/AI/Inc/layers_list.h \
- ../../Middlewares/ST/AI/Inc/layers_conv2d.h \
- ../../Middlewares/ST/AI/Inc/layers_nl.h \
- ../../Middlewares/ST/AI/Inc/lite_internal_apis.h \
- ../../Middlewares/ST/AI/Inc/ai_lite_interface.h \
- ../../Middlewares/ST/AI/Inc/ai_lite.h \
- ../../Middlewares/ST/AI/Inc/lite_nl_list.h \
- ../../Middlewares/ST/AI/Inc/layers_pool.h \
- ../../Middlewares/ST/AI/Inc/lite_maxpool_dqnn.h \
- ../../Middlewares/ST/AI/Inc/lite_pool_f32.h \
- ../../Middlewares/ST/AI/Inc/layers_custom.h \
- ../../Middlewares/ST/AI/Inc/layers_dense.h \
- ../../Middlewares/ST/AI/Inc/layers_formats_converters.h \
- ../../Middlewares/ST/AI/Inc/layers_generic.h \
- ../../Middlewares/ST/AI/Inc/layers_lite_graph.h \
- ../../Middlewares/ST/AI/Inc/layers_norm.h \
- ../../Middlewares/ST/AI/Inc/layers_pad_dqnn.h \
- ../../Middlewares/ST/AI/Inc/layers_pad_generic.h \
- ../../Middlewares/ST/AI/Inc/layers_rnn.h \
- ../../Middlewares/ST/AI/Inc/layers_sm.h \
- ../../Middlewares/ST/AI/Inc/layers_ml.h \
- ../../Middlewares/ST/AI/Inc/layers_ml_iforest.h \
- ../../Middlewares/ST/AI/Inc/layers_ml_svc.h \
- ../../Middlewares/ST/AI/Inc/layers_ml_linearclassifier.h \
- ../../Middlewares/ST/AI/Inc/layers_ml_treeensembleclassifier.h \
- ../../Middlewares/ST/AI/Inc/layers_ml_treeensembleregressor.h \
- ../../Middlewares/ST/AI/Inc/layers_ml_svmregressor.h \
- ../../Middlewares/ST/AI/Inc/layers_conv2d_dqnn.h \
- ../../Middlewares/ST/AI/Inc/layers_dense_dqnn.h \
- ../../Middlewares/ST/AI/Inc/layers_pool_dqnn.h \
- ../../Middlewares/ST/AI/Inc/layers_generic_dqnn.h \
- ../../Middlewares/ST/AI/Inc/layers_upsample_generic.h \
- ../../Middlewares/ST/AI/Inc/layers_upsample.h \
- ../../Middlewares/ST/AI/Inc/layers_resize.h \
- ../../Middlewares/ST/AI/Inc/layers_argminmax.h \
- ../../Middlewares/ST/AI/Inc/layers_wrappers.h \
- ../../Middlewares/ST/AI/Inc/ai_math_helpers.h
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform_interface.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/datatypes_network.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_datatypes.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform_interface.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_datatypes_defines.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_assert.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_datatypes_format.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/formats_list.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/stai.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_math_helpers.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_lite_math_helpers.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_common.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_datatypes.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_convert.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_common.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_common.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_common_config.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_list.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_conv2d.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_nl.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_internal_apis.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_lite_interface.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_lite.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_nl_list.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pool.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_maxpool_dqnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_pool_f32.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_custom.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_dense.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_formats_converters.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_generic.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_lite_graph.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_norm.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pad_dqnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pad_generic.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_rnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_sm.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_iforest.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_svc.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_linearclassifier.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_treeensembleclassifier.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_treeensembleregressor.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_svmregressor.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_conv2d_dqnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_dense_dqnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pool_dqnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_generic_dqnn.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_upsample_generic.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_upsample.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_resize.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_argminmax.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_wrappers.h \
+ /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_math_helpers.h
 ../X-CUBE-AI/App/tinyaudiocnn.h:
 ../X-CUBE-AI/App/tinyaudiocnn_config.h:
-../../Middlewares/ST/AI/Inc/ai_platform.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform.h:
 ../X-CUBE-AI/App/tinyaudiocnn_data.h:
 ../X-CUBE-AI/App/tinyaudiocnn_data_params.h:
-../../Middlewares/ST/AI/Inc/ai_platform_interface.h:
-../../Middlewares/ST/AI/Inc/ai_platform.h:
-../../Middlewares/ST/AI/Inc/datatypes_network.h:
-../../Middlewares/ST/AI/Inc/ai_datatypes.h:
-../../Middlewares/ST/AI/Inc/ai_platform_interface.h:
-../../Middlewares/ST/AI/Inc/ai_datatypes_defines.h:
-../../Middlewares/ST/AI/Inc/core_assert.h:
-../../Middlewares/ST/AI/Inc/ai_datatypes_format.h:
-../../Middlewares/ST/AI/Inc/formats_list.h:
-../../Middlewares/ST/AI/Inc/stai.h:
-../../Middlewares/ST/AI/Inc/ai_math_helpers.h:
-../../Middlewares/ST/AI/Inc/ai_lite_math_helpers.h:
-../../Middlewares/ST/AI/Inc/core_common.h:
-../../Middlewares/ST/AI/Inc/core_datatypes.h:
-../../Middlewares/ST/AI/Inc/core_convert.h:
-../../Middlewares/ST/AI/Inc/core_common.h:
-../../Middlewares/ST/AI/Inc/layers.h:
-../../Middlewares/ST/AI/Inc/layers_common.h:
-../../Middlewares/ST/AI/Inc/ai_common_config.h:
-../../Middlewares/ST/AI/Inc/layers_list.h:
-../../Middlewares/ST/AI/Inc/layers_conv2d.h:
-../../Middlewares/ST/AI/Inc/layers_nl.h:
-../../Middlewares/ST/AI/Inc/lite_internal_apis.h:
-../../Middlewares/ST/AI/Inc/ai_lite_interface.h:
-../../Middlewares/ST/AI/Inc/ai_lite.h:
-../../Middlewares/ST/AI/Inc/lite_nl_list.h:
-../../Middlewares/ST/AI/Inc/layers_pool.h:
-../../Middlewares/ST/AI/Inc/lite_maxpool_dqnn.h:
-../../Middlewares/ST/AI/Inc/lite_pool_f32.h:
-../../Middlewares/ST/AI/Inc/layers_custom.h:
-../../Middlewares/ST/AI/Inc/layers_dense.h:
-../../Middlewares/ST/AI/Inc/layers_formats_converters.h:
-../../Middlewares/ST/AI/Inc/layers_generic.h:
-../../Middlewares/ST/AI/Inc/layers_lite_graph.h:
-../../Middlewares/ST/AI/Inc/layers_norm.h:
-../../Middlewares/ST/AI/Inc/layers_pad_dqnn.h:
-../../Middlewares/ST/AI/Inc/layers_pad_generic.h:
-../../Middlewares/ST/AI/Inc/layers_rnn.h:
-../../Middlewares/ST/AI/Inc/layers_sm.h:
-../../Middlewares/ST/AI/Inc/layers_ml.h:
-../../Middlewares/ST/AI/Inc/layers_ml_iforest.h:
-../../Middlewares/ST/AI/Inc/layers_ml_svc.h:
-../../Middlewares/ST/AI/Inc/layers_ml_linearclassifier.h:
-../../Middlewares/ST/AI/Inc/layers_ml_treeensembleclassifier.h:
-../../Middlewares/ST/AI/Inc/layers_ml_treeensembleregressor.h:
-../../Middlewares/ST/AI/Inc/layers_ml_svmregressor.h:
-../../Middlewares/ST/AI/Inc/layers_conv2d_dqnn.h:
-../../Middlewares/ST/AI/Inc/layers_dense_dqnn.h:
-../../Middlewares/ST/AI/Inc/layers_pool_dqnn.h:
-../../Middlewares/ST/AI/Inc/layers_generic_dqnn.h:
-../../Middlewares/ST/AI/Inc/layers_upsample_generic.h:
-../../Middlewares/ST/AI/Inc/layers_upsample.h:
-../../Middlewares/ST/AI/Inc/layers_resize.h:
-../../Middlewares/ST/AI/Inc/layers_argminmax.h:
-../../Middlewares/ST/AI/Inc/layers_wrappers.h:
-../../Middlewares/ST/AI/Inc/ai_math_helpers.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform_interface.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/datatypes_network.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_datatypes.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_platform_interface.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_datatypes_defines.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_assert.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_datatypes_format.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/formats_list.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/stai.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_math_helpers.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_lite_math_helpers.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_common.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_datatypes.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_convert.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/core_common.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_common.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_common_config.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_list.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_conv2d.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_nl.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_internal_apis.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_lite_interface.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_lite.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_nl_list.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pool.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_maxpool_dqnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/lite_pool_f32.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_custom.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_dense.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_formats_converters.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_generic.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_lite_graph.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_norm.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pad_dqnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pad_generic.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_rnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_sm.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_iforest.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_svc.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_linearclassifier.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_treeensembleclassifier.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_treeensembleregressor.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_ml_svmregressor.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_conv2d_dqnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_dense_dqnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_pool_dqnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_generic_dqnn.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_upsample_generic.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_upsample.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_resize.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_argminmax.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/layers_wrappers.h:
+/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Inc/ai_math_helpers.h:

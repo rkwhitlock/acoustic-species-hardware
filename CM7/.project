@@ -35,9 +35,24 @@
 			<locationURI>PARENT-1-PROJECT_LOC/Common</locationURI>
 		</link>
 		<link>
-			<name>Drivers</name>
+			<name>Components</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/Drivers</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/BSP/Components</locationURI>
+		</link>
+		<link>
+			<name>STM32H747I-DISCO</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/BSP/STM32H747I-DISCO</locationURI>
+		</link>
+		<link>
+			<name>Src</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Drivers/STM32H7xx_HAL_Driver/Src</locationURI>
+		</link>
+		<link>
+			<name>lcd</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/Libraries/STM32CubeH7/Utilities/lcd</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

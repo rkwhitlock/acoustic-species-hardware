@@ -23,8 +23,20 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Common/Src \
+Components/adv7533 \
+Components/ft6x06 \
+Components/is42s32800j \
+Components/mt25tl01g \
+Components/nt35510 \
+Components/otm8009a \
+Components/ov5640 \
+Components/ov9655 \
+Components/wm8994 \
 Core/Src \
 Core/Startup \
-Drivers/STM32H7xx_HAL_Driver/Src \
+STM32H747I-DISCO \
+Src/Legacy \
+Src \
 X-CUBE-AI/App \
+lcd \
 

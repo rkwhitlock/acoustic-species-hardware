@@ -201,3 +201,131 @@ void SysTick_Handler(void)
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
+
+/**
+* @brief  This function handles External line 2 interrupt request.
+* @param  None
+* @retval None
+*/
+void EXTI2_IRQHandler(void)
+{
+   BSP_JOY_IRQHandler(JOY1, JOY_SEL);
+}
+
+/**
+* @brief  This function handles External line 3 interrupt request.
+* @param  None
+* @retval None
+*/
+void EXTI3_IRQHandler(void)
+{
+   BSP_JOY_IRQHandler(JOY1, JOY_DOWN);
+}
+
+/**
+* @brief  This function handles External line 4 interrupt request.
+* @param  None
+* @retval None
+*/
+void EXTI4_IRQHandler(void)
+{
+   BSP_JOY_IRQHandler(JOY1, JOY_LEFT);
+}
+
+/**
+* @brief  This function handles External lines 9 to 5 interrupt request.
+* @param  None
+* @retval None
+*/
+void EXTI9_5_IRQHandler(void)
+{
+  BSP_JOY_IRQHandler(JOY1, JOY_RIGHT);
+  BSP_JOY_IRQHandler(JOY1, JOY_UP);
+}
+
+/**
+  * @brief  This function handles External lines 15 to 10 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI15_10_IRQHandler(void)
+{
+  BSP_PB_IRQHandler(BUTTON_WAKEUP);
+}
+
+/**
+  * @brief  This function handles SAI DMA interrupt request.
+  * @param  None
+  * @retval None
+  */
+void AUDIO_IN_SAIx_DMAx_IRQHandler()
+{
+  BSP_AUDIO_IN_IRQHandler(0,AUDIO_IN_DEVICE_DIGITAL_MIC);
+}
+/**
+  * @brief  This function handles DMA2 Stream 1 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void AUDIO_OUT_SAIx_DMAx_IRQHandler(void)
+{
+  BSP_AUDIO_OUT_IRQHandler(0);
+}
+
+/**
+  * @brief  This function handles BDMA Channel 1 for SAI_PDM interrupt request.
+  * @param  None
+  * @retval None
+  */
+void AUDIO_IN_SAI_PDMx_DMAx_IRQHandler(void)
+{
+  BSP_AUDIO_IN_IRQHandler(1, AUDIO_IN_DEVICE_DIGITAL_MIC);
+}
+
+/**
+  * @brief  Handles MDMA transfer interrupt request.
+  * @retval None
+  */
+void MDMA_IRQHandler(void)
+{
+    BSP_SDRAM_IRQHandler(0);
+}
+
+/**
+  * @brief  This function handles SD interrupt request.
+  * @param  None
+  * @retval None
+  */
+void SDMMC1_IRQHandler(void)
+{
+  BSP_SD_IRQHandler(0);
+}
+
+/**
+  * @brief  DCMI interrupt handler.
+  * @param  None
+  * @retval None
+  */
+void DCMI_IRQHandler(void)
+{
+   BSP_CAMERA_IRQHandler(0);
+}
+
+/**
+  * @brief  DMA interrupt handler.
+  * @param  None
+  * @retval None
+  */
+void DMA2_Stream3_IRQHandler(void)
+{
+  BSP_CAMERA_DMA_IRQHandler(0);
+}
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+

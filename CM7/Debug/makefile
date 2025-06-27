@@ -9,10 +9,22 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include lcd/subdir.mk
 -include X-CUBE-AI/App/subdir.mk
--include Drivers/STM32H7xx_HAL_Driver/Src/subdir.mk
+-include Src/Legacy/subdir.mk
+-include Src/subdir.mk
+-include STM32H747I-DISCO/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
+-include Components/wm8994/subdir.mk
+-include Components/ov9655/subdir.mk
+-include Components/ov5640/subdir.mk
+-include Components/otm8009a/subdir.mk
+-include Components/nt35510/subdir.mk
+-include Components/mt25tl01g/subdir.mk
+-include Components/is42s32800j/subdir.mk
+-include Components/ft6x06/subdir.mk
+-include Components/adv7533/subdir.mk
 -include Common/Src/subdir.mk
 -include objects.mk
 
@@ -63,7 +75,7 @@ main-build: decible_meter_CM7.elf secondary-outputs
 
 # Tool invocations
 decible_meter_CM7.elf decible_meter_CM7.map: $(OBJS) $(USER_OBJS) /Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/STM32H747XIHX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "decible_meter_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/STM32H747XIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="decible_meter_CM7.map" -Wl,--gc-sections -static -L../../Middlewares/ST/AI/Lib --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "decible_meter_CM7.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/STM32H747XIHX_FLASH.ld" --specs=nosys.specs -Wl,-Map="decible_meter_CM7.map" -Wl,--gc-sections -static -L"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/../Libraries/STM32CubeH7/Middlewares/ST/AI/Lib" -L"/Users/reesewhitlock/AcousticSpecies/acoustic-species-hardware/CM7/Lib" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
